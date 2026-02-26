@@ -92,7 +92,7 @@
                     }
                 }
             },
-            "required": ["description", "encode", "link", "name", "type"],
+            "required": ["description", "encode", "link", "minVersion", "name", "type"],
             "title": "Operator"
         },
         "Argument": {
