@@ -1,15 +1,5 @@
 # MongoDB Query Language Specifications - Schema Documentation
 
-## Overview
-
-This document provides comprehensive documentation of the schema used to define MongoDB's query language operators (aggregation pipeline stages, accumulator expressions, aggregation expressions, and query operators). The schema is defined in `schema.json` and is used to describe operators across multiple YAML configuration files.
-
-The project uses this schema to:
-- Define MongoDB operators declaratively in YAML format
-- Generate code (PHP classes) for operator builders
-- Document operator behavior and provide test examples
-- Ensure consistency and validity across operator definitions
-
 ## Architecture
 
 The specification system has two components:
@@ -65,6 +55,120 @@ The `type` property is a list of strings that defines the operator's type which 
 - `switchBranch`: Branch in a `$switch` expression
 
 In addition to the above types, you can specify any of the `resolvesTo*` types explained below to indicate the return type of the operator.
+
+#### Encoding
+
+The `encode` property defines how the operator parameters are encoded when serialized to BSON.
+
+##### `single`
+
+Used when the operator has one main parameter that becomes the entire operator value. The argument name is not used in the output.
+
+**Definition:**
+```yaml
+name: $sum
+encode: single
+arguments:
+  - name: expression
+    type: [resolvesToNumber]
+```
+
+**Output example:**
+```javascript
+{ $sum: 1 }
+```
+
+**Variadic Single Encoding:**
+
+When single encoding is combined with `variadic: array`, multiple values are passed as an array:
+
+```yaml
+name: $and
+encode: single
+arguments:
+  - name: queries
+    type: [query]
+    variadic: array
+    variadicMin: 1
+```
+
+**Output example:**
+```javascript
+{
+  $and: [
+    { status: 'active' },
+    { price: { $gt: 100 } }
+  ]
+}
+```
+
+##### `array`
+
+Used when arguments are positional and should be encoded as an array in the order they are defined. Each argument becomes an array element.
+
+**Definition:**
+```yaml
+name: $atan2
+encode: array
+arguments:
+  - name: y
+    type: [resolvesToNumber]
+  - name: x
+    type: [resolvesToNumber]
+```
+
+**Output example:**
+```javascript
+{ $atan2: [1, 2] }
+```
+
+##### `object`
+
+Used when arguments are named properties and should be encoded as an object with keys matching the parameter names. This is the most common encoding for complex operators.
+
+**Definition:**
+```yaml
+name: $dateAdd
+encode: object
+arguments:
+  - name: startDate
+    type: [resolvesToDate]
+  - name: unit
+    type: [timeUnit]
+  - name: amount
+    type: [resolvesToNumber]
+```
+
+**Output example:**
+```javascript
+{
+  $dateAdd: {
+    startDate: '$date',
+    unit: 'day',
+    amount: 7
+  }
+}
+```
+
+#### `wrapObject` usage
+
+By default, operators are wrapped in an object with the operator name as the key, and the operator's parameters as value, depending on the `encode` type. This can be disabled using the `wrapObject` property. An example is the `$case` operator, which would normally be encoded as:
+```javascript
+{
+  $case: {
+    case: { $eq: ['$field', 5] },
+    then: 'five'
+  }
+}
+```
+
+Since this syntax is incorrect, `wrapObject` is set to false, resulting in the following output:
+```javascript
+{
+  case: { $eq: ['$field', 5] },
+  then: 'five'
+}
+```
 
 ---
 
@@ -176,6 +280,24 @@ variadic: object
 description: Computed fields using accumulators
 ```
 
+Without `mergeObject: true`, the following object is generated:
+```javascript
+{
+  field: {
+    foo: 'bar',
+    bar: 'baz'
+  }
+}
+```
+
+With `mergeObject: true`, the properties are merged into the parent object:
+```javascript
+{
+  foo: 'bar',
+  bar: 'baz'
+}
+```
+
 ---
 
 ### Test
@@ -187,236 +309,5 @@ Defines an example/test case for an operator. Tests are taken from the operator'
 - `name`: Title of the test/example
 - `link`: Link to the specific example in MongoDB's documentation
 - `pipeline`: Aggregation pipeline demonstrating the operator
-
----
-
-## Special Features and Patterns
-
-### 1. Encoding Types
-
-Different operators use different encoding strategies to determine how arguments are serialized into the final operator representation.
-
-#### `single`
-
-Used when the operator has one main parameter that becomes the entire operator value. The argument name is not used in the output.
-
-**Definition:**
-```yaml
-name: $sum
-encode: single
-arguments:
-  - name: expression
-    type: [resolvesToNumber]
-```
-
-**Output example:**
-```javascript
-{ $sum: 1 }
-```
-
-**Variadic Single Encoding:**
-
-When single encoding is combined with `variadic: array`, multiple values are passed as an array:
-
-```yaml
-name: $and
-encode: single
-arguments:
-  - name: queries
-    type: [query]
-    variadic: array
-    variadicMin: 1
-```
-
-**Output example:**
-```javascript
-{
-  $and: [
-    { status: 'active' },
-    { price: { $gt: 100 } }
-  ]
-}
-```
-
-#### `array`
-
-Used when arguments are positional and should be encoded as an array in the order they are defined. Each argument becomes an array element.
-
-**Definition:**
-```yaml
-name: $atan2
-encode: array
-arguments:
-  - name: y
-    type: [resolvesToNumber]
-  - name: x
-    type: [resolvesToNumber]
-```
-
-**Output example:**
-```javascript
-{ $atan2: [1, 2] }
-```
-
-#### `object`
-
-Used when arguments are named properties and should be encoded as an object with keys matching the parameter names. This is the most common encoding for complex operators.
-
-**Definition:**
-```yaml
-name: $dateAdd
-encode: object
-arguments:
-  - name: startDate
-    type: [resolvesToDate]
-  - name: unit
-    type: [timeUnit]
-  - name: amount
-    type: [resolvesToNumber]
-```
-
-**Output example:**
-```javascript
-{
-  $dateAdd: {
-    startDate: '$date',
-    unit: 'day',
-    amount: 7
-  }
-}
-```
-
-**Output with `mergeObject`:**
-
-When an argument has `mergeObject: true`, its properties are merged into the parent object instead of being nested. This is used for flexible multi-field arguments.
-
-```yaml
-name: $group
-encode: object
-arguments:
-  - name: _id
-    type: [expression]
-  - name: field
-    type: [accumulator]
-    mergeObject: true
-    variadic: object
-    variadicMin: 0
-```
-
-**Usage:**
-
-Consider the following builder call using named arguments:
-```javascript
-Group(
-    _id: '$category',
-    totalSales: Sum('$amount'),
-    count: Count(),
-    avgPrice: Avg('$price')
-)
-```
-
-Without `mergeObject: true`, this would generate the following expression:
-```javascript
-{
-  $group: {
-    _id: '$category',
-    field: {
-      totalSales: { $sum: '$amount' },
-      count: { $count: {} },
-      avgPrice: { $avg: '$price' }
-    }
-  }
-}
-```
-
-With `mergeObject: true`, the properties are merged into the parent object:
-```javascript
-{
-  $group: {
-    _id: '$category',
-    totalSales: { $sum: '$amount' },
-    count: { $count: {} },
-    avgPrice: { $avg: '$price' }
-  }
-}
-```
-
-#### Comparison Table
-
-| Encoding | Use Case | Property Names | Multiple Values | Example |
-|----------|----------|---|---|---|
-| `single` | Operator takes one parameter | ❌ Not used | Optional (as array) | `{ $sum: 1 }` |
-| `array` | Positional arguments in order | ❌ Not used | As array elements | `{ $atan2: [1, 2] }` |
-| `object` | Named properties | ✅ Required | Object properties | `{ $dateAdd: { startDate, unit, amount } }` |
-
-### 2. Variadic Arguments
-
-Arguments can accept multiple values:
-
-**Array Variadic:**
-```yaml
-name: values
-type: [expression]
-variadic: array
-variadicMin: 1
-```
-Accepts: `[value1, value2, value3, ...]`
-
-**Object Variadic:**
-```yaml
-name: field
-type: [accumulator]
-variadic: object
-mergeObject: true
-```
-Accepts: Multiple object properties that merge into parent
-
-### 3. Merge Object Pattern
-
-Used for `$group` stage where accumulators merge into the group specification:
-
-```yaml
-name: field
-mergeObject: true
-type:
-  - accumulator
-variadic: object
-```
-
-This allows:
-```yaml
-$group:
-  _id: value
-  sum: { $sum: '$amount' }
-  avg: { $avg: '$amount' }
-```
-
-Without `mergeObject`, it would require a wrapper field.
-
-### 4. Wrap Object Control
-
-The `wrapObject` property controls whether object properties are wrapped:
-
-```yaml
-wrapObject: false  # Don't wrap in operator name
-encode: object
-```
-
-Used for operators like `$case` that are meant to be embedded without an outer wrapper.
-
-### 5. Return Type Declaration
-
-Operators can declare multiple return type possibilities:
-
-```yaml
-type:
-  - resolvesToInt
-  - resolvesToLong
-  - resolvesToDouble
-  - resolvesToDecimal
-  - resolvesToDate
-```
-
-This indicates the operator's return type depends on its inputs.
 
 ---
