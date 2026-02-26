@@ -120,6 +120,7 @@
                             "expression",
                             "geometry",
                             "fieldPath",
+                            "unprefixedFieldPath",
                             "timeUnit",
                             "sortSpec",
                             "any",
@@ -221,6 +222,25 @@
                     "$comment": "Skip the name in object encoding and merge the properties of the value into the operator",
                     "type": "boolean",
                     "default": false
+                },
+                "syntheticVariables": {
+                    "$comment": "A list of variables that are automatically made available during evaluation",
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "pattern": "^[$]?[a-zA-Z0-9]*$"
+                            },
+                            "description": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "name"
+                        ]
+                    }
                 }
             },
             "required": ["name", "type"],
