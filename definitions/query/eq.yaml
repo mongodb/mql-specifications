@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $eq
 link: https://www.mongodb.com/docs/manual/reference/operator/query/eq/
+minVersion: 3.0.0
 type:
   - fieldQuery
 encode: single

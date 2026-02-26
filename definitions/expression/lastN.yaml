@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $lastN
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/lastN-array-element/
+minVersion: 5.1.0
 type:
   - resolvesToArray
 encode: object

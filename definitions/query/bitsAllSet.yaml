@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $bitsAllSet
 link: https://www.mongodb.com/docs/manual/reference/operator/query/bitsAllSet/
+minVersion: 3.2.0
 type:
   - fieldQuery
 encode: single

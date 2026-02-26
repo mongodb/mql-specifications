@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $subtract
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/subtract/
+minVersion: 2.6.0
 type:
   - resolvesToInt
   - resolvesToLong

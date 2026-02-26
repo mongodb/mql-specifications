@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $trim
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/trim/
+minVersion: 4.0.0
 type:
   - resolvesToString
 encode: object

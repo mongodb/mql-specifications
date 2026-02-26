@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $concat
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/concat/
+minVersion: 3.4.0
 type:
   - resolvesToString
 encode: single

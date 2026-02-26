@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $substrBytes
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/substrBytes/
+minVersion: 3.0.0
 type:
   - resolvesToString
 encode: array

@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $toInt
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/toInt/
+minVersion: 4.0.0
 type:
   - resolvesToInt
 encode: single

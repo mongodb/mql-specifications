@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $linearFill
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/linearFill/
+minVersion: 5.3.0
 type:
   - window
 encode: single

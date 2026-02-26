@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $redact
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/redact/
+minVersion: 2.6.0
 type:
   - stage
 encode: single

@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $listSearchIndexes
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/listSearchIndexes/
+minVersion: 7.0.0
 type:
   - stage
 encode: object

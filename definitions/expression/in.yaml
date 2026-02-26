@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $in
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/in/
+minVersion: 3.4.0
 type:
   - resolvesToBool
 encode: array

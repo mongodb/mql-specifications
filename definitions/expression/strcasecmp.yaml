@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $strcasecmp
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/strcasecmp/
+minVersion: 3.0.0
 type:
   - resolvesToInt
 encode: array

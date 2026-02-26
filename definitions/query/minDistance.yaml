@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $minDistance
 link: https://www.mongodb.com/docs/manual/reference/operator/query/minDistance/
+minVersion: 2.6.0
 type:
   - fieldQuery
 encode: single

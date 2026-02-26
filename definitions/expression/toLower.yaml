@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $toLower
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/toLower/
+minVersion: 3.0.0
 type:
   - resolvesToString
 encode: single

@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $arrayToObject
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/arrayToObject/
+minVersion: 3.4.0
 type:
   - resolvesToObject
 encode: array

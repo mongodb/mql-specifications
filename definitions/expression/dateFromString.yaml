@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $dateFromString
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/dateFromString/
+minVersion: 3.6.0
 type:
   - resolvesToDate
 encode: object
@@ -35,6 +36,7 @@ arguments:
   - name: onNull
     type:
       - expression
+    minVersion: 5.0.0
     optional: true
     description: |
       If the dateString provided to $dateFromString is null or missing, it outputs the result value of the provided onNull expression. This result value can be of any type.

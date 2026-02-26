@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $bottom
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/bottom/
+minVersion: 5.2.0
 type:
   - accumulator
   - window

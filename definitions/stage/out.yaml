@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $out
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/out/
+minVersion: 2.6.0
 type:
   - stage
 encode: single

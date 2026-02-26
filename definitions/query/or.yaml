@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $or
 link: https://www.mongodb.com/docs/manual/reference/operator/query/or/
+minVersion: 1.0.0
 type:
   - query
 encode: single

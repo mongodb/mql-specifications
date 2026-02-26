@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $locf
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/locf/
+minVersion: 5.2.0
 type:
   - window
 encode: single

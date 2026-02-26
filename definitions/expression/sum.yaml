@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $sum
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/sum/
+minVersion: 3.2.0
 type:
   - resolvesToNumber
 encode: single

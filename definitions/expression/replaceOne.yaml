@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $replaceOne
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/replaceOne/
+minVersion: 4.4.0
 type:
   - resolvesToString
 encode: object

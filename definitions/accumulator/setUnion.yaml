@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $setUnion
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/setUnion/
+minVersion: 4.4.0
 type:
   - accumulator
   - window

@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $bitAnd
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/bitAnd/
+minVersion: 6.3.0
 type:
   - resolvesToInt
   - resolvesToLong

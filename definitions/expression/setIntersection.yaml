@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $setIntersection
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/setIntersection/
+minVersion: 3.0.0
 type:
   - resolvesToArray
 encode: single

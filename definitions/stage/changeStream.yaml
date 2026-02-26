@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $changeStream
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/changeStream/
+minVersion: 3.6.0
 type:
   - stage
 encode: object

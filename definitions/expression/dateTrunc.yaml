@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $dateTrunc
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/dateTrunc/
+minVersion: 5.1.0
 type:
   - resolvesToDate
 encode: object

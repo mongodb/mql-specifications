@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $integral
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/integral/
+minVersion: 5.0.0
 type:
   - window
 encode: object

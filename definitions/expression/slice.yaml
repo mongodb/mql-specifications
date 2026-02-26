@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $slice
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/slice/
+minVersion: 3.2.0
 type:
   - resolvesToArray
 encode: array

@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $concatArrays
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/concatArrays/
+minVersion: 3.2.0
 type:
   - resolvesToArray
 encode: single

@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $exists
 link: https://www.mongodb.com/docs/manual/reference/operator/query/exists/
+minVersion: 1.0.0
 type:
   - fieldQuery
 encode: single

@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $text
 link: https://www.mongodb.com/docs/manual/reference/operator/query/text/
+minVersion: 2.4.0
 type:
   - query
 encode: object

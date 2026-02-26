@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $toDouble
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/toDouble/
+minVersion: 4.0.0
 type:
   - resolvesToDouble
 encode: single

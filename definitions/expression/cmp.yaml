@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $cmp
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/cmp/
+minVersion: 3.0.0
 type:
   - resolvesToInt
 encode: array

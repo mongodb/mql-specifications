@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $project
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/project/
+minVersion: 2.2.0
 type:
   - stage
 encode: single

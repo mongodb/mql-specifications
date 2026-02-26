@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $gt
 link: https://www.mongodb.com/docs/manual/reference/operator/query/gt/
+minVersion: 1.0.0
 type:
   - fieldQuery
 encode: single

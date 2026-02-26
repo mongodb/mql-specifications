@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $bsonSize
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/bsonSize/
+minVersion: 4.4.0
 type:
   - resolvesToInt
 encode: single

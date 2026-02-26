@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $asinh
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/asinh/
+minVersion: 4.2.0
 type:
   - resolvesToDouble
   - resolvesToDecimal

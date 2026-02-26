@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $sampleRate
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/sampleRate/
+minVersion: 5.3.0
 type:
   - query
 encode: single

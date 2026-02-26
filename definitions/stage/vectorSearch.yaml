@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $vectorSearch
 link: https://www.mongodb.com/docs/atlas/atlas-vector-search/vector-search-stage/
+minVersion: 6.0.0
 type:
   - stage
 encode: object

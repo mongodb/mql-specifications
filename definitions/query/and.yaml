@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $and
 link: https://www.mongodb.com/docs/manual/reference/operator/query/and/
+minVersion: 1.0.0
 type:
   - query
 encode: single

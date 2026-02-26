@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: moreLikeThis
 link: https://www.mongodb.com/docs/atlas/atlas-search/moreLikeThis/
+minVersion: 5.0.0
 type:
   - searchOperator
 encode: object

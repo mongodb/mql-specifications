@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $lastN
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/lastN/
+minVersion: 5.2.0
 type:
   - accumulator
   - window

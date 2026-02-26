@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $setEquals
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/setEquals/
+minVersion: 3.0.0
 type:
   - resolvesToBool
 encode: single

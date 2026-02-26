@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $dayOfYear
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/dayOfYear/
+minVersion: 2.6.0
 type:
   - resolvesToInt
 encode: object

@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $sqrt
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/sqrt/
+minVersion: 3.2.0
 type:
   - resolvesToDouble
 encode: single

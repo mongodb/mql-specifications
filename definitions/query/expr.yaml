@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $expr
 link: https://www.mongodb.com/docs/manual/reference/operator/query/expr/
+minVersion: 3.6.0
 type:
   - query
 encode: single

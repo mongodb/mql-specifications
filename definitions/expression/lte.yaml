@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $lte
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/lte/
+minVersion: 2.6.0
 type:
   - resolvesToBool
 encode: array

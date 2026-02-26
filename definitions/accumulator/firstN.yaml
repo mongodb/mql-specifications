@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $firstN
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/firstN/
+minVersion: 5.2.0
 type:
   - accumulator
   - window

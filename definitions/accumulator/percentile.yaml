@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $percentile
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/percentile/
+minVersion: 7.0.0
 type:
   - accumulator
   - window

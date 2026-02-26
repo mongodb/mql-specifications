@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $first
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/first/
+minVersion: 4.4.0
 type:
   - resolvesToAny
 encode: single

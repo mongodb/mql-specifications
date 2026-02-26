@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $isArray
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/isArray/
+minVersion: 4.4.0
 type:
   - resolvesToBool
 encode: array

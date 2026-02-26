@@ -1,6 +1,7 @@
 # $schema: ../schema.json
 name: $unwind
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/unwind/
+minVersion: 2.2.0
 type:
   - stage
 encode: object
@@ -15,12 +16,14 @@ arguments:
   - name: includeArrayIndex
     type:
       - string
+    minVersion: 3.2.0
     optional: true
     description: |
       The name of a new field to hold the array index of the element. The name cannot start with a dollar sign $.
   - name: preserveNullAndEmptyArrays
     type:
       - bool
+    minVersion: 3.2.0
     optional: true
     description: |
       If true, if the path is null, missing, or an empty array, $unwind outputs the document.
