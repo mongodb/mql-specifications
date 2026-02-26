@@ -60,11 +60,7 @@
                         "group: specific for $group stage"
                     ],
                     "type": "string",
-                    "enum": [
-                        "array",
-                        "object",
-                        "single"
-                    ]
+                    "enum": ["array", "object", "single"]
                 },
                 "description": {
                     "$comment": "The description of the argument from MongoDB's documentation.",
@@ -90,13 +86,7 @@
                     }
                 }
             },
-            "required": [
-                "description",
-                "encode",
-                "link",
-                "name",
-                "type"
-            ],
+            "required": ["description", "encode", "link", "name", "type"],
             "title": "Operator"
         },
         "Argument": {
@@ -206,10 +196,7 @@
                 "variadic": {
                     "$comment": "Whether the argument is variadic or not.",
                     "type": "string",
-                    "enum": [
-                        "array",
-                        "object"
-                    ]
+                    "enum": ["array", "object"]
                 },
                 "variadicMin": {
                     "$comment": "The minimum number of arguments for a variadic parameter.",
@@ -218,12 +205,7 @@
                 },
                 "default": {
                     "$comment": "The default value for the argument.",
-                    "type": [
-                        "array",
-                        "boolean",
-                        "number",
-                        "string"
-                    ]
+                    "type": ["array", "boolean", "number", "string"]
                 },
                 "mergeObject": {
                     "$comment": "Skip the name in object encoding and merge the properties of the value into the operator",
@@ -231,10 +213,7 @@
                     "default": false
                 }
             },
-            "required": [
-                "name",
-                "type"
-            ],
+            "required": ["name", "type"],
             "title": "Argument"
         },
         "Test": {
