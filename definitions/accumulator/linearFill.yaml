@@ -23,6 +23,14 @@ tests:
           output:
             price:
               $linearFill: $price
+    schema:
+      stock:
+        time:
+          types:
+            - bsonType: Date
+        price:
+          types:
+            - bsonType: Number
   - name: Use Multiple Fill Methods in a Single Stage
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/linearFill/#use-multiple-fill-methods-in-a-single-stage
     pipeline:
@@ -34,3 +42,11 @@ tests:
               $linearFill: $price
             locfPrice:
               $locf: $price
+    schema:
+      stock:
+        time:
+          types:
+            - bsonType: Date
+        price:
+          types:
+            - bsonType: Number
