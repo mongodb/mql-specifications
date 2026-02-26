@@ -1,0 +1,24 @@
+{
+    "name": "schema-validator",
+    "private": true,
+    "version": "1.0.0",
+    "type": "module",
+    "packageManager": "pnpm@10.28.2",
+    "description": "Validate YAML definitions against schema.json",
+    "scripts": {
+        "typecheck": "tsc -p tsconfig.json",
+        "validate": "tsx validate-definitions.ts"
+    },
+    "dependencies": {
+        "ajv": "^8.17.1",
+        "ajv-formats": "^3.0.1",
+        "bson": "^7.2.0",
+        "js-yaml": "^4.1.0"
+    },
+    "devDependencies": {
+        "@types/js-yaml": "^4.0.9",
+        "@types/node": "^24.3.0",
+        "tsx": "^4.20.5",
+        "typescript": "^5.9.2"
+    }
+}

@@ -1,0 +1,45 @@
+name: Validate definitions schema
+
+on:
+  pull_request:
+    paths:
+      - 'definitions/**/*.yaml'
+      - 'schema.json'
+      - '.github/workflows/validate-definitions-schema.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'definitions/**/*.yaml'
+      - 'schema.json'
+      - '.github/workflows/validate-definitions-schema.yml'
+
+jobs:
+  validate-definitions:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Install validation dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: scripts/schema-validator
+
+      - name: Typecheck schema validator
+        run: pnpm run typecheck
+        working-directory: scripts/schema-validator
+
+      - name: Validate definitions YAML files against schema.json
+        run: pnpm run validate
+        working-directory: scripts/schema-validator

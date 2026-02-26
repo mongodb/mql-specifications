@@ -60,7 +60,11 @@
                         "group: specific for $group stage"
                     ],
                     "type": "string",
-                    "enum": ["array", "object", "single"]
+                    "enum": [
+                        "array",
+                        "object",
+                        "single"
+                    ]
                 },
                 "description": {
                     "$comment": "The description of the argument from MongoDB's documentation.",
@@ -86,7 +90,13 @@
                     }
                 }
             },
-            "required": ["description", "encode", "link", "name", "type"],
+            "required": [
+                "description",
+                "encode",
+                "link",
+                "name",
+                "type"
+            ],
             "title": "Operator"
         },
         "Argument": {
@@ -196,7 +206,10 @@
                 "variadic": {
                     "$comment": "Whether the argument is variadic or not.",
                     "type": "string",
-                    "enum": ["array", "object"]
+                    "enum": [
+                        "array",
+                        "object"
+                    ]
                 },
                 "variadicMin": {
                     "$comment": "The minimum number of arguments for a variadic parameter.",
@@ -205,7 +218,12 @@
                 },
                 "default": {
                     "$comment": "The default value for the argument.",
-                    "type": ["array", "boolean", "number", "string"]
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "string"
+                    ]
                 },
                 "mergeObject": {
                     "$comment": "Skip the name in object encoding and merge the properties of the value into the operator",
@@ -213,7 +231,10 @@
                     "default": false
                 }
             },
-            "required": ["name", "type"],
+            "required": [
+                "name",
+                "type"
+            ],
             "title": "Argument"
         },
         "Test": {
@@ -233,8 +254,128 @@
                     "items": {
                         "type": "object"
                     }
+                },
+                "schema": {
+                    "type": [
+                        "object",
+                        "string"
+                    ],
+                    "additionalProperties": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "$ref": "#/definitions/SimplifiedSchemaField"
+                        }
+                    }
                 }
-            }
+            },
+            "required": [
+                "name",
+                "pipeline"
+            ]
+        },
+        "SimplifiedSchemaType": {
+            "anyOf": [
+                {
+                    "$ref": "#/definitions/SimplifiedSchemaBaseType"
+                },
+                {
+                    "$ref": "#/definitions/SimplifiedSchemaArrayType"
+                },
+                {
+                    "$ref": "#/definitions/SimplifiedSchemaDocumentType"
+                }
+            ]
+        },
+        "SimplifiedSchemaField": {
+            "additionalProperties": false,
+            "properties": {
+                "types": {
+                    "items": {
+                        "$ref": "#/definitions/SimplifiedSchemaType"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "types"
+            ],
+            "type": "object"
+        },
+        "SimplifiedSchemaArrayType": {
+            "additionalProperties": false,
+            "properties": {
+                "bsonType": {
+                    "const": "Array",
+                    "type": "string"
+                },
+                "types": {
+                    "items": {
+                        "type": "object"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "bsonType",
+                "types"
+            ],
+            "type": "object"
+        },
+        "SimplifiedSchemaBaseType": {
+            "additionalProperties": false,
+            "properties": {
+                "bsonType": {
+                    "enum": [
+                        "Array",
+                        "Binary",
+                        "Boolean",
+                        "Code",
+                        "CodeWScope",
+                        "Date",
+                        "Decimal128",
+                        "Double",
+                        "Int32",
+                        "Int64",
+                        "Long",
+                        "MaxKey",
+                        "MinKey",
+                        "Null",
+                        "ObjectId",
+                        "BSONRegExp",
+                        "String",
+                        "BSONSymbol",
+                        "Timestamp",
+                        "Undefined",
+                        "Document",
+                        "Number"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "bsonType"
+            ],
+            "type": "object"
+        },
+        "SimplifiedSchemaDocumentType": {
+            "additionalProperties": false,
+            "properties": {
+                "bsonType": {
+                    "const": "Document",
+                    "type": "string"
+                },
+                "fields": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "object"
+                    }
+                }
+            },
+            "required": [
+                "bsonType",
+                "fields"
+            ],
+            "type": "object"
         }
     }
 }
