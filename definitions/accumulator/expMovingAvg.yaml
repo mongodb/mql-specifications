@@ -7,7 +7,6 @@ type:
 encode: object
 description: |
   Returns the exponential moving average for the numeric expression.
-  New in MongoDB 5.0.
 arguments:
   - name: input
     type:

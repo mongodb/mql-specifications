@@ -8,7 +8,6 @@ type:
 encode: single
 description: |
   Returns the result of a bitwise not operation on a single argument or an array that contains a single int or long value.
-  New in MongoDB 6.3.
 arguments:
   - name: expression
     type:

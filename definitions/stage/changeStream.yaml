@@ -36,9 +36,9 @@ arguments:
     type:
       - bool
     optional: true
+    minVersion: 6.0.0
     description: |
       Specifies whether to include additional change events, such as such as DDL and index operations.
-      New in MongoDB 6.0.
   - name: startAfter
     type:
       - object

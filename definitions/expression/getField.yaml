@@ -7,7 +7,6 @@ type:
 encode: object
 description: |
   Returns the value of a specified field from a document. You can use $getField to retrieve the value of fields with names that contain periods (.) or start with dollar signs ($).
-  New in MongoDB 5.0.
 arguments:
   - name: field
     type:

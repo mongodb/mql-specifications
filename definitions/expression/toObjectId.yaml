@@ -1,13 +1,12 @@
 # $schema: ../../schema.json
 name: $toObjectId
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/toObjectId/
-minVersion: 4.2.0
+minVersion: 4.0.0
 type:
   - resolvesToObjectId
 encode: single
 description: |
   Converts value to an ObjectId.
-  New in MongoDB 4.0.
 arguments:
   - name: expression
     type:

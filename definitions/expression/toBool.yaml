@@ -7,7 +7,6 @@ type:
 encode: single
 description: |
   Converts value to a boolean.
-  New in MongoDB 4.0.
 arguments:
   - name: expression
     type:

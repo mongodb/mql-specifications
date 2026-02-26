@@ -1,13 +1,12 @@
 # $schema: ../../schema.json
 name: $rank
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/rank/
-minVersion: 5.3.0
+minVersion: 5.0.0
 type:
   - window
 encode: object
 description: |
   Returns the document position (known as the rank) relative to other documents in the $setWindowFields stage partition.
-  New in MongoDB 5.0.
 tests:
   - name: Rank Partitions by an Integer Field
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/rank/#rank-partitions-by-an-integer-field

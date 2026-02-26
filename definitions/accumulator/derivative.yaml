@@ -7,7 +7,6 @@ type:
 encode: object
 description: |
   Returns the average rate of change within the specified window.
-  New in MongoDB 5.0.
 arguments:
   - name: input
     type:

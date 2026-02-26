@@ -1,13 +1,12 @@
 # $schema: ../../schema.json
 name: $tsSecond
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/tsSecond/
-minVersion: 4.2.0
+minVersion: 5.1.0
 type:
   - resolvesToLong
 encode: single
 description: |
   Returns the seconds from a timestamp as a long.
-  New in MongoDB 5.1.
 arguments:
   - name: expression
     type:
