@@ -1,4 +1,4 @@
-name: YAMLFix Check
+name: Lint
 
 on:
   pull_request:
@@ -19,8 +19,16 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
       - name: Install yamlfix
         run: pip install yamlfix
 
       - name: Run yamlfix check
         run: yamlfix --check definitions
+
+      - name: Run Prettier check for schema.json
+        run: npx prettier --check schema.json

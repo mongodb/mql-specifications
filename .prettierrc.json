@@ -1,0 +1,11 @@
+{
+    "overrides": [
+        {
+            "files": "schema.json",
+            "options": {
+                "parser": "json",
+                "tabWidth": 4
+            }
+        }
+    ]
+}
