@@ -1,0 +1,28 @@
+# $schema: ../../schema.json
+name: $max
+link: https://www.mongodb.com/docs/manual/reference/operator/update/max/
+type:
+  - update
+encode: single
+description: |
+  Updates a field only if the specified value is greater than the current field value.
+arguments:
+  - name: field
+    type:
+      - any
+    variadic: object
+tests:
+  - name: Use $max to Compare Numbers
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/max/#use--max-to-compare-numbers
+    filter:
+      _id: 1
+    update:
+      $max:
+        highScore: 950
+  - name: Use $max to Compare Dates
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/max/#use--max-to-compare-dates
+    filter:
+      _id: 1
+    update:
+      $max:
+        dateExpired: !bson_utcdatetime '2013-09-30T00:00:00.000Z'

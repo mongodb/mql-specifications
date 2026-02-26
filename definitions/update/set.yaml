@@ -1,0 +1,28 @@
+# $schema: ../../schema.json
+name: $set
+link: https://www.mongodb.com/docs/manual/reference/operator/update/set/
+type:
+  - update
+encode: single
+description: |
+  Sets the value of a field.
+arguments:
+  - name: field
+    type:
+      - any
+    variadic: object
+tests:
+  - name: Set Top-Level Fields
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/set/#set-top-level-fields
+    filter:
+      _id: 100
+    update:
+      $set:
+        quantity: 500
+        details:
+          model: "2600"
+          make: Fashionaires
+        tags:
+          - coats
+          - outerwear
+          - clothing

@@ -1,0 +1,39 @@
+# $schema: ../../schema.json
+name: $addToSet
+link: https://www.mongodb.com/docs/manual/reference/operator/update/addToSet/
+type:
+  - update
+encode: single
+description: |
+  Adds a value to an array unless the value is already present.
+arguments:
+  - name: field
+    type:
+      - any
+    variadic: object
+tests:
+  - name: Add to Array
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/addToSet/#add-to-array
+    filter:
+      _id: 1
+    update:
+      $addToSet:
+        tags: accessories
+  - name: Value Already Exists
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/addToSet/#value-already-exists
+    filter:
+      _id: 1
+    update:
+      $addToSet:
+        tags: camera
+  - name: Use $each Modifier
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/addToSet/#each-modifier
+    filter:
+      _id: 2
+    update:
+      $addToSet:
+        tags:
+          $each:
+            - camera
+            - electronics
+            - accessories

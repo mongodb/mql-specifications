@@ -1,0 +1,23 @@
+# $schema: ../../schema.json
+name: $pullAll
+link: https://www.mongodb.com/docs/manual/reference/operator/update/pullAll/
+type:
+  - update
+encode: single
+description: |
+  Removes all matching values from an array.
+arguments:
+  - name: field
+    type:
+      - array
+    variadic: object
+tests:
+  - name: Remove Multiple Values from an Array
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/pullAll/#examples
+    filter:
+      _id: 1
+    update:
+      $pullAll:
+        scores:
+          - 0
+          - 5

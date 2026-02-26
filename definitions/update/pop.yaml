@@ -1,0 +1,28 @@
+# $schema: ../../schema.json
+name: $pop
+link: https://www.mongodb.com/docs/manual/reference/operator/update/pop/
+type:
+  - update
+encode: single
+description: |
+  Removes the first or last element of an array.
+arguments:
+  - name: field
+    type:
+      - int
+    variadic: object
+tests:
+  - name: Remove the First Item of an Array
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/pop/#remove-the-first-item-of-an-array
+    filter:
+      _id: 1
+    update:
+      $pop:
+        scores: -1
+  - name: Remove the Last Item of an Array
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/pop/#remove-the-last-item-of-an-array
+    filter:
+      _id: 10
+    update:
+      $pop:
+        scores: 1

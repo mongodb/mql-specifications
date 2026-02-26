@@ -1,0 +1,31 @@
+# $schema: ../../schema.json
+name: $currentDate
+link: https://www.mongodb.com/docs/manual/reference/operator/update/currentDate/
+type:
+  - update
+encode: single
+description: |
+  Sets the value of a field to the current date as either a Date or Timestamp.
+arguments:
+  - name: field
+    type:
+      - bool
+      - object
+    variadic: object
+    description: |
+      The value for each field can be either:
+      - true, to set the field to the current date.
+      - a document with $type set to "date" or "timestamp".
+tests:
+  - name: Set Current Date and Timestamp
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/currentDate/#example
+    filter:
+      _id: 1
+    update:
+      $currentDate:
+        lastModified: true
+        cancellation.date:
+          $type: timestamp
+      $set:
+        cancellation.reason: user request
+        status: D

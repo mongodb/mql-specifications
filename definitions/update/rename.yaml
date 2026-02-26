@@ -1,0 +1,44 @@
+# $schema: ../../schema.json
+name: $rename
+link: https://www.mongodb.com/docs/manual/reference/operator/update/rename/
+type:
+  - update
+encode: single
+description: |
+  Renames a field.
+arguments:
+  - name: field
+    type:
+      - string
+    variadic: object
+tests:
+  - name: Rename a Field
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/rename/#rename-a-field
+    filter:
+      nmae:
+        $ne: null
+    update:
+      $rename:
+        nmae: name
+  - name: Rename Multiple Fields
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/rename/#definition
+    filter:
+      _id: 1
+    update:
+      $rename:
+        nickname: alias
+        cell: mobile
+  - name: Rename a Field in an Embedded Document
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/rename/#rename-a-field-in-an-embedded-document
+    filter:
+      _id: 1
+    update:
+      $rename:
+        name.first: name.fname
+  - name: Rename a Field That Does Not Exist
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/rename/#rename-a-field-that-does-not-exist
+    filter:
+      _id: 1
+    update:
+      $rename:
+        wife: spouse

@@ -1,0 +1,28 @@
+# $schema: ../../schema.json
+name: $min
+link: https://www.mongodb.com/docs/manual/reference/operator/update/min/
+type:
+  - update
+encode: single
+description: |
+  Updates a field only if the specified value is less than the current field value.
+arguments:
+  - name: field
+    type:
+      - any
+    variadic: object
+tests:
+  - name: Use $min to Compare Numbers
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/min/#use--min-to-compare-numbers
+    filter:
+      _id: 1
+    update:
+      $min:
+        lowScore: 150
+  - name: Use $min to Compare Dates
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/min/#use--min-to-compare-dates
+    filter:
+      _id: 1
+    update:
+      $min:
+        dateEntered: !bson_utcdatetime '2013-09-25T00:00:00.000Z'

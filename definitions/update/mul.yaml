@@ -1,0 +1,22 @@
+# $schema: ../../schema.json
+name: $mul
+link: https://www.mongodb.com/docs/manual/reference/operator/update/mul/
+type:
+  - update
+encode: single
+description: |
+  Multiplies the value of a field by the specified number.
+arguments:
+  - name: field
+    type:
+      - number
+    variadic: object
+tests:
+  - name: Multiply the Value of a Field
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/mul/#multiply-the-value-of-a-field
+    filter:
+      _id: 1
+    update:
+      $mul:
+        price: !bson_decimal128 '1.25'
+        quantity: 2

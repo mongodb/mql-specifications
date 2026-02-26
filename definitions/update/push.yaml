@@ -1,0 +1,55 @@
+# $schema: ../../schema.json
+name: $push
+link: https://www.mongodb.com/docs/manual/reference/operator/update/push/
+type:
+  - update
+encode: single
+description: |
+  Appends a specified value to an array, with optional modifiers.
+arguments:
+  - name: field
+    type:
+      - any
+    variadic: object
+tests:
+  - name: Append a Value to an Array
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/push/#append-a-value-to-an-array
+    filter:
+      _id: 1
+    update:
+      $push:
+        scores: 89
+  - name: Append a Value to Arrays in Multiple Documents
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/push/#append-a-value-to-arrays-in-multiple-documents
+    filter: {}
+    update:
+      $push:
+        scores: 95
+  - name: Append Multiple Values to an Array
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/push/#append-multiple-values-to-an-array
+    filter:
+      name: joe
+    update:
+      $push:
+        scores:
+          $each:
+            - 90
+            - 92
+            - 85
+  - name: Use $push with Multiple Modifiers
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/push/#use--push-operator-with-multiple-modifiers
+    filter:
+      _id: 5
+    update:
+      $push:
+        quizzes:
+          $each:
+            - wk: 5
+              score: 8
+            - wk: 6
+              score: 7
+            - wk: 7
+              score: 6
+          $sort:
+            score: -1
+          $slice: 3
