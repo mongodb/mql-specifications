@@ -11,7 +11,7 @@ description: |
 arguments:
   - name: vars
     type:
-      - object       # of expression
+      - expressionMap
     description: |
       Assignment block for the variables accessible in the in expression. To assign a variable, specify a string for the variable name and assign a valid expression for the value.
       The variable assignments have no meaning outside the in expression, not even within the vars block itself.
@@ -41,3 +41,17 @@ tests:
                 $multiply:
                   - $$total
                   - $$discounted
+    schema:
+      sales:
+        _id:
+          types:
+            - bsonType: Number
+        price:
+          types:
+            - bsonType: Number
+        tax:
+          types:
+            - bsonType: Number
+        applyDiscount:
+          types:
+            - bsonType: Boolean

@@ -52,6 +52,17 @@ tests:
                 # $merge: 'connectionTime'
       - $merge:
           into: connectionTime
+    schema:
+      connectionTime:
+        custId:
+          types:
+            - bsonType: Number
+        login:
+          types:
+            - bsonType: Date
+        logout:
+          types:
+            - bsonType: Date
   - name: Filter by Relative Dates
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/dateSubtract/#filter-by-relative-dates
     pipeline:
@@ -70,6 +81,17 @@ tests:
             $dateToString:
               format: '%Y-%m-%d'
               date: $logoutTime
+    schema:
+      connectionTime:
+        custId:
+          types:
+            - bsonType: Number
+        login:
+          types:
+            - bsonType: Date
+        logout:
+          types:
+            - bsonType: Date
   - name: Adjust for Daylight Savings Time
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/dateSubtract/#adjust-for-daylight-savings-time
     pipeline:
@@ -123,3 +145,14 @@ tests:
                   amount: 24
                   timezone: $location
               timezone: $location
+    schema:
+      billing:
+        location:
+          types:
+            - bsonType: String
+        login:
+          types:
+            - bsonType: Date
+        logout:
+          types:
+            - bsonType: Date

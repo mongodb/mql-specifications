@@ -21,13 +21,31 @@ tests:
           quizAvg:
                         # Example uses the short form, the builder always generates the verbose form
                         # $avg: '$quizzes'
-            $avg:
-              - $quizzes
+            $avg: $quizzes
           labAvg:
-                        # $avg: '$labs'
-            $avg:
-              - $labs
+            $avg: $labs
           examAvg:
             $avg:
               - $final
               - $midterm
+    schema:
+      TestCollection:
+        _id:
+          types:
+            - bsonType: Number
+        quizzes:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Number
+        labs:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Number
+        final:
+          types:
+            - bsonType: Number
+        midterm:
+          types:
+            - bsonType: Number

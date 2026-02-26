@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $lastN
-link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/lastN-array-element/
-minVersion: '5.1'
+minVersion: 5.1.0
+link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/lastN/#array-operator
 type:
   - resolvesToArray
 encode: object
@@ -20,13 +20,26 @@ arguments:
       An expression that resolves to the array from which to return n elements.
 tests:
   - name: Example
-    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/lastN-array-element/#example
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/lastN/#example
     pipeline:
       - $addFields:
           lastScores:
             $lastN:
               n: 3
               input: $score
+    schema:
+      games:
+        playerId:
+          types:
+            - bsonType: Number
+        score:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Number
+                - bsonType: 'Null'
+                - bsonType: String
+                - bsonType: Long
   - name: Using $lastN as an Aggregation Expression
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/lastN/#using--lastn-as-an-aggregation-expression
     pipeline:
@@ -41,3 +54,10 @@ tests:
             $lastN:
               input: $array
               n: 3
+    schema:
+      TestCollection:
+        array:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Number

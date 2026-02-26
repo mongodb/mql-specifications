@@ -30,3 +30,11 @@ tests:
                 - $log:
                     - $int
                     - 2
+    schema:
+      integers:
+        _id:
+          types:
+            - bsonType: Number
+        int:
+          types:
+            - bsonType: Number

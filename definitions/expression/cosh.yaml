@@ -23,3 +23,11 @@ tests:
           cosh_output:
             $cosh:
               $degreesToRadians: $angle
+    schema:
+      trigonometry:
+        _id:
+          types:
+            - bsonType: ObjectId
+        angle:
+          types:
+            - bsonType: Decimal128

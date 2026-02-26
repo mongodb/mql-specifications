@@ -32,6 +32,14 @@ tests:
             $regexFindAll:
               input: $description
               regex: !bson_regex 'line'
+    schema:
+      products:
+        _id:
+          types:
+            - bsonType: Number
+        description:
+          types:
+            - bsonType: String
   - name: i Option
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/regexFindAll/#i-option
     pipeline:
@@ -57,6 +65,14 @@ tests:
               input: $description
               regex: !bson_regex 'line'
               options: i
+    schema:
+      products:
+        _id:
+          types:
+            - bsonType: Number
+        description:
+          types:
+            - bsonType: String
   - name: Use $regexFindAll to Parse Email from String
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/regexFindAll/#use--regexfindall-to-parse-email-from-string
     pipeline:
@@ -65,10 +81,18 @@ tests:
             $regexFindAll:
               input: $comment
               regex: !bson_regex
-                - '[a-z0-9_.+-]+@[a-z0-9_.+-]+\.[a-z0-9_.+-]+'
+                - '[a-z0-9_.+-]+@[a-z0-9_.+-]+\\.[a-z0-9_.+-]+'
                 - i
       - $set:
           email: $email.match
+    schema:
+      feedback:
+        _id:
+          types:
+            - bsonType: Number
+        comment:
+          types:
+            - bsonType: String
   - name: Use Captured Groupings to Parse User Name
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/regexFindAll/#use-captured-groupings-to-parse-user-name
     pipeline:
@@ -77,7 +101,7 @@ tests:
             $regexFindAll:
               input: $comment
               regex: !bson_regex
-                - ([a-z0-9_.+-]+)@[a-z0-9_.+-]+\.[a-z0-9_.+-]+
+                - ([a-z0-9_.+-]+)@[a-z0-9_.+-]+\\.[a-z0-9_.+-]+
                 - i
       - $set:
           names:
@@ -88,3 +112,11 @@ tests:
                 $concatArrays:
                   - $$value
                   - $$this
+    schema:
+      feedback:
+        _id:
+          types:
+            - bsonType: Number
+        comment:
+          types:
+            - bsonType: String

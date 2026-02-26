@@ -57,6 +57,17 @@ tests:
             $trunc:
               - $averageTime
               - 1
+    schema:
+      orders:
+        custId:
+          types:
+            - bsonType: Number
+        purchased:
+          types:
+            - bsonType: Date
+        delivered:
+          types:
+            - bsonType: Date
   - name: Result Precision
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/dateDiff/#result-precision
     pipeline:
@@ -79,6 +90,17 @@ tests:
               endDate: $end
               unit: day
           _id: 0
+    schema:
+      subscriptions:
+        custId:
+          types:
+            - bsonType: Number
+        start:
+          types:
+            - bsonType: Date
+        end:
+          types:
+            - bsonType: Date
   - name: Weeks Per Month
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/dateDiff/#weeks-per-month
     pipeline:
@@ -101,3 +123,14 @@ tests:
               unit: week
               startOfWeek: fri
           _id: 0
+    schema:
+      months:
+        month:
+          types:
+            - bsonType: String
+        start:
+          types:
+            - bsonType: Date
+        end:
+          types:
+            - bsonType: Date

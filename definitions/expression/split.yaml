@@ -16,7 +16,6 @@ arguments:
   - name: delimiter
     type:
       - resolvesToString
-      - resolvesToRegex
     description: |
       The delimiter to use when splitting the string expression. delimiter can be any valid expression as long as it resolves to a string.
 tests:
@@ -40,10 +39,14 @@ tests:
             $sum: $qty
       - $sort:
           total_qty: -1
-  - name: Support regex delimiter
-    pipeline:
-      - $project:
-          split:
-            $split:
-              - abc
-              - !bson_regex 'b'
+    schema:
+      deliveries:
+        _id:
+          types:
+            - bsonType: Number
+        city:
+          types:
+            - bsonType: String
+        qty:
+          types:
+            - bsonType: Number
