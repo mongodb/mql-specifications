@@ -1,6 +1,6 @@
 # $schema: ../schema.json
 name: $setUnion
-link: 'https://www.mongodb.com/docs/manual/reference/operator/aggregation/setUnion/'
+link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/setUnion/
 type:
   - accumulator
   - window
@@ -9,24 +9,21 @@ encode: single
 description: |
   Takes two or more arrays and returns an array containing the elements that appear in any input array.
 arguments:
-  -
-    name: array
+  - name: array
     type:
-      - resolvesToArray # of arrays
+      - resolvesToArray     # of arrays
     variadic: array
     description: |
       An array of expressions that resolve to an array.
 tests:
-  -
-    name: 'Flowers collection'
-    link: 'https://www.mongodb.com/docs/manual/reference/operator/aggregation/setUnion/#example'
+  - name: Flowers collection
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/setUnion/#example
     pipeline:
-      -
-        $project:
+      - $project:
           flowerFieldA: 1
           flowerFieldB: 1
           allValues:
             $setUnion:
-              - "$flowerFieldA"
-              - "$flowerFieldB"
+              - $flowerFieldA
+              - $flowerFieldB
           _id: 0
