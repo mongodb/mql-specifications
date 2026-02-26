@@ -7,7 +7,6 @@ type:
 encode: object
 description: |
   Groups documents into windows and applies one or more operators to the documents in each window.
-  New in MongoDB 5.0.
 arguments:
   - name: sortBy
     type:

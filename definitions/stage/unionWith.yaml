@@ -7,7 +7,6 @@ type:
 encode: object
 description: |
   Performs a union of two collections; i.e. combines pipeline results from two collections into a single result set.
-  New in MongoDB 4.4.
 arguments:
   - name: coll
     type:
