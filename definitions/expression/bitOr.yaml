@@ -31,4 +31,4 @@ tests:
           result:
             $bitOr:
               - $a
-              - {$numberLong: '63'}
+              - $numberLong: '63'

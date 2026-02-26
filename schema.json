@@ -243,8 +243,112 @@
                     "items": {
                         "type": "object"
                     }
+                },
+                "schema": {
+                    "type": ["object", "string"],
+                    "additionalProperties": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "$ref": "#/definitions/SimplifiedSchemaField"
+                        }
+                    }
                 }
-            }
+            },
+            "required": ["name", "pipeline"]
+        },
+        "SimplifiedSchemaType": {
+            "anyOf": [
+                {
+                    "$ref": "#/definitions/SimplifiedSchemaBaseType"
+                },
+                {
+                    "$ref": "#/definitions/SimplifiedSchemaArrayType"
+                },
+                {
+                    "$ref": "#/definitions/SimplifiedSchemaDocumentType"
+                }
+            ]
+        },
+        "SimplifiedSchemaField": {
+            "additionalProperties": false,
+            "properties": {
+                "types": {
+                    "items": {
+                        "$ref": "#/definitions/SimplifiedSchemaType"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": ["types"],
+            "type": "object"
+        },
+        "SimplifiedSchemaArrayType": {
+            "additionalProperties": false,
+            "properties": {
+                "bsonType": {
+                    "const": "Array",
+                    "type": "string"
+                },
+                "types": {
+                    "items": {
+                        "type": "object"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": ["bsonType", "types"],
+            "type": "object"
+        },
+        "SimplifiedSchemaBaseType": {
+            "additionalProperties": false,
+            "properties": {
+                "bsonType": {
+                    "enum": [
+                        "Array",
+                        "Binary",
+                        "Boolean",
+                        "Code",
+                        "CodeWScope",
+                        "Date",
+                        "Decimal128",
+                        "Double",
+                        "Int32",
+                        "Int64",
+                        "Long",
+                        "MaxKey",
+                        "MinKey",
+                        "Null",
+                        "ObjectId",
+                        "BSONRegExp",
+                        "String",
+                        "BSONSymbol",
+                        "Timestamp",
+                        "Undefined",
+                        "Document",
+                        "Number"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": ["bsonType"],
+            "type": "object"
+        },
+        "SimplifiedSchemaDocumentType": {
+            "additionalProperties": false,
+            "properties": {
+                "bsonType": {
+                    "const": "Document",
+                    "type": "string"
+                },
+                "fields": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "object"
+                    }
+                }
+            },
+            "required": ["bsonType", "fields"],
+            "type": "object"
         }
     }
 }
