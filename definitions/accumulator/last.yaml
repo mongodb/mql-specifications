@@ -1,4 +1,4 @@
-# $schema: ../schema.json
+# $schema: ../../schema.json
 name: $last
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/last/
 minVersion: 2.2.0

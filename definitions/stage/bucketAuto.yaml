@@ -1,4 +1,4 @@
-# $schema: ../schema.json
+# $schema: ../../schema.json
 name: $bucketAuto
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/bucketAuto/
 minVersion: 3.4.0

@@ -1,4 +1,4 @@
-# $schema: ../schema.json
+# $schema: ../../schema.json
 name: $rtrim
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/rtrim/
 minVersion: 4.0.0

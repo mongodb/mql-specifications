@@ -1,4 +1,4 @@
-# $schema: ../schema.json
+# $schema: ../../schema.json
 name: phrase
 link: https://www.mongodb.com/docs/atlas/atlas-search/phrase/
 minVersion: 5.0.0

@@ -1,4 +1,4 @@
-# $schema: ../schema.json
+# $schema: ../../schema.json
 name: exists
 link: https://www.mongodb.com/docs/atlas/atlas-search/exists/
 minVersion: 5.0.0

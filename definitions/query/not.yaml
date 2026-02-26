@@ -1,4 +1,4 @@
-# $schema: ../schema.json
+# $schema: ../../schema.json
 name: $not
 link: https://www.mongodb.com/docs/manual/reference/operator/query/not/
 minVersion: 1.0.0

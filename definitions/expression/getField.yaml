@@ -1,4 +1,4 @@
-# $schema: ../schema.json
+# $schema: ../../schema.json
 name: $getField
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/getField/
 minVersion: 5.0.0

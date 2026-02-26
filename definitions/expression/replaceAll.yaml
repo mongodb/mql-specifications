@@ -1,4 +1,4 @@
-# $schema: ../schema.json
+# $schema: ../../schema.json
 name: $replaceAll
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/replaceAll/
 minVersion: 4.4.0

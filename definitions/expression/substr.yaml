@@ -1,4 +1,4 @@
-# $schema: ../schema.json
+# $schema: ../../schema.json
 name: $substr
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/substr/
 minVersion: 3.0.0

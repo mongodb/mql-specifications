@@ -1,4 +1,4 @@
-# $schema: ../schema.json
+# $schema: ../../schema.json
 name: $median
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/median/
 minVersion: 7.0.0

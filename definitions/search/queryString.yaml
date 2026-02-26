@@ -1,4 +1,4 @@
-# $schema: ../schema.json
+# $schema: ../../schema.json
 name: queryString
 link: https://www.mongodb.com/docs/atlas/atlas-search/queryString/
 minVersion: 5.0.0

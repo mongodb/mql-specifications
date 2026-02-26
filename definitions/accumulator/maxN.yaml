@@ -1,4 +1,4 @@
-# $schema: ../schema.json
+# $schema: ../../schema.json
 name: $maxN
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/maxN/
 minVersion: 5.2.0

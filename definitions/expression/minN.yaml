@@ -1,4 +1,4 @@
-# $schema: ../schema.json
+# $schema: ../../schema.json
 name: $minN
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/minN-array-element/
 minVersion: 5.1.0
