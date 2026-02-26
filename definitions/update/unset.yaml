@@ -19,5 +19,5 @@ tests:
       sku: unknown
     update:
       $unset:
-        quantity: ""
-        instock: ""
+        quantity: ''
+        instock: ''

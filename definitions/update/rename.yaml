@@ -17,7 +17,7 @@ tests:
     link: https://www.mongodb.com/docs/manual/reference/operator/update/rename/#rename-a-field
     filter:
       nmae:
-        $ne: null
+        $ne: ~
     update:
       $rename:
         nmae: name

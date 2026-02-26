@@ -21,7 +21,7 @@ tests:
       $set:
         quantity: 500
         details:
-          model: "2600"
+          model: '2600'
           make: Fashionaires
         tags:
           - coats
