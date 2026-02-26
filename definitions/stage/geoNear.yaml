@@ -1,4 +1,4 @@
-# $schema: ../schema.json
+# $schema: ../../schema.json
 name: $geoNear
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/geoNear/
 minVersion: 2.4.0

@@ -1,4 +1,4 @@
-# $schema: ../schema.json
+# $schema: ../../schema.json
 name: $accumulator
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/accumulator/
 type:

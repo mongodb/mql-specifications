@@ -1,4 +1,4 @@
-# $schema: ../schema.json
+# $schema: ../../schema.json
 name: $unsetField
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/unsetField/
 minVersion: 5.0.0

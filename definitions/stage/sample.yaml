@@ -1,4 +1,4 @@
-# $schema: ../schema.json
+# $schema: ../../schema.json
 name: $sample
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/sample/
 minVersion: 3.2.0

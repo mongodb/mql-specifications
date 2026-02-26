@@ -1,4 +1,4 @@
-# $schema: ../schema.json
+# $schema: ../../schema.json
 name: $bucket
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/bucket/
 minVersion: 3.4.0

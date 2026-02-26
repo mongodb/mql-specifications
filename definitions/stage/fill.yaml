@@ -1,4 +1,4 @@
-# $schema: ../schema.json
+# $schema: ../../schema.json
 name: $fill
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/fill/
 minVersion: 5.3.0

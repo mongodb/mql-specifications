@@ -1,4 +1,4 @@
-# $schema: ../schema.json
+# $schema: ../../schema.json
 name: $abs
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/abs/
 minVersion: 3.2.0

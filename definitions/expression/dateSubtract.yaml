@@ -1,4 +1,4 @@
-# $schema: ../schema.json
+# $schema: ../../schema.json
 name: $dateSubtract
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/dateSubtract/
 minVersion: 5.0.0

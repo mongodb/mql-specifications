@@ -1,4 +1,4 @@
-# $schema: ../schema.json
+# $schema: ../../schema.json
 name: $where
 link: https://www.mongodb.com/docs/manual/reference/operator/query/where/
 minVersion: 1.0.0
