@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../schemas/operator.json
 name: $toString
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/toString/
 minVersion: '4.0'

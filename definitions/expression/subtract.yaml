@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../schemas/operator.json
 name: $subtract
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/subtract/
 minVersion: '2.6'

@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../schemas/operator.json
 name: $push
 link: https://www.mongodb.com/docs/manual/reference/operator/update/push/
 minVersion: '1.0'

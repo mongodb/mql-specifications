@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../schemas/operator.json
 name: $objectToArray
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/objectToArray/
 minVersion: '3.4'

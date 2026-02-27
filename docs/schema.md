@@ -4,8 +4,8 @@
 
 The specification system has two components:
 
-1. **Schema Definition** (`schema.json`): JSON Schema that validates all operator definitions
-2. **YAML Operator Definitions**: Individual YAML files that describe each operator using the schema
+1. **Schema Definition files** (`operator.json`, `type.json`): JSON Schema that validates all operator and closed set definitions.
+2. **YAML Definitions**: Individual YAML files that describe each operator using the `operator.json` schema or closed set type using `type.json`.
 
 ### Operator Categories
 
@@ -18,9 +18,9 @@ Operators are organized into categories based on their type and purpose:
 - **Query Operators** (`/definitions/query`): Used in query filters (e.g., `$eq`, `$gt`, `$in`)
 - **Search Operators** (`/definitions/search`): Operators used in the `$search` pipeline stage
 
-## JSON Schema Definition
+## JSON Schema Definition for operators
 
-The schema is defined in `schema.json` using JSON Schema Draft 6. It defines three main object types:
+The schema is defined in `operator.json` using JSON Schema Draft 6. It defines three main object types:
 1. `Operator` - The root object for all operators
 2. `Argument` - Defines a single parameter/argument for an operator or stage
 3. `Test` - Example usage pattern for an operator or stage
@@ -352,3 +352,18 @@ This allows the operator to preserve type information: if the input is an array 
 The `generic` field should contain a typescript representation of the expected type in this argument or return type.
 Its contents are independent of the `name` field, e.g. `name: resolvesToArray` in combination with `generic: T[]` refers to an array of T,
 and `name: resolvesToArray` with `generic: T` means that `T` itself is an array type.
+
+## JSON Schema Definition for closed set types
+
+The schema is defined in `type.json` using JSON Schema Draft 6. It defines one object type:
+1. `Type` - The root object for all types
+
+### Type
+
+The `Type` object is the definition for any closed set type in the system.
+
+**Required Properties:**
+
+- `name`: The name of the type, e.g. `timeUnit`
+- `backingType`: The fallback basic type that applies to all enum values
+- `enum`: The list of possible values

@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../schemas/operator.json
 name: $cond
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/cond/
 minVersion: '3.0'

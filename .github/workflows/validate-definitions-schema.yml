@@ -32,6 +32,6 @@ jobs:
         run: pnpm run typecheck
         working-directory: scripts/schema-validator
 
-      - name: Validate definitions YAML files against schema.json
+      - name: Validate definitions YAML files against schemas/*
         run: pnpm run validate
         working-directory: scripts/schema-validator

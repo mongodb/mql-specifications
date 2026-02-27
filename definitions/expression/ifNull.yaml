@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../schemas/operator.json
 name: $ifNull
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/ifNull/
 minVersion: '3.0'

@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../schemas/operator.json
 name: $nin
 link: https://www.mongodb.com/docs/manual/reference/operator/query/nin/
 minVersion: '1.0'

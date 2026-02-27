@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../schemas/operator.json
 name: $bitOr
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/bitOr/
 minVersion: '6.3'

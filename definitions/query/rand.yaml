@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../schemas/operator.json
 name: $rand
 link: https://www.mongodb.com/docs/manual/reference/operator/query/rand/
 minVersion: '4.4'
