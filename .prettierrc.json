@@ -1,7 +1,10 @@
 {
     "overrides": [
         {
-            "files": "operator.json",
+            "files": [
+                "operator.json",
+                "type.json"
+            ],
             "options": {
                 "parser": "json",
                 "tabWidth": 4
