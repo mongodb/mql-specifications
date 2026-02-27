@@ -27,6 +27,7 @@
                     "items": {
                         "type": "string",
                         "enum": [
+                            "pipeline",
                             "accumulator",
                             "stage",
                             "updateStage",
@@ -121,6 +122,8 @@
                     "items": {
                         "type": "string",
                         "enum": [
+                            "stage",
+                            "updateStage",
                             "accumulator",
                             "query",
                             "fieldQuery",

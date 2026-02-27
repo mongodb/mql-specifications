@@ -11,6 +11,7 @@ The specification system has two components:
 
 Operators are organized into categories based on their type and purpose:
 
+- **Pipelines** (`/definitions/pipeline`): Classes for aggregation pipelines (e.g. full pipelines, update pipelines)
 - **Stages** (`/definitions/stage`): Aggregation pipeline stages (e.g., `$match`, `$group`, `$project`)
 - **Accumulators** (`/definitions/accumulator`): Used in `$group` and `$setWindowFields` stages (e.g., `$sum`, `$avg`)
 - **Expression Operators** (`/definitions/expression`): Used to compute values in aggregation pipelines (e.g., `$add`, `$concat`)
@@ -45,6 +46,7 @@ The `Operator` object is the main definition for any operator in the system.
 
 #### Types
 The `type` property is a list of strings that defines the operator's type which may limit its usage, as well as the return type. The following types are available:
+- `pipeline`: A collection of stages that all documents traverse
 - `accumulator`: Used as an accumulator in `$group`
 - `stage`: Aggregation pipeline stage (outputs at pipeline level)
 - `updateStage`: Aggregation pipeline stage that is allowed to appear in an update pipeline
@@ -229,13 +231,14 @@ For all of the BSON types, the schema knows three different uses for a type:
 
 For aggregation pipeline stages or query operators, the following types can be used to limit type accepted values: 
 
+- `stage`: An aggregation pipeline stage
+- `updateStage`: An aggregation pipeline stage that can be used in pipeline updates
 - `accumulator`: Used as an accumulator in `$group`
 - `query`: Top-level query operator or field query operator
 - `fieldQuery`: Field-level query operator (inside a field selector)
-- `pipeline`: An aggregation pipeline
-- `updatePipeline`: An aggregation pipeline consisting only of stages that can appear in an update pipeline
 - `window`: User in `$setWindowFields`
 - `searchOperator`: MongoDB Atlas Search operator
+- `pipeline` and `updatePipeline`: specific pipelines types
 
 ##### Special Types
 

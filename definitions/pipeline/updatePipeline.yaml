@@ -1,0 +1,17 @@
+# $schema: ../../schema.json
+name: updatePipeline
+link: https://www.mongodb.com/docs/manual/tutorial/update-documents-with-aggregation-pipeline/
+minVersion: '4.2'
+type:
+  - pipeline
+encode: single
+wrapObject: false
+description: |
+  Use aggregation pipelines to perform update operations.
+arguments:
+  - name: stages
+    type:
+      - updateStage
+    variadic: array
+    description: |-
+      A list of stages
