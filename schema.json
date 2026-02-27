@@ -29,6 +29,7 @@
                         "enum": [
                             "accumulator",
                             "stage",
+                            "updateStage",
                             "query",
                             "update",
                             "fieldQuery",
@@ -124,6 +125,7 @@
                             "query",
                             "fieldQuery",
                             "pipeline",
+                            "updatePipeline",
                             "window",
                             "expression",
                             "geometry",
