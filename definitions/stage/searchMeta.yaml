@@ -3,7 +3,7 @@ name: $searchMeta
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/searchMeta/
 minVersion: '5.0'
 type:
-  - stage
+  - inputStage
 encode: object
 description: |
   Returns different types of metadata result documents for the Atlas Search query against an Atlas collection.

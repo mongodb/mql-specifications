@@ -3,7 +3,7 @@ name: $currentOp
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/currentOp/
 minVersion: '3.2'
 type:
-  - stage
+  - inputStage
 encode: object
 description: |
   Returns information on active and/or dormant operations for the MongoDB deployment. To run, use the db.aggregate() method.

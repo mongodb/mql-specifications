@@ -3,7 +3,7 @@ name: $indexStats
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/indexStats/
 minVersion: '3.0'
 type:
-  - stage
+  - inputStage
 encode: object
 description: |
   Returns statistics regarding the use of each index for the collection.

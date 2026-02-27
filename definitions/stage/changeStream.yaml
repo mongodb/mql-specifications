@@ -3,7 +3,7 @@ name: $changeStream
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/changeStream/
 minVersion: '3.6'
 type:
-  - stage
+  - inputStage
 encode: object
 description: |
   Returns a Change Stream cursor for the collection or database. This stage can only occur once in an aggregation pipeline and it must occur as the first stage.

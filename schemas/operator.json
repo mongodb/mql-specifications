@@ -9,6 +9,8 @@
                 "accumulator",
                 "stage",
                 "updateStage",
+                "inputStage",
+                "outputStage",
                 "query",
                 "update",
                 "fieldQuery",
@@ -41,6 +43,8 @@
             "enum": [
                 "stage",
                 "updateStage",
+                "inputStage",
+                "outputStage",
                 "accumulator",
                 "query",
                 "fieldQuery",

@@ -3,7 +3,7 @@ name: $vectorSearch
 link: https://www.mongodb.com/docs/atlas/atlas-vector-search/vector-search-stage/
 minVersion: '6.0'
 type:
-  - stage
+  - inputStage
 encode: object
 description: |
   The $vectorSearch stage performs an ANN or ENN search on a vector in the specified field.

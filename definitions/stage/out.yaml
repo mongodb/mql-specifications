@@ -3,7 +3,7 @@ name: $out
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/out/
 minVersion: '2.6'
 type:
-  - stage
+  - outputStage
 encode: single
 description: |
   Writes the resulting documents of the aggregation pipeline to a collection. To use the $out stage, it must be the last stage in the pipeline.

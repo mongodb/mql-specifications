@@ -3,7 +3,7 @@ name: $search
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/search/
 minVersion: '5.0'
 type:
-  - stage
+  - inputStage
 encode: object
 description: |
   Performs a full-text search of the field or fields in an Atlas collection.
