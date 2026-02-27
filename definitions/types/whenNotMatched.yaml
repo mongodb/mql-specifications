@@ -1,3 +1,4 @@
+# $schema: ../../type.json
 name: whenNotMatched
 backingType: string
 enum:
