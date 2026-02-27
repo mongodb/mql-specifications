@@ -4,7 +4,8 @@ link: https://www.mongodb.com/docs/manual/core/aggregation-pipeline/
 minVersion: '1.0'
 type:
   - pipeline
-encode: array
+encode: single
+wrapObject: false
 description: |
   An aggregation pipeline consists of one or more stages that process documents. These documents can come from a collection, a view, or a specially designed stage.
 arguments:

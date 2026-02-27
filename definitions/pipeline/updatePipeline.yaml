@@ -4,7 +4,8 @@ link: https://www.mongodb.com/docs/manual/tutorial/update-documents-with-aggrega
 minVersion: '4.2'
 type:
   - pipeline
-encode: array
+encode: single
+wrapObject: false
 description: |
   Use aggregation pipelines to perform update operations.
 arguments:
