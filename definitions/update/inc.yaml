@@ -1,0 +1,23 @@
+# $schema: ../../schema.json
+name: $inc
+link: https://www.mongodb.com/docs/manual/reference/operator/update/inc/
+minVersion: 1.0.0
+type:
+  - update
+encode: single
+description: |
+  Increments a field by the specified numeric amount.
+arguments:
+  - name: field
+    type:
+      - number
+    variadic: object
+tests:
+  - name: Increment Fields
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/inc/#example
+    filter:
+      sku: abc123
+    update:
+      $inc:
+        quantity: -2
+        metrics.orders: 1

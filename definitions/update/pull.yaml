@@ -1,0 +1,52 @@
+# $schema: ../../schema.json
+name: $pull
+link: https://www.mongodb.com/docs/manual/reference/operator/update/pull/
+minVersion: 1.0.0
+type:
+  - update
+encode: single
+description: |
+  Removes all array elements that match a specified value or condition.
+arguments:
+  - name: field
+    type:
+      - any
+    variadic: object
+tests:
+  - name: Remove All Items That Equal a Specified Value
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/pull/#remove-all-items-that-equal-a-specified-value
+    filter: {}
+    update:
+      $pull:
+        fruits:
+          $in:
+            - apples
+            - oranges
+        vegetables: carrots
+  - name: Remove All Items That Match a Specified $pull Condition
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/pull/#remove-all-items-that-match-a-specified--pull-condition
+    filter:
+      _id: 1
+    update:
+      $pull:
+        votes:
+          $gte: 6
+  - name: Remove Items from an Array of Documents
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/pull/#remove-items-from-an-array-of-documents
+    filter: {}
+    update:
+      $pull:
+        results:
+          score: 8
+          item: B
+  - name: Remove Documents from Nested Arrays
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/pull/#remove-documents-from-nested-arrays
+    filter: {}
+    update:
+      $pull:
+        results:
+          answers:
+            $elemMatch:
+              q: 2
+              a:
+                $gte: 8

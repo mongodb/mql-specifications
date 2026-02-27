@@ -30,6 +30,7 @@
                             "accumulator",
                             "stage",
                             "query",
+                            "update",
                             "fieldQuery",
                             "filter",
                             "window",
@@ -91,7 +92,14 @@
                     }
                 }
             },
-            "required": ["description", "encode", "link", "name", "type"],
+            "required": [
+                "description",
+                "encode",
+                "link",
+                "minVersion",
+                "name",
+                "type"
+            ],
             "title": "Operator"
         },
         "Argument": {
@@ -184,6 +192,7 @@
                             "decimal",
                             "searchPath",
                             "searchScore",
+                            "bitwiseOperation",
                             "searchOperator"
                         ]
                     }
@@ -262,6 +271,12 @@
                         "type": "object"
                     }
                 },
+                "filter": {
+                    "type": "object"
+                },
+                "update": {
+                    "type": "object"
+                },
                 "schema": {
                     "type": ["object", "string"],
                     "additionalProperties": {
@@ -272,7 +287,14 @@
                     }
                 }
             },
-            "required": ["name", "pipeline"]
+            "anyOf": [
+                {
+                    "required": ["name", "pipeline"]
+                },
+                {
+                    "required": ["name", "filter", "update"]
+                }
+            ]
         },
         "SimplifiedSchemaType": {
             "anyOf": [

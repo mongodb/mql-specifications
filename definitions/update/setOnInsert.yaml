@@ -1,0 +1,24 @@
+# $schema: ../../schema.json
+name: $setOnInsert
+link: https://www.mongodb.com/docs/manual/reference/operator/update/setOnInsert/
+minVersion: 1.0.0
+type:
+  - update
+encode: single
+description: |
+  Sets the value of a field if an update with upsert creates a new document.
+arguments:
+  - name: field
+    type:
+      - any
+    variadic: object
+tests:
+  - name: Upsert with $setOnInsert
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/setOnInsert/#example
+    filter:
+      _id: 1
+    update:
+      $set:
+        item: apple
+      $setOnInsert:
+        defaultQty: 100

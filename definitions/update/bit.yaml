@@ -1,0 +1,42 @@
+# $schema: ../../schema.json
+name: $bit
+link: https://www.mongodb.com/docs/manual/reference/operator/update/bit/
+minVersion: 1.0.0
+type:
+  - update
+encode: single
+description: |
+  Performs bitwise updates of integer values.
+arguments:
+  - name: field
+    type:
+      - bitwiseOperation
+    variadic: object
+    description: |
+      Each field maps to an object containing exactly one bitwise operation:
+      and, or, or xor.
+tests:
+  - name: Bitwise AND
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/bit/#bitwise-and
+    filter:
+      _id: 1
+    update:
+      $bit:
+        expdata:
+          and: 10
+  - name: Bitwise OR
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/bit/#bitwise-or
+    filter:
+      _id: 2
+    update:
+      $bit:
+        expdata:
+          or: 5
+  - name: Bitwise XOR
+    link: https://www.mongodb.com/docs/manual/reference/operator/update/bit/#bitwise-xor
+    filter:
+      _id: 3
+    update:
+      $bit:
+        expdata:
+          xor: 5
