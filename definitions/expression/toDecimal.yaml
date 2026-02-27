@@ -1,4 +1,4 @@
-# $schema: ../../operator.json
+# $schema: ../../schemas/operator.json
 name: $toDecimal
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/toDecimal/
 minVersion: '4.0'

@@ -1,4 +1,4 @@
-# $schema: ../../operator.json
+# $schema: ../../schemas/operator.json
 name: $planCacheStats
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/planCacheStats/
 minVersion: '4.4'

@@ -1,4 +1,4 @@
-# $schema: ../../operator.json
+# $schema: ../../schemas/operator.json
 name: $listLocalSessions
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/listLocalSessions/
 minVersion: '3.6'

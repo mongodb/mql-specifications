@@ -1,4 +1,4 @@
-# $schema: ../../operator.json
+# $schema: ../../schemas/operator.json
 name: $reduce
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/reduce/
 minVersion: '3.4'

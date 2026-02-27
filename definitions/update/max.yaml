@@ -1,4 +1,4 @@
-# $schema: ../../operator.json
+# $schema: ../../schemas/operator.json
 name: $max
 link: https://www.mongodb.com/docs/manual/reference/operator/update/max/
 minVersion: '1.0'

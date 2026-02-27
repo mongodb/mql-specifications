@@ -1,4 +1,4 @@
-# $schema: ../../operator.json
+# $schema: ../../schemas/operator.json
 name: $setOnInsert
 link: https://www.mongodb.com/docs/manual/reference/operator/update/setOnInsert/
 minVersion: '1.0'

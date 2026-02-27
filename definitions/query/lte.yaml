@@ -1,4 +1,4 @@
-# $schema: ../../operator.json
+# $schema: ../../schemas/operator.json
 name: $lte
 link: https://www.mongodb.com/docs/manual/reference/operator/query/lte/
 minVersion: '1.0'

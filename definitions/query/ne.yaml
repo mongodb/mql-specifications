@@ -1,4 +1,4 @@
-# $schema: ../../operator.json
+# $schema: ../../schemas/operator.json
 name: $ne
 link: https://www.mongodb.com/docs/manual/reference/operator/query/ne/
 minVersion: '1.0'

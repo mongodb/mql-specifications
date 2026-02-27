@@ -1,4 +1,4 @@
-# $schema: ../../operator.json
+# $schema: ../../schemas/operator.json
 name: wildcard
 link: https://www.mongodb.com/docs/atlas/atlas-search/wildcard/
 minVersion: '5.0'

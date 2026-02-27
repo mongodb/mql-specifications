@@ -1,4 +1,4 @@
-# $schema: ../../operator.json
+# $schema: ../../schemas/operator.json
 name: in
 link: https://www.mongodb.com/docs/atlas/atlas-search/in/
 minVersion: '5.0'

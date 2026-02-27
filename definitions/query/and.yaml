@@ -1,4 +1,4 @@
-# $schema: ../../operator.json
+# $schema: ../../schemas/operator.json
 name: $and
 link: https://www.mongodb.com/docs/manual/reference/operator/query/and/
 minVersion: '1.0'

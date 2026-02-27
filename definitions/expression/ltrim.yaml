@@ -1,4 +1,4 @@
-# $schema: ../../operator.json
+# $schema: ../../schemas/operator.json
 name: $ltrim
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/ltrim/
 minVersion: '4.0'

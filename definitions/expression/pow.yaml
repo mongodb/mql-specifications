@@ -1,4 +1,4 @@
-# $schema: ../../operator.json
+# $schema: ../../schemas/operator.json
 name: $pow
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/pow/
 minVersion: '3.2'

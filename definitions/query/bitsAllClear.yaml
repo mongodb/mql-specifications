@@ -1,4 +1,4 @@
-# $schema: ../../operator.json
+# $schema: ../../schemas/operator.json
 name: $bitsAllClear
 link: https://www.mongodb.com/docs/manual/reference/operator/query/bitsAllClear/
 minVersion: '3.2'

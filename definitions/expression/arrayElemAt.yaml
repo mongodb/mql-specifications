@@ -1,4 +1,4 @@
-# $schema: ../../operator.json
+# $schema: ../../schemas/operator.json
 name: $arrayElemAt
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/arrayElemAt/
 minVersion: '3.2'

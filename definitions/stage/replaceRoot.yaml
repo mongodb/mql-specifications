@@ -1,4 +1,4 @@
-# $schema: ../../operator.json
+# $schema: ../../schemas/operator.json
 name: $replaceRoot
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/replaceRoot/
 minVersion: '3.4'

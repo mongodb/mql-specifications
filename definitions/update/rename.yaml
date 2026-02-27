@@ -1,4 +1,4 @@
-# $schema: ../../operator.json
+# $schema: ../../schemas/operator.json
 name: $rename
 link: https://www.mongodb.com/docs/manual/reference/operator/update/rename/
 minVersion: '1.0'

@@ -1,4 +1,4 @@
-# $schema: ../../operator.json
+# $schema: ../../schemas/operator.json
 name: $log10
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/log10/
 minVersion: '4.2'

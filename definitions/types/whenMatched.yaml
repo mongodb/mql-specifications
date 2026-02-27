@@ -1,4 +1,4 @@
-# $schema: ../../type.json
+# $schema: ../../schemas/type.json
 name: whenMatched
 backingType: string
 enum:

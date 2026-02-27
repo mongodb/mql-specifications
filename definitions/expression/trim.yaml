@@ -1,4 +1,4 @@
-# $schema: ../../operator.json
+# $schema: ../../schemas/operator.json
 name: $trim
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/trim/
 minVersion: '4.0'

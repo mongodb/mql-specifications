@@ -1,4 +1,4 @@
-# $schema: ../../operator.json
+# $schema: ../../schemas/operator.json
 name: $slice
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/slice/
 minVersion: '3.2'

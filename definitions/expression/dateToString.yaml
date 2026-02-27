@@ -1,4 +1,4 @@
-# $schema: ../../operator.json
+# $schema: ../../schemas/operator.json
 name: $dateToString
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/dateToString/
 minVersion: '3.0'

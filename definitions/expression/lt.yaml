@@ -1,4 +1,4 @@
-# $schema: ../../operator.json
+# $schema: ../../schemas/operator.json
 name: $lt
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/lt/
 minVersion: '2.6'

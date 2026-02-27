@@ -1,4 +1,4 @@
-# $schema: ../../operator.json
+# $schema: ../../schemas/operator.json
 name: $not
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/not/
 minVersion: '2.6'
