@@ -35,6 +35,17 @@ tests:
                 - $playerId
                 - $score
               n: 3
+    schema:
+      gamescores:
+        playerId:
+          types:
+            - bsonType: String
+        gameId:
+          types:
+            - bsonType: String
+        score:
+          types:
+            - bsonType: Number
   - name: Finding the Last Three Player Scores Across Multiple Games
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/lastN/#finding-the-last-three-player-scores-across-multiple-games
     pipeline:
@@ -46,6 +57,17 @@ tests:
                 - $playerId
                 - $score
               n: 3
+    schema:
+      gamescores:
+        playerId:
+          types:
+            - bsonType: String
+        gameId:
+          types:
+            - bsonType: String
+        score:
+          types:
+            - bsonType: Number
   - name: Using $sort With $lastN
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/lastN/#using--sort-with--lastn
     pipeline:
@@ -59,6 +81,17 @@ tests:
                 - $playerId
                 - $score
               n: 3
+    schema:
+      gamescores:
+        playerId:
+          types:
+            - bsonType: String
+        gameId:
+          types:
+            - bsonType: String
+        score:
+          types:
+            - bsonType: Number
   - name: Computing n Based on the Group Key for $group
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/lastN/#computing-n-based-on-the-group-key-for--group
     pipeline:
@@ -76,3 +109,14 @@ tests:
                       - G2
                   then: 1
                   else: 3
+    schema:
+      gamescores:
+        playerId:
+          types:
+            - bsonType: String
+        gameId:
+          types:
+            - bsonType: String
+        score:
+          types:
+            - bsonType: Number

@@ -27,7 +27,7 @@ tests:
     pipeline:
       - $project:
           milliseconds:
-                        # Example uses the short form, the builder always generates the verbose form
-                        # $millisecond: '$date'
+            # Example uses the short form, the builder always generates the verbose form
+            # $millisecond: '$date'
             $millisecond:
               date: $date

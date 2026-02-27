@@ -4,6 +4,7 @@ link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/replace
 minVersion: '3.4'
 type:
   - stage
+  - updateStage
 encode: object
 description: |
   Replaces a document with the specified embedded document. The operation replaces all existing fields in the input document, including the _id field. Specify a document embedded in the input document to promote the embedded document to the top level.
@@ -26,8 +27,8 @@ tests:
   - name: with a Document Nested in an Array
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/replaceRoot/#-replaceroot-with-a-document-nested-in-an-array
     pipeline:
-                # The builder uses the verbose form of the $unwind operator
-                # $unwind: '$grades'
+      # The builder uses the verbose form of the $unwind operator
+      # $unwind: '$grades'
       - $unwind:
           path: $grades
       - $match:

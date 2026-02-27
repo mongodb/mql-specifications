@@ -25,8 +25,8 @@ arguments:
   - name: highlight
     optional: true
     type:
-            # @todo support "highlight" type object
-            # https://www.mongodb.com/docs/atlas/atlas-search/highlighting/
+      # @todo support "highlight" type object
+      # https://www.mongodb.com/docs/atlas/atlas-search/highlighting/
       - object
     description: |
       Specifies the highlighting options for displaying search terms in their original context.

@@ -19,8 +19,8 @@ tests:
       - $set:
           amount:
             $floor: $amount
-                # Example uses the short form, the builder always generates the verbose form
-                # $merge: 'donors'
+      # Example uses the short form, the builder always generates the verbose form
+      # $merge: 'donors'
       - $merge:
           into: donors
   - name: Select Random Items From a Collection

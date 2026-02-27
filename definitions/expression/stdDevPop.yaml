@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $stdDevPop
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/stdDevPop/
-minVersion: 5.0.0
+minVersion: '5.0'
 type:
   - resolvesToDouble
 encode: single
@@ -20,7 +20,7 @@ tests:
     pipeline:
       - $project:
           stdDev:
-                        # Example uses the short form, the builder always generates the verbose form
-                        # $stdDevPop: '$scores.score'
+            # Example uses the short form, the builder always generates the verbose form
+            # $stdDevPop: '$scores.score'
             $stdDevPop:
               - $scores.score

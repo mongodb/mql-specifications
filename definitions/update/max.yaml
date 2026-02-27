@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $max
 link: https://www.mongodb.com/docs/manual/reference/operator/update/max/
-minVersion: 1.0.0
+minVersion: '1.0'
 type:
   - update
 encode: single

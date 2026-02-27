@@ -27,7 +27,7 @@ tests:
     pipeline:
       - $project:
           yearNumber:
-                        # Example uses the short form, the builder always generates the verbose form
-                        # $isoWeekYear: '$date'
+            # Example uses the short form, the builder always generates the verbose form
+            # $isoWeekYear: '$date'
             $isoWeekYear:
               date: $date

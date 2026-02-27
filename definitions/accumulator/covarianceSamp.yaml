@@ -25,8 +25,8 @@ tests:
           output:
             covarianceSampForState:
               $covarianceSamp:
-                                    # Example uses the short form, the builder always generates the verbose form
-                                    # $year: '$orderDate'
+                # Example uses the short form, the builder always generates the verbose form
+                # $year: '$orderDate'
                 - $year:
                     date: $orderDate
                 - $quantity
@@ -34,3 +34,23 @@ tests:
                 documents:
                   - unbounded
                   - current
+    schema:
+      cakeSales:
+        _id:
+          types:
+            - bsonType: Number
+        type:
+          types:
+            - bsonType: String
+        orderDate:
+          types:
+            - bsonType: Date
+        state:
+          types:
+            - bsonType: String
+        price:
+          types:
+            - bsonType: Number
+        quantity:
+          types:
+            - bsonType: Number

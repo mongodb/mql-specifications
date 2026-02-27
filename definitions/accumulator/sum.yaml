@@ -20,13 +20,13 @@ tests:
       - $group:
           _id:
             day:
-                            # Example uses the short form, the builder always generates the verbose form
-                            # $dayOfYear: '$date'
+              # Example uses the short form, the builder always generates the verbose form
+              # $dayOfYear: '$date'
               $dayOfYear:
                 date: $date
             year:
-                            # Example uses the short form, the builder always generates the verbose form
-                            # $year: '$date'
+              # Example uses the short form, the builder always generates the verbose form
+              # $year: '$date'
               $year:
                 date: $date
           totalAmount:
@@ -36,6 +36,23 @@ tests:
                 - $quantity
           count:
             $sum: 1
+    schema:
+      sales:
+        _id:
+          types:
+            - bsonType: Number
+        item:
+          types:
+            - bsonType: String
+        price:
+          types:
+            - bsonType: Number
+        quantity:
+          types:
+            - bsonType: Number
+        date:
+          types:
+            - bsonType: Date
   - name: Use in $setWindowFields Stage
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/sum/#use-in--setwindowfields-stage
     pipeline:
@@ -50,3 +67,23 @@ tests:
                 documents:
                   - unbounded
                   - current
+    schema:
+      cakeSales:
+        _id:
+          types:
+            - bsonType: Number
+        type:
+          types:
+            - bsonType: String
+        orderDate:
+          types:
+            - bsonType: Date
+        state:
+          types:
+            - bsonType: String
+        price:
+          types:
+            - bsonType: Number
+        quantity:
+          types:
+            - bsonType: Number

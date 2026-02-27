@@ -37,7 +37,7 @@ tests:
     pipeline:
       - $addFields:
           returnObject:
-                        # Specify i as part of the regex type
+            # Specify i as part of the regex type
             $regexFindAll:
               input: $description
               regex: !bson_regex
@@ -45,14 +45,14 @@ tests:
                 - i
       - $addFields:
           returnObject:
-                        # Specify i in the options field
+            # Specify i in the options field
             $regexFindAll:
               input: $description
               regex: line
               options: i
       - $addFields:
           returnObject:
-                        # Mix Regex type with options field
+            # Mix Regex type with options field
             $regexFindAll:
               input: $description
               regex: !bson_regex 'line'
