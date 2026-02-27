@@ -1,0 +1,8 @@
+name: whenMatched
+backingType: string
+enum:
+  - replace
+  - keepExisting
+  - merge
+  - fail
+  - pipeline
