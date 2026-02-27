@@ -2,15 +2,19 @@
 name: $first
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/first/
 minVersion: '4.4'
+generic:
+  - T
 type:
-  - resolvesToAny
+  - name: resolvesToAny
+    generic: T
 encode: single
 description: |
   Returns the result of an expression for the first document in an array.
 arguments:
   - name: expression
     type:
-      - resolvesToArray
+      - name: resolvesToArray
+        generic: T[]
 tests:
   - name: Use in $addFields Stage
     pipeline:

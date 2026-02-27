@@ -2,15 +2,19 @@
 name: $concatArrays
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/concatArrays/
 minVersion: '3.2'
+generic:
+  - T
 type:
-  - resolvesToArray
+  - name: resolvesToArray
+    generic: T[]
 encode: single
 description: |
   Concatenates arrays to return the concatenated array.
 arguments:
   - name: array
     type:
-      - resolvesToArray
+      - name: resolvesToArray
+        generic: T[]
     variadic: array
 tests:
   - name: Example

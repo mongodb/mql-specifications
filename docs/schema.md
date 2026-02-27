@@ -229,7 +229,7 @@ For all of the BSON types, the schema knows three different uses for a type:
 
 ##### Operator Types
 
-For aggregation pipeline stages or query operators, the following types can be used to limit type accepted values: 
+For aggregation pipeline stages or query operators, the following types can be used to limit type accepted values:
 
 - `stage`: An aggregation pipeline stage
 - `updateStage`: An aggregation pipeline stage that can be used in pipeline updates
@@ -320,3 +320,35 @@ Defines an example/test case for an operator. Tests are taken from the operator'
 - `pipeline`: Aggregation pipeline demonstrating the operator
 
 ---
+
+### Generics
+
+Defines generic type parameters for operators that support polymorphic behavior. Generics allow operators to work with different types while maintaining type safety in code generation.
+
+
+**Example:**
+
+```yaml
+name: $arrayElemAt
+generic:
+  - T
+type:
+  - name: resolvesToAny
+    generic: T
+encode: array
+description: |
+  Returns the element at the specified array index.
+arguments:
+  - name: array
+    type:
+      - name: resolvesToArray
+        generic: T[]
+  - name: idx
+    type:
+      - resolvesToInt
+```
+
+This allows the operator to preserve type information: if the input is an array of strings, the output type is known to be a string.
+The `generic` field should contain a typescript representation of the expected type in this argument or return type.
+Its contents are independent of the `name` field, e.g. `name: resolvesToArray` in combination with `generic: T[]` refers to an array of T,
+and `name: resolvesToArray` with `generic: T` means that `T` itself is an array type.
