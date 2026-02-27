@@ -1,0 +1,12 @@
+name: timeUnit
+backingType: string
+enum:
+  - year
+  - quarter
+  - month
+  - week
+  - day
+  - hour
+  - minute
+  - second
+  - millisecond

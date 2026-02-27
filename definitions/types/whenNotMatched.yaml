@@ -1,0 +1,6 @@
+name: whenNotMatched
+backingType: string
+enum:
+  - insert
+  - discard
+  - fail

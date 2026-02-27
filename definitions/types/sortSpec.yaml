@@ -1,0 +1,5 @@
+name: sortSpec
+backingType: int
+enum:
+  - 1
+  - -1

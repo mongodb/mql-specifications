@@ -1,0 +1,8 @@
+name: fullDocument
+backingType: string
+enum:
+  - default
+  - required
+  - updateLookup
+  - whenAvailable
+

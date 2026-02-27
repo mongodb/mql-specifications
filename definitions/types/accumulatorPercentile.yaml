@@ -1,0 +1,4 @@
+name: accumulatorPercentile
+backingType: string
+enum:
+  - approximate
