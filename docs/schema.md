@@ -4,7 +4,7 @@
 
 The specification system has two components:
 
-1. **Schema Definition** (`schema.json`): JSON Schema that validates all operator definitions
+1. **Schema Definition** (`operator.json`): JSON Schema that validates all operator definitions
 2. **YAML Operator Definitions**: Individual YAML files that describe each operator using the schema
 
 ### Operator Categories
@@ -19,7 +19,7 @@ Operators are organized into categories based on their type and purpose:
 
 ## JSON Schema Definition
 
-The schema is defined in `schema.json` using JSON Schema Draft 6. It defines three main object types:
+The schema is defined in `operator.json` using JSON Schema Draft 6. It defines three main object types:
 1. `Operator` - The root object for all operators
 2. `Argument` - Defines a single parameter/argument for an operator or stage
 3. `Test` - Example usage pattern for an operator or stage

@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $isoWeekYear
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/isoWeekYear/
 minVersion: '3.4'

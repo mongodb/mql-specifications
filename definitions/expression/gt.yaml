@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $gt
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/gt/
 minVersion: '2.6'

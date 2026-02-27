@@ -2,7 +2,7 @@
 
 ### Validating definition schemas
 
-`schema.json` contains the JSON Schema for validating the operator and stage definition files under `definitions/`. To validate the definitions against the schema, you can use the `validate-definitions` script:
+`operator.json` contains the JSON Schema for validating the operator and stage definition files under `definitions/`. To validate the definitions against the schema, you can use the `validate-definitions` script:
 
 ```bash
 cd scripts/schema-validator
@@ -25,5 +25,5 @@ pip install yamlfix
 yamlfix --check definitions
 
 # Format JSONSchema definition
-npx prettier --check schema.json
+npx prettier --check operator.json
 ```

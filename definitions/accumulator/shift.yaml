@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $shift
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/shift/
 minVersion: '5.0'

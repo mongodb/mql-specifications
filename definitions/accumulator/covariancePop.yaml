@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $covariancePop
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/covariancePop/
 minVersion: '5.0'

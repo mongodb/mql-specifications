@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $min
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/min/
 minVersion: '3.2'

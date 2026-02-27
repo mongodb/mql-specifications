@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $changeStream
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/changeStream/
 minVersion: '3.6'

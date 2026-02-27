@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $millisecond
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/millisecond/
 minVersion: '2.6'

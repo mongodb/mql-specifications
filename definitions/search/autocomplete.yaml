@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: autocomplete
 link: https://www.mongodb.com/docs/atlas/atlas-search/autocomplete/
 minVersion: '5.0'

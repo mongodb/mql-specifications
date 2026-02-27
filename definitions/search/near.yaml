@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: near
 link: https://www.mongodb.com/docs/atlas/atlas-search/near/
 minVersion: '5.0'

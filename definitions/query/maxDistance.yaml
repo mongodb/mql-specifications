@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $maxDistance
 link: https://www.mongodb.com/docs/manual/reference/operator/query/maxDistance/
 minVersion: '2.4'

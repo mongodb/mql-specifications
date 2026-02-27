@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $divide
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/divide/
 minVersion: '3.2'

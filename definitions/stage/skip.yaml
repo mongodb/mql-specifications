@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $skip
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/skip/
 minVersion: '2.2'

@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $createObjectId
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/createObjectId/
 minVersion: '4.4'

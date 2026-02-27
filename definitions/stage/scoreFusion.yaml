@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=../schema.json
+# $schema: ../../operator.json
 name: $scoreFusion
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/scoreFusion/
 minVersion: '8.0'

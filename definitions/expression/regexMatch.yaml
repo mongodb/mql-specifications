@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $regexMatch
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/regexMatch/
 minVersion: '4.2'

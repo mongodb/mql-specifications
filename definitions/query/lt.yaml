@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $lt
 link: https://www.mongodb.com/docs/manual/reference/operator/query/lt/
 minVersion: '1.0'

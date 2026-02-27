@@ -1,5 +1,5 @@
 {
-    "$schema": "http://json-schema.org/draft-06/type#",
+    "$schema": "http://json-schema.org/draft-06/schema#",
     "$ref": "#/definitions/Type",
     "definitions": {
         "Type": {

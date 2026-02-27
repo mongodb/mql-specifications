@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $degreesToRadians
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/degreesToRadians/
 minVersion: '4.2'

@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $bit
 link: https://www.mongodb.com/docs/manual/reference/operator/update/bit/
 minVersion: '1.0'

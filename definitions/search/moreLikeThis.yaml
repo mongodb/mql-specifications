@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: moreLikeThis
 link: https://www.mongodb.com/docs/atlas/atlas-search/moreLikeThis/
 minVersion: '5.0'

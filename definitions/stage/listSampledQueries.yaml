@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $listSampledQueries
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/listSampledQueries/
 minVersion: '5.0'

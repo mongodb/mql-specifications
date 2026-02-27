@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $listSearchIndexes
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/listSearchIndexes/
 minVersion: '7.0'

@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $setUnion
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/setUnion/
 minVersion: '3.0'

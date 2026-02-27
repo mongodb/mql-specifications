@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $size
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/size/
 minVersion: '3.2'

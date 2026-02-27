@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $firstN
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/firstN/
 minVersion: '5.2'

@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $indexOfArray
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/indexOfArray/
 minVersion: '3.4'

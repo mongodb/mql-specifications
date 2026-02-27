@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $regexFind
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/regexFind/
 minVersion: '4.2'

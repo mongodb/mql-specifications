@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $range
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/range/
 minVersion: '3.4'

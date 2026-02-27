@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $pull
 link: https://www.mongodb.com/docs/manual/reference/operator/update/pull/
 minVersion: '1.0'

@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $avg
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/avg/
 minVersion: '3.2'

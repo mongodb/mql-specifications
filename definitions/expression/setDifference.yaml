@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $setDifference
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/setDifference/
 minVersion: '3.0'

@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $ln
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/ln/
 minVersion: '4.2'

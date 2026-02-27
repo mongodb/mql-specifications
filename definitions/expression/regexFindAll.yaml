@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $regexFindAll
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/regexFindAll/
 minVersion: '4.2'

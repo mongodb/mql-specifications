@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $reverseArray
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/reverseArray/
 minVersion: '3.2'

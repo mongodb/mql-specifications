@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $mul
 link: https://www.mongodb.com/docs/manual/reference/operator/update/mul/
 minVersion: '1.0'

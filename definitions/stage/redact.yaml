@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: $redact
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/redact/
 minVersion: '2.6'
