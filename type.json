@@ -3,23 +3,23 @@
     "$ref": "#/definitions/Type",
     "definitions": {
         "Type": {
-        "type": "object",
-        "properties": {
-            "name": {
-                "type": "string"
-            },
-            "backingType": {
-                "type": "string"
-            },
-            "enum": {
-                "type": "array",
-                "items": {
-                    "type": ["string", "number"]
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "backingType": {
+                    "type": "string"
+                },
+                "enum": {
+                    "type": "array",
+                    "items": {
+                        "type": ["string", "number"]
+                    }
                 }
-            }
-        },
-        "required": ["name", "backingType", "enum"],
-        "additionalProperties": false
+            },
+            "required": ["name", "backingType", "enum"],
+            "additionalProperties": false
         }
     }
 }

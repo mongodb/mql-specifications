@@ -25,5 +25,5 @@ pip install yamlfix
 yamlfix --check definitions
 
 # Format JSONSchema definition
-npx prettier --check operator.json
+npx prettier --check operator.json type.json
 ```
