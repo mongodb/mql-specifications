@@ -2,15 +2,19 @@
 name: $minN
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/minN-array-element/
 minVersion: '5.1'
+generic:
+  - T
 type:
-  - resolvesToArray
+  - name: resolvesToArray
+    generic: T
 encode: object
 description: |
   Returns the n smallest values in an array. Distinct from the $minN accumulator.
 arguments:
   - name: input
     type:
-      - resolvesToArray
+      - name: resolvesToArray
+        generic: T
     description: |
       An expression that resolves to the array from which to return the maximal n elements.
   - name: n

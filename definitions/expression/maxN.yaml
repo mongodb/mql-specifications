@@ -2,15 +2,19 @@
 name: $maxN
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/maxN-array-element/
 minVersion: '5.1'
+generic:
+  - T
 type:
-  - resolvesToArray
+  - name: resolvesToArray
+    generic: T
 encode: object
 description: |
   Returns the n largest values in an array. Distinct from the $maxN accumulator.
 arguments:
   - name: input
     type:
-      - resolvesToArray
+      - name: resolvesToArray
+        generic: T
     description: |
       An expression that resolves to the array from which to return the maximal n elements.
   - name: n

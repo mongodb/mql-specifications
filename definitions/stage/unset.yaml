@@ -4,6 +4,7 @@ link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/unset/
 minVersion: '4.2'
 type:
   - stage
+  - updateStage
 encode: single
 description: |
   Removes or excludes fields from documents.

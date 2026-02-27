@@ -10,7 +10,7 @@ description: |
 arguments:
   - name: field
     type:
-      - any
+      - fieldQuery
     variadic: object
 tests:
   - name: Remove All Items That Equal a Specified Value

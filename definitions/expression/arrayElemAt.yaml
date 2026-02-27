@@ -2,15 +2,19 @@
 name: $arrayElemAt
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/arrayElemAt/
 minVersion: '3.2'
+generic:
+  - T
 type:
-  - resolvesToAny
+  - name: resolvesToAny
+    generic: T
 encode: array
 description: |
   Returns the element at the specified array index.
 arguments:
   - name: array
     type:
-      - resolvesToArray
+      - name: resolvesToArray
+        generic: T[]
   - name: idx
     type:
       - resolvesToInt

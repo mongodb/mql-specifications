@@ -2,15 +2,19 @@
 name: $arrayToObject
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/arrayToObject/
 minVersion: '3.4'
+generic:
+  - T
 type:
-  - resolvesToObject
+  - name: resolvesToObject
+    generic: T
 encode: array
 description: |
   Converts an array of key value pairs to a document.
 arguments:
   - name: array
     type:
-      - resolvesToArray
+      - name: resolvesToArray
+        generic: '[keyof T, T[keyof T]][]'
 tests:
   - name: $arrayToObject Example
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/arrayToObject/#-arraytoobject--example
