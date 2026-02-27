@@ -238,7 +238,7 @@ For aggregation pipeline stages or query operators, the following types can be u
 - `fieldQuery`: Field-level query operator (inside a field selector)
 - `window`: User in `$setWindowFields`
 - `searchOperator`: MongoDB Atlas Search operator
-- Any of the pipeline types defined in the `definitions/pipeline` directory
+- `pipeline` and `updatePipeline`: specific pipelines types
 
 ##### Special Types
 
