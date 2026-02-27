@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../operator.json
 name: updatePipeline
 link: https://www.mongodb.com/docs/manual/tutorial/update-documents-with-aggregation-pipeline/
 minVersion: '4.2'

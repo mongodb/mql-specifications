@@ -12,8 +12,8 @@ const currentDirPath = path.dirname(currentFilePath);
 const repoRootPath = path.resolve(currentDirPath, "../..");
 const require = createRequire(import.meta.url);
 
-const operatorPath = path.join(repoRootPath, "operator.json");
-const typePath = path.join(repoRootPath, "type.json");
+const operatorPath = path.join(repoRootPath, "schemas", "operator.json");
+const typePath = path.join(repoRootPath, "schemas", "type.json");
 const definitionsPath = path.join(repoRootPath, "definitions");
 
 const Ajv = require("ajv").default;
