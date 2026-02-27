@@ -19,8 +19,6 @@ tests:
     pipeline:
       - $project:
           quizAvg:
-                        # Example uses the short form, the builder always generates the verbose form
-                        # $avg: '$quizzes'
             $avg: $quizzes
           labAvg:
             $avg: $labs
