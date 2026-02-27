@@ -3,7 +3,6 @@ name: $search
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/search/
 minVersion: '5.0'
 type:
-  - stage
   - inputStage
 encode: object
 description: |

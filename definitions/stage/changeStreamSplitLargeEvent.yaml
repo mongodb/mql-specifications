@@ -3,7 +3,6 @@ name: $changeStreamSplitLargeEvent
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/changeStreamSplitLargeEvent/
 minVersion: '6.1'
 type:
-  - stage
   - outputStage
 encode: object
 description: |

@@ -3,7 +3,6 @@ name: $geoNear
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/geoNear/
 minVersion: '2.4'
 type:
-  - stage
   - inputStage
 encode: object
 description: |

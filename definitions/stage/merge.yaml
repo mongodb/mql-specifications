@@ -3,7 +3,6 @@ name: $merge
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/merge/
 minVersion: '4.2'
 type:
-  - stage
   - outputStage
 encode: object
 description: |

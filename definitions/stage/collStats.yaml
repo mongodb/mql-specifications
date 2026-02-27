@@ -3,7 +3,6 @@ name: $collStats
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/collStats/
 minVersion: '3.4'
 type:
-  - stage
   - inputStage
 encode: object
 description: |
