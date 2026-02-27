@@ -255,6 +255,16 @@
             "title": "Argument"
         },
         "Test": {
+            "anyOf": [
+                {
+                    "$ref": "#/definitions/PipelineTest"
+                },
+                {
+                    "$ref": "#/definitions/FilterUpdateTest"
+                }
+            ]
+        },
+        "PipelineTest": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
@@ -272,6 +282,30 @@
                         "type": "object"
                     }
                 },
+                "schema": {
+                    "type": ["object", "string"],
+                    "additionalProperties": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "$ref": "#/definitions/SimplifiedSchemaField"
+                        }
+                    }
+                }
+            },
+            "required": ["name", "pipeline"]
+        },
+        "FilterUpdateTest": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "link": {
+                    "type": "string",
+                    "format": "uri",
+                    "pattern": "^https://"
+                },
                 "filter": {
                     "type": "object"
                 },
@@ -288,14 +322,7 @@
                     }
                 }
             },
-            "anyOf": [
-                {
-                    "required": ["name", "pipeline"]
-                },
-                {
-                    "required": ["name", "filter", "update"]
-                }
-            ]
+            "required": ["name", "filter", "update"]
         },
         "SimplifiedSchemaType": {
             "anyOf": [
