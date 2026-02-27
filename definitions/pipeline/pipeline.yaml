@@ -1,4 +1,4 @@
-# $schema: ../../operator.json
+# $schema: ../../schemas/operator.json
 name: pipeline
 link: https://www.mongodb.com/docs/manual/core/aggregation-pipeline/
 minVersion: '1.0'
