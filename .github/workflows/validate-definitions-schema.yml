@@ -2,17 +2,9 @@ name: Validate definitions schema
 
 on:
   pull_request:
-    paths:
-      - 'definitions/**/*.yaml'
-      - 'schema.json'
-      - '.github/workflows/validate-definitions-schema.yml'
   push:
     branches:
       - main
-    paths:
-      - 'definitions/**/*.yaml'
-      - 'schema.json'
-      - '.github/workflows/validate-definitions-schema.yml'
 
 jobs:
   validate-definitions:
