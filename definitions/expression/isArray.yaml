@@ -20,7 +20,7 @@ tests:
             $cond:
               if:
                 $and:
-                                    # Example uses the short form, the builder always generates the verbose form
+                  # Example uses the short form, the builder always generates the verbose form
                   - $isArray:
                       - $instock
                   - $isArray:

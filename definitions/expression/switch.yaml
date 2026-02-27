@@ -34,7 +34,7 @@ tests:
               branches:
                 - case:
                     $gte:
-                                                #$avg: '$scores'
+                      #$avg: '$scores'
                       - $avg:
                           - $scores
                       - 90
@@ -42,19 +42,19 @@ tests:
                 - case:
                     $and:
                       - $gte:
-                                                        #$avg: '$scores'
+                          #$avg: '$scores'
                           - $avg:
                               - $scores
                           - 80
                       - $lt:
-                                                        #$avg: '$scores'
+                          #$avg: '$scores'
                           - $avg:
                               - $scores
                           - 90
                   then: Doing pretty well.
                 - case:
                     $lt:
-                                                #$avg: '$scores'
+                      #$avg: '$scores'
                       - $avg:
                           - $scores
                       - 80

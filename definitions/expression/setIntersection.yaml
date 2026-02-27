@@ -30,7 +30,7 @@ tests:
       - $match:
           $expr:
             $not:
-                            # the example doesn't use an array inside $not, but the documentation say it is necessary
+              # the example doesn't use an array inside $not, but the documentation say it is necessary
               - $eq:
                   - $setIntersection:
                       - $allowedRoles

@@ -18,16 +18,16 @@ tests:
     pipeline:
       - $facet:
           categorizedByTags:
-                            # The builder uses the verbose form of the $unwind operator
-                            # $unwind: '$tags'
+            # The builder uses the verbose form of the $unwind operator
+            # $unwind: '$tags'
             - $unwind:
                 path: $tags
             - $sortByCount: $tags
           categorizedByPrice:
             - $match:
                 price:
-                                    # The example uses an int, but the builder requires a bool
-                                    # $exists: 1
+                  # The example uses an int, but the builder requires a bool
+                  # $exists: 1
                   $exists: true
             - $bucket:
                 groupBy: $price

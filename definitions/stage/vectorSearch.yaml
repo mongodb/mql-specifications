@@ -54,7 +54,7 @@ tests:
       - $vectorSearch:
           index: vector_index
           path: plot_embedding
-          queryVector:                                                       # skip other numbers, not relevant to the test
+          queryVector: # skip other numbers, not relevant to the test
             - -0.0016261312
             - -0.028070757
             - -0.011342932
@@ -76,7 +76,7 @@ tests:
             $and:
               - year:
                   $lt: 1975
-          queryVector:                                                    # skip other numbers, not relevant to the test
+          queryVector: # skip other numbers, not relevant to the test
             - 0.02421053
             - -0.022372592
             - -0.006231137
@@ -95,7 +95,7 @@ tests:
       - $vectorSearch:
           index: vector_index
           path: plot_embedding
-          queryVector:                                                      # skip other numbers, not relevant to the test
+          queryVector: # skip other numbers, not relevant to the test
             - -0.006954097
             - -0.009932499
             - -0.001311474
