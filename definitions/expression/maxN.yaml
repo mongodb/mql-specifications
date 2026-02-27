@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $maxN
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/maxN-array-element/
-minVersion: 5.1.0
+minVersion: '5.1'
 type:
   - resolvesToArray
 encode: object

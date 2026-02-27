@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $dateFromParts
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/dateFromParts/
-minVersion: 3.6.0
+minVersion: '3.6'
 type:
   - resolvesToDate
 encode: object

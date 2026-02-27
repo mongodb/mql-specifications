@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $near
 link: https://www.mongodb.com/docs/manual/reference/operator/query/near/
-minVersion: 2.4.0
+minVersion: '2.4'
 type:
   - fieldQuery
 encode: object

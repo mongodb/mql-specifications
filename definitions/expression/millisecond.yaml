@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $millisecond
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/millisecond/
-minVersion: 2.6.0
+minVersion: '2.6'
 type:
   - resolvesToInt
 encode: object

@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $lookup
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/lookup/
-minVersion: 3.2.0
+minVersion: '3.2'
 type:
   - stage
 encode: object
@@ -31,14 +31,14 @@ arguments:
   - name: let
     type:
       - object       # of expression
-    minVersion: 3.6.0
+    minVersion: '3.6'
     optional: true
     description: |
       Specifies variables to use in the pipeline stages. Use the variable expressions to access the fields from the joined collection's documents that are input to the pipeline.
   - name: pipeline
     type:
       - pipeline
-    minVersion: 3.6.0
+    minVersion: '3.6'
     optional: true
     description: |
       Specifies the pipeline to run on the joined collection. The pipeline determines the resulting documents from the joined collection. To return all documents, specify an empty pipeline [].

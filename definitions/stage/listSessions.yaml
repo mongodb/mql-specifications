@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $listSessions
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/listSessions/
-minVersion: 3.6.0
+minVersion: '3.6'
 type:
   - stage
 encode: object

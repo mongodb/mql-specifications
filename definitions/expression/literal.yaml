@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $literal
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/literal/
-minVersion: 3.0.0
+minVersion: '3.0'
 type:
   - resolvesToAny
 encode: single

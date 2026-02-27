@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $let
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/let/
-minVersion: 3.6.0
+minVersion: '3.6'
 type:
   - resolvesToAny
 encode: object

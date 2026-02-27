@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $accumulator
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/accumulator/
-minVersion: 4.4.0
+minVersion: '4.4'
 type:
   - accumulator
 encode: object

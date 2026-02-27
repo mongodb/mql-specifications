@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $bitsAllClear
 link: https://www.mongodb.com/docs/manual/reference/operator/query/bitsAllClear/
-minVersion: 3.2.0
+minVersion: '3.2'
 type:
   - fieldQuery
 encode: single

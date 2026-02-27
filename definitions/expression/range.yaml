@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $range
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/range/
-minVersion: 3.4.0
+minVersion: '3.4'
 type:
   - resolvesToArray   # of int
 encode: array

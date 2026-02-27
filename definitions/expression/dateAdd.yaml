@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $dateAdd
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/dateAdd/
-minVersion: 5.0.0
+minVersion: '5.0'
 type:
   - resolvesToDate
 encode: object

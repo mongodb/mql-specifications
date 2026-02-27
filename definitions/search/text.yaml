@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: text
 link: https://www.mongodb.com/docs/atlas/atlas-search/text/
-minVersion: 5.0.0
+minVersion: '5.0'
 type:
   - searchOperator
 encode: object

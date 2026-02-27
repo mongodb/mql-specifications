@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $set
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/set/
-minVersion: 4.2.0
+minVersion: '4.2'
 type:
   - stage
 encode: single

@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $bitXor
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/bitXor/
-minVersion: 6.3.0
+minVersion: '6.3'
 type:
   - resolvesToInt
   - resolvesToLong

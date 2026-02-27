@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $strLenBytes
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/strLenBytes/
-minVersion: 3.0.0
+minVersion: '3.0'
 type:
   - resolvesToInt
 encode: single

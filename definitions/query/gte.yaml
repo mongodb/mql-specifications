@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $gte
 link: https://www.mongodb.com/docs/manual/reference/operator/query/gte/
-minVersion: 1.0.0
+minVersion: '1.0'
 type:
   - fieldQuery
 encode: single

@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $tsIncrement
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/tsIncrement/
-minVersion: 5.1.0
+minVersion: '5.1'
 type:
   - resolvesToLong
 encode: single

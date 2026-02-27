@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $dateToString
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/dateToString/
-minVersion: 3.0.0
+minVersion: '3.0'
 type:
   - resolvesToString
 encode: object
@@ -31,7 +31,7 @@ arguments:
   - name: onNull
     type:
       - expression
-    minVersion: 5.0.0
+    minVersion: '5.0'
     optional: true
     description: |
       The value to return if the date is null or missing.

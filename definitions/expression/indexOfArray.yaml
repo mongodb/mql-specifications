@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $indexOfArray
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/indexOfArray/
-minVersion: 3.4.0
+minVersion: '3.4'
 type:
   - resolvesToInt
 encode: array

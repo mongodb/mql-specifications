@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $ln
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/ln/
-minVersion: 4.2.0
+minVersion: '4.2'
 type:
   - resolvesToDouble
 encode: single

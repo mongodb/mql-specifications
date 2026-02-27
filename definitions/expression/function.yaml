@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $function
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/function/
-minVersion: 4.4.0
+minVersion: '4.4'
 type:
   - resolvesToAny
 encode: object

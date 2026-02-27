@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $geoIntersects
 link: https://www.mongodb.com/docs/manual/reference/operator/query/geoIntersects/
-minVersion: 2.6.0
+minVersion: '2.6'
 type:
   - fieldQuery
 encode: object

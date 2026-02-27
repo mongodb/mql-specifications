@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $floor
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/floor/
-minVersion: 3.2.0
+minVersion: '3.2'
 type:
   - resolvesToInt
 encode: single

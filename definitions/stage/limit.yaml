@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $limit
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/limit/
-minVersion: 2.2.0
+minVersion: '2.2'
 type:
   - stage
 encode: single

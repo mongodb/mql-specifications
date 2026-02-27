@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $binarySize
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/binarySize/
-minVersion: 4.4.0
+minVersion: '4.4'
 type:
   - resolvesToInt
 encode: single

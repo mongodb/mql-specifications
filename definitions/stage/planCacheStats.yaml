@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $planCacheStats
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/planCacheStats/
-minVersion: 4.4.0
+minVersion: '4.4'
 type:
   - stage
 encode: object

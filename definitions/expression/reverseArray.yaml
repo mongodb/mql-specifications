@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $reverseArray
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/reverseArray/
-minVersion: 3.2.0
+minVersion: '3.2'
 type:
   - resolvesToArray
 encode: single

@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $match
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/match/
-minVersion: 2.2.0
+minVersion: '2.2'
 type:
   - stage
 encode: single

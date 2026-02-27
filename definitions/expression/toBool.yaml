@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $toBool
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/toBool/
-minVersion: 4.0.0
+minVersion: '4.0'
 type:
   - resolvesToBool
 encode: single

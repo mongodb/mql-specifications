@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $center
 link: https://www.mongodb.com/docs/manual/reference/operator/query/center/
-minVersion: 2.4.0
+minVersion: '2.4'
 type:
   - geometry
 encode: single

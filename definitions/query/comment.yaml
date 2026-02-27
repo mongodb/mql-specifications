@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $comment
 link: https://www.mongodb.com/docs/manual/reference/operator/query/comment/
-minVersion: 2.6.0
+minVersion: '2.6'
 type:
   - query
 encode: single

@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $round
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/round/
-minVersion: 3.2.0
+minVersion: '3.2'
 type:
   - resolvesToInt
   - resolvesToDouble

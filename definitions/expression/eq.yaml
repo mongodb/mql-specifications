@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $eq
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/eq/
-minVersion: 2.6.0
+minVersion: '2.6'
 type:
   - resolvesToBool
 encode: array

@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $ifNull
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/ifNull/
-minVersion: 3.0.0
+minVersion: '3.0'
 type:
   - resolvesToAny
 encode: single

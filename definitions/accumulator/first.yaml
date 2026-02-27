@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $first
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/first/
-minVersion: 2.2.0
+minVersion: '2.2'
 type:
   - accumulator
   - window

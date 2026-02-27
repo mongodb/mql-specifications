@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $count
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/count-accumulator/
-minVersion: 5.0.0
+minVersion: '5.0'
 type:
   - accumulator
   - window

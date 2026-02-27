@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $tanh
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/tanh/
-minVersion: 4.2.0
+minVersion: '4.2'
 type:
   - resolvesToDouble
   - resolvesToDecimal

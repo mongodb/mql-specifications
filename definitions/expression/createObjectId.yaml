@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $createObjectId
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/createObjectId/
-minVersion: 4.4.0
+minVersion: '4.4'
 type:
   - resolvesToObjectId
 encode: object

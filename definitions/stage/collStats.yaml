@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $collStats
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/collStats/
-minVersion: 3.4.0
+minVersion: '3.4'
 type:
   - stage
 encode: object

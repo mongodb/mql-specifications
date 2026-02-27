@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $stdDevSamp
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/stdDevSamp/
-minVersion: 3.2.0
+minVersion: '3.2'
 type:
   - accumulator
   - window

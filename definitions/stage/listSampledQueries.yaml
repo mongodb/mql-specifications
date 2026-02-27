@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $listSampledQueries
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/listSampledQueries/
-minVersion: 5.0.0
+minVersion: '5.0'
 type:
   - stage
 encode: object

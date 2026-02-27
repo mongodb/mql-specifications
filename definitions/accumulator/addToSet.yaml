@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $addToSet
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/addToSet/
-minVersion: 2.2.0
+minVersion: '2.2'
 type:
   - accumulator
   - window

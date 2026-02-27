@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $documents
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/documents/
-minVersion: 5.1.0
+minVersion: '5.1'
 type:
   - stage
 encode: single

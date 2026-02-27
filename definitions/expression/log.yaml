@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $log
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/log/
-minVersion: 4.2.0
+minVersion: '4.2'
 type:
   - resolvesToDouble
 encode: array

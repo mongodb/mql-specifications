@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $max
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/max/
-minVersion: 3.2.0
+minVersion: '3.2'
 type:
   - resolvesToAny
 encode: single

@@ -1,7 +1,7 @@
 # $schema: ../../schema.json
 name: $sortArray
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/sortArray/
-minVersion: 5.2.0
+minVersion: '5.2'
 type:
   - resolvesToArray
 encode: object
