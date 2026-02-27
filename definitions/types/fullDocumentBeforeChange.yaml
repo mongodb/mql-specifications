@@ -2,6 +2,6 @@
 name: fullDocumentBeforeChange
 backingType: string
 enum:
-  - default
+  - off
   - required
   - whenAvailable
