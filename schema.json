@@ -5,6 +5,7 @@
         "ReturnType": {
             "type": "string",
             "enum": [
+                "pipeline",
                 "accumulator",
                 "stage",
                 "updateStage",
@@ -38,6 +39,8 @@
         "ArgumentType": {
             "type": "string",
             "enum": [
+                "stage",
+                "updateStage",
                 "accumulator",
                 "query",
                 "fieldQuery",
