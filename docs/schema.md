@@ -325,8 +325,6 @@ Defines generic type parameters for operators that support polymorphic behavior.
 
 ```yaml
 name: $arrayElemAt
-link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/arrayElemAt/
-minVersion: '3.2'
 generic:
   - T
 type:
@@ -346,3 +344,6 @@ arguments:
 ```
 
 This allows the operator to preserve type information: if the input is an array of strings, the output type is known to be a string.
+The `generic` field should contain a typescript representation of the expected type in this argument or return type.
+Its contents are independent of the `name` field, e.g. `name: resolvesToArray` in combination with `generic: T[]` refers to an array of T,
+and `name: resolvesToArray` with `generic: T` means that `T` itself is an array type.
