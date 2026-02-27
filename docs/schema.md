@@ -11,11 +11,11 @@ The specification system has two components:
 
 Operators are organized into categories based on their type and purpose:
 
-- **Stages** (`/definitions/stage`): Aggregation pipeline stages (e.g., `$match`, `$group`, `$project`)
-- **Accumulators** (`/definitions/accumulator`): Used in `$group` and `$setWindowFields` stages (e.g., `$sum`, `$avg`)
-- **Expression Operators** (`/definitions/expression`): Used to compute values in aggregation pipelines (e.g., `$add`, `$concat`)
-- **Query Operators** (`/definitions/query`): Used in query filters (e.g., `$eq`, `$gt`, `$in`)
-- **Search Operators** (`/definitions/search`): Operators used in the `$search` pipeline stage
+- **Stages** (`definitions/stage`): Aggregation pipeline stages (e.g., `$match`, `$group`, `$project`)
+- **Accumulators** (`definitions/accumulator`): Used in `$group` and `$setWindowFields` stages (e.g., `$sum`, `$avg`)
+- **Expression Operators** (`definitions/expression`): Used to compute values in aggregation pipelines (e.g., `$add`, `$concat`)
+- **Query Operators** (`definitions/query`): Used in query filters (e.g., `$eq`, `$gt`, `$in`)
+- **Search Operators** (`definitions/search`): Operators used in the `$search` pipeline stage
 
 ## JSON Schema Definition
 
@@ -50,7 +50,7 @@ The `type` property is a list of strings that defines the operator's type which 
 - `query`: Top-level query operator or field query operator
 - `fieldQuery`: Field-level query operator (inside a field selector)
 - `filter`: Filter expression
-- `window`: User in `$setWindowFields`
+- `window`: Used in `$setWindowFields`
 - `geometry`: Geometric query type
 - `searchOperator`: MongoDB Atlas Search operator
 - `switchBranch`: Branch in a `$switch` expression
@@ -204,25 +204,25 @@ For all of the BSON types, the schema knows three different uses for a type:
 - `resolvesTo<type>`: this denotes an expression that resolves to a value of a given type
 - `<type>FieldPath`: a field path containing a value of a given type
 
-| Type | Expression Type | Field Path Type | Description |
-| --- | --- | --- | --- |
-| `any` | `resolvesToAny` | `fieldPath` | This is the "top type", which matches any value |
-| `double` | `resolvesToDouble` | `doubleFieldPath` | 64-bit floating-point number |
-| `int` | `resolvesToInt` | `intFieldPath` | A 32-bit integer |
-| `long` | `resolvesToLong` | `longFieldPath` | A 64-bit integer |
-| `decimal` | `resolvesToDecimal` | `decimalFieldPath` | A 128-bit decimal number |
-| `number` | `resolvesToNumber` | `numberFieldPath` | Any numeric type (`int`, `long`, `decimal`) |
-| `string` | `resolvesToString` | `stringFieldPath` | UTF-8 string |
-| `object` | `resolvesToObject` | `objectFieldPath` | Embedded document |
-| `array` | `resolvesToArray` | `arrayFieldPath` | Array of values |
-| `binData` | `resolvesToBinData` | `binDataFieldPath` | Binary data |
-| `objectId` | `resolvesToObjectId` | `objectIdFieldPath` | A BSON ObjectId |
-| `bool` | `resolvesToBool` | `boolFieldPath` | Boolean `true` or `false` |
-| `date` | `resolvesToDate` | `dateFieldPath` | UTC datetime |
-| `regex` | `resolvesToRegex` | `regexFieldPath` | A BSON regular expression |
-| `javascript` | `resolvesToJavascript` | `javascriptFieldPath` | BSON JavaScript object |
-| `timestamp` | `resolvesToTimestamp` | `timestampFieldPath` | BSON Timestamp |
-| `null` | `resolvesToNull` | `nullFieldPath` | Null value |
+| Type | Expression Type | Field Path Type | Description                                          |
+| --- | --- | --- |------------------------------------------------------|
+| `any` | `resolvesToAny` | `fieldPath` | This is the "top type", which matches any value      |
+| `double` | `resolvesToDouble` | `doubleFieldPath` | 64-bit floating-point number                         |
+| `int` | `resolvesToInt` | `intFieldPath` | A 32-bit integer                                     |
+| `long` | `resolvesToLong` | `longFieldPath` | A 64-bit integer                                     |
+| `decimal` | `resolvesToDecimal` | `decimalFieldPath` | A 128-bit decimal number                             |
+| `number` | `resolvesToNumber` | `numberFieldPath` | Any numeric type (`double`, `int`, `long`, `decimal`) |
+| `string` | `resolvesToString` | `stringFieldPath` | UTF-8 string                                         |
+| `object` | `resolvesToObject` | `objectFieldPath` | Embedded document                                    |
+| `array` | `resolvesToArray` | `arrayFieldPath` | Array of values                                      |
+| `binData` | `resolvesToBinData` | `binDataFieldPath` | Binary data                                          |
+| `objectId` | `resolvesToObjectId` | `objectIdFieldPath` | A BSON ObjectId                                      |
+| `bool` | `resolvesToBool` | `boolFieldPath` | Boolean `true` or `false`                            |
+| `date` | `resolvesToDate` | `dateFieldPath` | UTC datetime                                         |
+| `regex` | `resolvesToRegex` | `regexFieldPath` | A BSON regular expression                            |
+| `javascript` | `resolvesToJavascript` | `javascriptFieldPath` | BSON JavaScript object                               |
+| `timestamp` | `resolvesToTimestamp` | `timestampFieldPath` | BSON Timestamp                                       |
+| `null` | `resolvesToNull` | `nullFieldPath` | Null value                                           |
 
 ##### Operator Types
 
@@ -232,7 +232,7 @@ For aggregation pipeline stages or query operators, the following types can be u
 - `query`: Top-level query operator or field query operator
 - `fieldQuery`: Field-level query operator (inside a field selector)
 - `pipeline`: An aggregation pipeline
-- `window`: User in `$setWindowFields`
+- `window`: Used in `$setWindowFields`
 - `searchOperator`: MongoDB Atlas Search operator
 
 ##### Special Types
