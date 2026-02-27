@@ -14,7 +14,7 @@
                 "minVersion": {
                     "$comment": "The minimum version of MongoDB that supports this operator.",
                     "type": "string",
-                    "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+                    "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?$"
                 },
                 "link": {
                     "$comment": "The link to the operator's documentation on MongoDB's website.",
@@ -105,7 +105,7 @@
                 "minVersion": {
                     "$comment": "The minimum version of MongoDB that supports this argument.",
                     "type": "string",
-                    "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+                    "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?$"
                 },
                 "type": {
                     "type": "array",
