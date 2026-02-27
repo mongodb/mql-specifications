@@ -47,6 +47,7 @@ The `Operator` object is the main definition for any operator in the system.
 The `type` property is a list of strings that defines the operator's type which may limit its usage, as well as the return type. The following types are available:
 - `accumulator`: Used as an accumulator in `$group`
 - `stage`: Aggregation pipeline stage (outputs at pipeline level)
+- `updateStage`: Aggregation pipeline stage that is allowed to appear in an update pipeline
 - `query`: Top-level query operator or field query operator
 - `fieldQuery`: Field-level query operator (inside a field selector)
 - `filter`: Filter expression
@@ -232,6 +233,7 @@ For aggregation pipeline stages or query operators, the following types can be u
 - `query`: Top-level query operator or field query operator
 - `fieldQuery`: Field-level query operator (inside a field selector)
 - `pipeline`: An aggregation pipeline
+- `updatePipeline`: An aggregation pipeline consisting only of stages that can appear in an update pipeline
 - `window`: User in `$setWindowFields`
 - `searchOperator`: MongoDB Atlas Search operator
 
