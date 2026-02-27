@@ -282,7 +282,7 @@ function validate(): void {
   }
 
   console.log(
-  `Validated ${yamlFiles.length} YAML file(s) under ${definitionsPath} against schema.json and type.json`,
+  `Validated ${yamlFiles.length} YAML file(s) under ${definitionsPath} against schemas`,
   );
 }
 
