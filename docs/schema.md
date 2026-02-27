@@ -50,6 +50,8 @@ The `type` property is a list of strings that defines the operator's type which 
 - `accumulator`: Used as an accumulator in `$group`
 - `stage`: Aggregation pipeline stage (outputs at pipeline level)
 - `updateStage`: Aggregation pipeline stage that is allowed to appear in an update pipeline
+- `inputStage`: Aggregation pipeline stage that is only allowed as the first stage in an aggregation pipeline
+- `outputStage`: Aggregation pipeline stage that is only allowed as the last stage in an aggregation pipeline
 - `query`: Top-level query operator or field query operator
 - `fieldQuery`: Field-level query operator (inside a field selector)
 - `filter`: Filter expression
@@ -233,6 +235,8 @@ For aggregation pipeline stages or query operators, the following types can be u
 
 - `stage`: An aggregation pipeline stage
 - `updateStage`: An aggregation pipeline stage that can be used in pipeline updates
+- `inputStage`: An aggregation pipeline stage that can be used as the first stage in the pipeline
+- `outputStage`: An aggregation pipeline stage that can be used as the last stage in the pipeline
 - `accumulator`: Used as an accumulator in `$group`
 - `query`: Top-level query operator or field query operator
 - `fieldQuery`: Field-level query operator (inside a field selector)
