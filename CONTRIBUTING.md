@@ -4,6 +4,8 @@
 
 `operator.json` contains the JSON Schema for validating the operator and stage definition files under `definitions/`. To validate the definitions against the schema, you can use the `validate-definitions` script:
 
+`type.json` contains the JSON Schema for validating the closed set type definition files under `definitions/types`. To validate the definitions against the schema, you can use the `validate-definitions` script:
+
 ```bash
 cd scripts/schema-validator
 pnpm install
