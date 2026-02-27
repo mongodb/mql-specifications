@@ -35,6 +35,7 @@ The `Operator` object is the main definition for any operator in the system.
 - `type`: Categories/contexts where the operator can be used
 - `encode`: How the operator parameters are encoded when serialized
 - `description`: Human-readable description of what the operator does
+- `minVersion`: Minimum MongoDB version where the operator is supported
 
 **Optional Properties:**
 
@@ -53,6 +54,7 @@ The `type` property is a list of strings that defines the operator's type which 
 - `geometry`: Geometric query type
 - `searchOperator`: MongoDB Atlas Search operator
 - `switchBranch`: Branch in a `$switch` expression
+- `update`: Update operator
 
 In addition to the above types, you can specify any of the `resolvesTo*` types explained below to indicate the return type of the operator.
 
@@ -189,6 +191,7 @@ Defines a single parameter/argument for an operator.
 - `variadicMin`: Minimum number of values for variadic arguments
 - `default`: Default value for optional parameters when no value was specified
 - `mergeObject`: Whether to merge the argument into the parent object when using `object` encoding; defaults to `false`
+- `minVersion`: Minimum MongoDB version where the parameter is supported
 
 #### Types
 
@@ -236,6 +239,7 @@ For aggregation pipeline stages or query operators, the following types can be u
 
 - `expression`: Any aggregation expression
 - `geoPoint`: GeoJSON point specification
+- `unprefixedFieldPath`: Same as a `fieldPath`, but without the `$` prefix
 
 ##### Closed Sets
 
