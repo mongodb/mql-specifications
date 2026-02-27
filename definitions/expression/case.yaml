@@ -2,8 +2,11 @@
 name: $case
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/switch/
 minVersion: '3.4'
+generic:
+  - T
 type:
-  - switchBranch
+  - name: switchBranch
+    generic: T
 encode: object
 wrapObject: false
 description: |
@@ -16,6 +19,7 @@ arguments:
       Can be any valid expression that resolves to a boolean. If the result is not a boolean, it is coerced to a boolean value. More information about how MongoDB evaluates expressions as either true or false can be found here.
   - name: then
     type:
-      - expression
+      - name: expression
+        generic: T
     description: |-
       Can be any valid expression.

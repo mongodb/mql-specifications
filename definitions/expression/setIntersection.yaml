@@ -2,15 +2,19 @@
 name: $setIntersection
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/setIntersection/
 minVersion: '3.0'
+generic:
+  - T
 type:
-  - resolvesToArray
+  - name: resolvesToArray
+    generic: T
 encode: single
 description: |
   Returns a set with elements that appear in all of the input sets. Accepts any number of argument expressions.
 arguments:
   - name: expression
     type:
-      - resolvesToArray
+      - name: resolvesToArray
+        generic: T
     variadic: array
 tests:
   - name: Elements Array Example
