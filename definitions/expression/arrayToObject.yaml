@@ -14,7 +14,7 @@ arguments:
   - name: array
     type:
       - name: resolvesToArray
-        generic: "[keyof T, T[keyof T]][]"
+        generic: '[keyof T, T[keyof T]][]'
 tests:
   - name: $arrayToObject Example
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/arrayToObject/#-arraytoobject--example
