@@ -6,4 +6,3 @@ enum:
   - keepExisting
   - merge
   - fail
-  - pipeline
