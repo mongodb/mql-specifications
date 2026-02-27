@@ -4,6 +4,7 @@ link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/geoNear
 minVersion: '2.4'
 type:
   - stage
+  - inputStage
 encode: object
 description: |
   Returns an ordered stream of documents based on the proximity to a geospatial point. Incorporates the functionality of $match, $sort, and $limit for geospatial data. The output documents include an additional distance field and can include a location identifier field.

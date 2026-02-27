@@ -4,6 +4,7 @@ link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/collSta
 minVersion: '3.4'
 type:
   - stage
+  - inputStage
 encode: object
 description: |
   Returns statistics regarding a collection or view.

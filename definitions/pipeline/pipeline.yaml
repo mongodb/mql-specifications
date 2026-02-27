@@ -12,6 +12,8 @@ arguments:
   - name: stages
     type:
       - stage
+      - inputStage
+      - outputStage
     variadic: array
     description: |-
       A list of stages

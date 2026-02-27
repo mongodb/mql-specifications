@@ -4,6 +4,7 @@ link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/documen
 minVersion: '5.1'
 type:
   - stage
+  - inputStage
 encode: single
 description: |
   Returns literal documents from input values.

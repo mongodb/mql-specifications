@@ -4,6 +4,7 @@ link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/listSes
 minVersion: '3.6'
 type:
   - stage
+  - inputStage
 encode: object
 description: |
   Lists all sessions that have been active long enough to propagate to the system.sessions collection.
