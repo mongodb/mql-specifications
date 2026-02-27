@@ -30,5 +30,5 @@ jobs:
       - name: Run yamlfix check
         run: yamlfix --check definitions
 
-      - name: Run Prettier check for operator.json and type.json
-        run: npx prettier --check operator.json type.json
+      - name: Run Prettier check for schemas/*.json
+        run: npx prettier --check schemas/*.json

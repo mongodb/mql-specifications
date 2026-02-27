@@ -5,7 +5,7 @@ This repository is the source of truth for MongoDB Query Language (MQL) operator
 ## Scope
 
 - Operator and stage definitions are maintained in language-neutral YAML files under `definitions/`.
-- Validation rules are maintained in `operator.json` and `type.json`.
+- Validation rules are maintained in `schemas/*.json`.
 
 ## Language-specific consumers
 

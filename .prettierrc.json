@@ -2,8 +2,7 @@
     "overrides": [
         {
             "files": [
-                "operator.json",
-                "type.json"
+                "schemas/*.json"
             ],
             "options": {
                 "parser": "json",

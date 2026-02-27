@@ -4,16 +4,14 @@ on:
   pull_request:
     paths:
       - 'definitions/**/*.yaml'
-      - 'operator.json'
-      - 'type.json'
+      - 'schemas/*.json'
       - '.github/workflows/validate-definitions-schema.yml'
   push:
     branches:
       - main
     paths:
       - 'definitions/**/*.yaml'
-      - 'operator.json'
-      - 'type.json'
+      - 'schemas/*.json'
       - '.github/workflows/validate-definitions-schema.yml'
 
 jobs:
@@ -42,6 +40,6 @@ jobs:
         run: pnpm run typecheck
         working-directory: scripts/schema-validator
 
-      - name: Validate definitions YAML files against operator.json and type.json
+      - name: Validate definitions YAML files against schemas/*.json
         run: pnpm run validate
         working-directory: scripts/schema-validator

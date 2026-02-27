@@ -5,7 +5,7 @@
 The specification system has two components:
 
 1. **Schema Definition files** (`operator.json`, `type.json`): JSON Schema that validates all operator and closed set definitions.
-2. **YAML Definitions**: Individual YAML files that describe each operator using the operator.json schema or closed set type using `type.json`.
+2. **YAML Definitions**: Individual YAML files that describe each operator using the `operator.json` schema or closed set type using `type.json`.
 
 ### Operator Categories
 
