@@ -19,12 +19,12 @@ tests:
     pipeline:
       - $project:
           quizMax:
-                        # Example uses the short form, the builder always generates the verbose form
-                        # $max: '$quizzes'
+            # Example uses the short form, the builder always generates the verbose form
+            # $max: '$quizzes'
             $max:
               - $quizzes
           labMax:
-                        # $max: '$labs'
+            # $max: '$labs'
             $max:
               - $labs
           examMax:

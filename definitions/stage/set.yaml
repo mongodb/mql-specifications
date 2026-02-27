@@ -19,12 +19,12 @@ tests:
     pipeline:
       - $set:
           totalHomework:
-                        # The $sum expression is always build as an array, even if the value is an array field name
-                        # $sum: '$homework'
+            # The $sum expression is always build as an array, even if the value is an array field name
+            # $sum: '$homework'
             $sum:
               - $homework
           totalQuiz:
-                        # $sum: '$quiz'
+            # $sum: '$quiz'
             $sum:
               - $quiz
       - $set:
@@ -58,6 +58,6 @@ tests:
     pipeline:
       - $set:
           quizAverage:
-                        # $avg: '$quiz'
+            # $avg: '$quiz'
             $avg:
               - $quiz

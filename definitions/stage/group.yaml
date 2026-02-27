@@ -100,6 +100,6 @@ tests:
             $push: $$ROOT
       - $addFields:
           totalCopies:
-                        # $sum: '$books.copies'
+            # $sum: '$books.copies'
             $sum:
               - $books.copies

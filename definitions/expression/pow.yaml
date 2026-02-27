@@ -21,8 +21,8 @@ tests:
       - $project:
           variance:
             $pow:
-                                # Example uses the short form, the builder always generates the verbose form
-                                # $stdDevPop: '$scores.score'
+              # Example uses the short form, the builder always generates the verbose form
+              # $stdDevPop: '$scores.score'
               - $stdDevPop:
                   - $scores.score
               - 2

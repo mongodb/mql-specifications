@@ -27,8 +27,8 @@ tests:
     pipeline:
       - $project:
           dayOfYear:
-                        # Example uses the short form, the builder always generates the verbose form
-                        # $dayOfYear: '$date'
+            # Example uses the short form, the builder always generates the verbose form
+            # $dayOfYear: '$date'
             $dayOfYear:
               date: $date
     schema:
