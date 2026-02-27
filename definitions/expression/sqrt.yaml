@@ -31,3 +31,28 @@ tests:
                         - $p2.x
                         - $p1.x
                     - 2
+    schema:
+      points:
+        _id:
+          types:
+            - bsonType: Number
+        p1:
+          types:
+            - bsonType: Document
+              fields:
+                x:
+                  types:
+                    - bsonType: Number
+                y:
+                  types:
+                    - bsonType: Number
+        p2:
+          types:
+            - bsonType: Document
+              fields:
+                x:
+                  types:
+                    - bsonType: Number
+                y:
+                  types:
+                    - bsonType: Number

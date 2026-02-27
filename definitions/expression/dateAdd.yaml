@@ -44,6 +44,14 @@ tests:
       # $merge: 'shipping'
       - $merge:
           into: shipping
+    schema:
+      shipping:
+        custId:
+          types:
+            - bsonType: Number
+        purchaseDate:
+          types:
+            - bsonType: Date
   - name: Filter on a Date Range
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/dateAdd/#filter-on-a-date-range
     pipeline:
@@ -66,6 +74,17 @@ tests:
             $dateToString:
               format: '%Y-%m-%d'
               date: $deliveryDate
+    schema:
+      shipping:
+        custId:
+          types:
+            - bsonType: Int32
+        purchaseDate:
+          types:
+            - bsonType: Date
+        deliveryDate:
+          types:
+            - bsonType: Date
   - name: Adjust for Daylight Savings Time
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/dateAdd/#adjust-for-daylight-savings-time
     pipeline:
@@ -119,3 +138,14 @@ tests:
                   amount: 24
                   timezone: $location
               timezone: $location
+    schema:
+      billing:
+        location:
+          types:
+            - bsonType: String
+        login:
+          types:
+            - bsonType: Date
+        logout:
+          types:
+            - bsonType: Date

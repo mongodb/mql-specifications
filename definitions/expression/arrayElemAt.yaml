@@ -28,3 +28,16 @@ tests:
             $arrayElemAt:
               - $favorites
               - -1
+    schema:
+      users:
+        _id:
+          types:
+            - bsonType: Number
+        name:
+          types:
+            - bsonType: String
+        favorites:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: String

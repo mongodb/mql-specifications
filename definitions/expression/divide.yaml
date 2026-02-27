@@ -18,7 +18,7 @@ arguments:
       - resolvesToNumber
 tests:
   - name: Example
-    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/divide/#example
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/divide/#examples
     pipeline:
       - $project:
           city: 1
@@ -26,3 +26,17 @@ tests:
             $divide:
               - $hours
               - 8
+    schema:
+      conferencePlanning:
+        _id:
+          types:
+            - bsonType: Number
+        city:
+          types:
+            - bsonType: String
+        hours:
+          types:
+            - bsonType: Number
+        tasks:
+          types:
+            - bsonType: Number

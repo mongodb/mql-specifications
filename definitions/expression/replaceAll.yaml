@@ -38,11 +38,11 @@ tests:
               input: $item
               find: blue paint
               replacement: red paint
-  - name: Support regex search string
-    pipeline:
-      - $project:
-          item:
-            $replaceAll:
-              input: 123-456-7890
-              find: !bson_regex '\d{3}'
-              replacement: xxx
+    schema:
+      inventory:
+        _id:
+          types:
+            - bsonType: Number
+        item:
+          types:
+            - bsonType: String

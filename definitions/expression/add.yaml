@@ -29,6 +29,23 @@ tests:
             $add:
               - $price
               - $fee
+    schema:
+      sales:
+        _id:
+          types:
+            - bsonType: Number
+        item:
+          types:
+            - bsonType: String
+        price:
+          types:
+            - bsonType: Number
+        fee:
+          types:
+            - bsonType: Number
+        date:
+          types:
+            - bsonType: Date
   - name: Perform Addition on a Date
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/add/#perform-addition-on-a-date
     pipeline:
@@ -38,3 +55,20 @@ tests:
             $add:
               - $date
               - 259200000
+    schema:
+      sales:
+        _id:
+          types:
+            - bsonType: Number
+        item:
+          types:
+            - bsonType: String
+        price:
+          types:
+            - bsonType: Number
+        fee:
+          types:
+            - bsonType: Number
+        date:
+          types:
+            - bsonType: Date

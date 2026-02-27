@@ -33,3 +33,14 @@ tests:
             # $isoDayOfWeek: '$birthday'
             $isoDayOfWeek:
               date: $birthday
+    schema:
+      birthdays:
+        _id:
+          types:
+            - bsonType: Number
+        name:
+          types:
+            - bsonType: String
+        birthday:
+          types:
+            - bsonType: Date

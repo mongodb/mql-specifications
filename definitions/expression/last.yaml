@@ -17,3 +17,10 @@ tests:
       - $addFields:
           lastItem:
             $last: $items
+    schema:
+      collection:
+        items:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: String

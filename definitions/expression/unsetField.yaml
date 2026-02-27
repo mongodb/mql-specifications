@@ -27,6 +27,20 @@ tests:
           $unsetField:
             field: price.usd
             input: $$ROOT
+    schema:
+      inventory:
+        _id:
+          types:
+            - bsonType: Number
+        item:
+          types:
+            - bsonType: String
+        qty:
+          types:
+            - bsonType: Number
+        price.usd:
+          types:
+            - bsonType: Number
   - name: Remove Fields that Start with a Dollar Sign
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/unsetField/#remove-fields-that-start-with-a-dollar-sign----
     pipeline:
@@ -35,6 +49,20 @@ tests:
             field:
               $literal: $price
             input: $$ROOT
+    schema:
+      inventory:
+        _id:
+          types:
+            - bsonType: Number
+        item:
+          types:
+            - bsonType: String
+        qty:
+          types:
+            - bsonType: Number
+        $price:
+          types:
+            - bsonType: Number
   - name: Remove A Subfield
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/unsetField/#remove-a-subfield
     pipeline:
@@ -50,3 +78,24 @@ tests:
                   # $getField: 'price'
                   $getField:
                     field: price
+    schema:
+      inventory:
+        _id:
+          types:
+            - bsonType: Number
+        item:
+          types:
+            - bsonType: String
+        qty:
+          types:
+            - bsonType: Number
+        price:
+          types:
+            - bsonType: Document
+              fields:
+                usd:
+                  types:
+                    - bsonType: Number
+                euro:
+                  types:
+                    - bsonType: Number
