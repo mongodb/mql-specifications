@@ -226,18 +226,20 @@ For all of the BSON types, the schema knows three different uses for a type:
 
 ##### Operator Types
 
-For aggregation pipeline stages or query operators, the following types can be used to limit type accepted values: 
+For aggregation pipeline stages or query operators, the following types can be used to limit type accepted values:
 
 - `accumulator`: Used as an accumulator in `$group`
 - `query`: Top-level query operator or field query operator
 - `fieldQuery`: Field-level query operator (inside a field selector)
-- `pipeline`: An aggregation pipeline
+- `pipeline`: An aggregation pipeline on the same document type as the parent operator
+- `untypedPipeline`: An aggregation pipeline on an unknown document type, used for operators that accept sub-pipelines on different collections (e.g. `$lookup`)
 - `window`: User in `$setWindowFields`
 - `searchOperator`: MongoDB Atlas Search operator
 
 ##### Special Types
 
 - `expression`: Any aggregation expression
+- `expressionMap`: An object where all values must be an aggregation expression
 - `geoPoint`: GeoJSON point specification
 - `unprefixedFieldPath`: Same as a `fieldPath`, but without the `$` prefix
 
