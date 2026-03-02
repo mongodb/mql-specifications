@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../schemas/operator.json
 name: $locf
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/locf/
 minVersion: '5.2'

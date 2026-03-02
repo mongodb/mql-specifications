@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../schemas/operator.json
 name: $set
 link: https://www.mongodb.com/docs/manual/reference/operator/update/set/
 minVersion: '1.0'

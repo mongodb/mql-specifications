@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../schemas/operator.json
 name: $rank
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/rank/
 minVersion: '5.0'

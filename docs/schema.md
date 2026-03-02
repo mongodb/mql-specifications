@@ -4,22 +4,23 @@
 
 The specification system has two components:
 
-1. **Schema Definition** (`schema.json`): JSON Schema that validates all operator definitions
-2. **YAML Operator Definitions**: Individual YAML files that describe each operator using the schema
+1. **Schema Definition files** (`operator.json`, `type.json`): JSON Schema that validates all operator and closed set definitions.
+2. **YAML Definitions**: Individual YAML files that describe each operator using the `operator.json` schema or closed set type using `type.json`.
 
 ### Operator Categories
 
 Operators are organized into categories based on their type and purpose:
 
+- **Pipelines** (`/definitions/pipeline`): Classes for aggregation pipelines (e.g. full pipelines, update pipelines)
 - **Stages** (`/definitions/stage`): Aggregation pipeline stages (e.g., `$match`, `$group`, `$project`)
 - **Accumulators** (`/definitions/accumulator`): Used in `$group` and `$setWindowFields` stages (e.g., `$sum`, `$avg`)
 - **Expression Operators** (`/definitions/expression`): Used to compute values in aggregation pipelines (e.g., `$add`, `$concat`)
 - **Query Operators** (`/definitions/query`): Used in query filters (e.g., `$eq`, `$gt`, `$in`)
 - **Search Operators** (`/definitions/search`): Operators used in the `$search` pipeline stage
 
-## JSON Schema Definition
+## JSON Schema Definition for operators
 
-The schema is defined in `schema.json` using JSON Schema Draft 6. It defines three main object types:
+The schema is defined in `operator.json` using JSON Schema Draft 6. It defines three main object types:
 1. `Operator` - The root object for all operators
 2. `Argument` - Defines a single parameter/argument for an operator or stage
 3. `Test` - Example usage pattern for an operator or stage
@@ -45,8 +46,12 @@ The `Operator` object is the main definition for any operator in the system.
 
 #### Types
 The `type` property is a list of strings that defines the operator's type which may limit its usage, as well as the return type. The following types are available:
+- `pipeline`: A collection of stages that all documents traverse
 - `accumulator`: Used as an accumulator in `$group`
 - `stage`: Aggregation pipeline stage (outputs at pipeline level)
+- `updateStage`: Aggregation pipeline stage that is allowed to appear in an update pipeline
+- `inputStage`: Aggregation pipeline stage that is only allowed as the first stage in an aggregation pipeline
+- `outputStage`: Aggregation pipeline stage that is only allowed as the last stage in an aggregation pipeline
 - `query`: Top-level query operator or field query operator
 - `fieldQuery`: Field-level query operator (inside a field selector)
 - `filter`: Filter expression
@@ -228,13 +233,17 @@ For all of the BSON types, the schema knows three different uses for a type:
 
 For aggregation pipeline stages or query operators, the following types can be used to limit type accepted values:
 
+- `stage`: An aggregation pipeline stage
+- `updateStage`: An aggregation pipeline stage that can be used in pipeline updates
+- `inputStage`: An aggregation pipeline stage that can be used as the first stage in the pipeline
+- `outputStage`: An aggregation pipeline stage that can be used as the last stage in the pipeline
 - `accumulator`: Used as an accumulator in `$group`
 - `query`: Top-level query operator or field query operator
 - `fieldQuery`: Field-level query operator (inside a field selector)
-- `pipeline`: An aggregation pipeline on the same document type as the parent operator
-- `untypedPipeline`: An aggregation pipeline on an unknown document type, used for operators that accept sub-pipelines on different collections (e.g. `$lookup`)
 - `window`: User in `$setWindowFields`
 - `searchOperator`: MongoDB Atlas Search operator
+- `pipeline` and `updatePipeline`: specific pipelines types accepting the same document type as the parent operator (e.g. `$facet`)
+- `untypedPipeline`: An aggregation pipeline on an unknown document type, used for operators that accept sub-pipelines on different collections (e.g. `$lookup`)
 
 ##### Special Types
 
@@ -317,3 +326,50 @@ Defines an example/test case for an operator. Tests are taken from the operator'
 - `pipeline`: Aggregation pipeline demonstrating the operator
 
 ---
+
+### Generics
+
+Defines generic type parameters for operators that support polymorphic behavior. Generics allow operators to work with different types while maintaining type safety in code generation.
+
+
+**Example:**
+
+```yaml
+name: $arrayElemAt
+generic:
+  - T
+type:
+  - name: resolvesToAny
+    generic: T
+encode: array
+description: |
+  Returns the element at the specified array index.
+arguments:
+  - name: array
+    type:
+      - name: resolvesToArray
+        generic: T[]
+  - name: idx
+    type:
+      - resolvesToInt
+```
+
+This allows the operator to preserve type information: if the input is an array of strings, the output type is known to be a string.
+The `generic` field should contain a typescript representation of the expected type in this argument or return type.
+Its contents are independent of the `name` field, e.g. `name: resolvesToArray` in combination with `generic: T[]` refers to an array of T,
+and `name: resolvesToArray` with `generic: T` means that `T` itself is an array type.
+
+## JSON Schema Definition for closed set types
+
+The schema is defined in `type.json` using JSON Schema Draft 6. It defines one object type:
+1. `Type` - The root object for all types
+
+### Type
+
+The `Type` object is the definition for any closed set type in the system.
+
+**Required Properties:**
+
+- `name`: The name of the type, e.g. `timeUnit`
+- `backingType`: The fallback basic type that applies to all enum values
+- `enum`: The list of possible values

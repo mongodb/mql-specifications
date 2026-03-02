@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../schemas/operator.json
 name: $exp
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/exp/
 minVersion: '4.2'

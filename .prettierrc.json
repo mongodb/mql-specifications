@@ -1,7 +1,9 @@
 {
     "overrides": [
         {
-            "files": "schema.json",
+            "files": [
+                "schemas/*.json"
+            ],
             "options": {
                 "parser": "json",
                 "tabWidth": 4

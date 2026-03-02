@@ -12,17 +12,21 @@ const currentDirPath = path.dirname(currentFilePath);
 const repoRootPath = path.resolve(currentDirPath, "../..");
 const require = createRequire(import.meta.url);
 
-const schemaPath = path.join(repoRootPath, "schema.json");
+const operatorPath = path.join(repoRootPath, "schemas", "operator.json");
+const typePath = path.join(repoRootPath, "schemas", "type.json");
 const definitionsPath = path.join(repoRootPath, "definitions");
 
-const schema = JSON.parse(fs.readFileSync(schemaPath, "utf8"));
 const Ajv = require("ajv").default;
 const addFormats = require("ajv-formats").default;
 const draft06MetaSchema = require("ajv/dist/refs/json-schema-draft-06.json");
 const ajv = new Ajv({ allErrors: true, strict: false });
 ajv.addMetaSchema(draft06MetaSchema);
 addFormats(ajv);
-const validateSchema = ajv.compile(schema);
+
+const schemas = {
+  'operator.json': ajv.compile(JSON.parse(fs.readFileSync(operatorPath, "utf8"))),
+  'type.json': ajv.compile(JSON.parse(fs.readFileSync(typePath, "utf8"))) 
+};
 
 class BsonDate extends Date {
   constructor(value: string | number | Date) {
@@ -200,9 +204,27 @@ function findYamlFiles(dir: string): string[] {
   return files;
 }
 
-function parseYamlDocument(filePath: string): unknown {
+function findSchemaName(source: string): string | null {
+  const firstLine = source.split("\n")[0].trim();
+  const match = firstLine.match(/^#\s*\$schema:\s*(.+)$/);
+  if (!match) {
+    return null;
+  }
+  return path.basename(match[1]);
+}
+
+function parseYamlDocument(filePath: string): { document: unknown, schemaName: string} {
   const source = fs.readFileSync(filePath, "utf8");
-  return yaml.load(source, loadOptions);
+  const schemaName = findSchemaName(source);
+
+  if (!schemaName) {
+    throw new Error(`Missing schema comment in ${filePath}. The first line must be a comment like "# $schema: <pathh-to-schema>"`);
+  }
+
+  return {
+    document: yaml.load(source, loadOptions),
+    schemaName 
+  };
 }
 
 function updateDateParser(): void {
@@ -234,8 +256,12 @@ function validate(): void {
 
   for (const file of yamlFiles) {
     try {
-      const document = parseYamlDocument(file);
-      const valid = validateSchema(document);
+      const { document, schemaName } = parseYamlDocument(file);
+      if (!(schemaName in schemas)) {
+        throw new Error(`Schema "${schemaName}" not found for ${file}`);
+      }
+      const validateSchema = schemas[schemaName as keyof typeof schemas];
+      const valid = validateSchema(document)
 
       if (!valid) {
         for (const error of validateSchema.errors ?? []) {
@@ -256,7 +282,7 @@ function validate(): void {
   }
 
   console.log(
-    `Validated ${yamlFiles.length} YAML file(s) under ${definitionsPath} against ${schemaPath}`,
+  `Validated ${yamlFiles.length} YAML file(s) under ${definitionsPath} against schemas`,
   );
 }
 

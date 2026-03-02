@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../schemas/operator.json
 name: range
 link: https://www.mongodb.com/docs/atlas/atlas-search/range/
 minVersion: '5.0'

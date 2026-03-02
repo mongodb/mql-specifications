@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../schemas/operator.json
 name: $tsSecond
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/tsSecond/
 minVersion: '5.1'

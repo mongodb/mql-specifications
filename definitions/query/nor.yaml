@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../schemas/operator.json
 name: $nor
 link: https://www.mongodb.com/docs/manual/reference/operator/query/nor/
 minVersion: '1.0'

@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../schemas/operator.json
 name: regex
 link: https://www.mongodb.com/docs/atlas/atlas-search/regex/
 minVersion: '5.0'

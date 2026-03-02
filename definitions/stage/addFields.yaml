@@ -1,9 +1,10 @@
-# $schema: ../../schema.json
+# $schema: ../../schemas/operator.json
 name: $addFields
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/addFields/
 minVersion: '3.4'
 type:
   - stage
+  - updateStage
 encode: single
 description: |
   Adds new fields to documents. Outputs documents that contain all existing fields from the input documents and newly added fields.

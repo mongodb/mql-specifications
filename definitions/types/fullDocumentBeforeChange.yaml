@@ -1,0 +1,7 @@
+# $schema: ../../schemas/type.json
+name: fullDocumentBeforeChange
+backingType: string
+enum:
+  - 'off'
+  - required
+  - whenAvailable

@@ -1,0 +1,5 @@
+# $schema: ../../schemas/type.json
+name: accumulatorPercentile
+backingType: string
+enum:
+  - approximate

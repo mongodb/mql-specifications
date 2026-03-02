@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../schemas/operator.json
 name: $indexOfBytes
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/indexOfBytes/
 minVersion: '3.4'

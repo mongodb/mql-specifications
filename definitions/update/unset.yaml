@@ -1,4 +1,4 @@
-# $schema: ../../schema.json
+# $schema: ../../schemas/operator.json
 name: $unset
 link: https://www.mongodb.com/docs/manual/reference/operator/update/unset/
 minVersion: '1.0'

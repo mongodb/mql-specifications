@@ -1,16 +1,20 @@
-# $schema: ../../schema.json
+# $schema: ../../schemas/operator.json
 name: $filter
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/filter/
 minVersion: '3.2'
+generic:
+  - T
 type:
-  - resolvesToArray
+  - name: resolvesToArray
+    generic: T
 encode: object
 description: |
   Selects a subset of the array to return an array with only the elements that match the filter condition.
 arguments:
   - name: input
     type:
-      - resolvesToArray
+      - name: resolvesToArray
+        generic: T
   - name: cond
     type:
       - resolvesToBool

@@ -4,7 +4,7 @@
     "version": "1.0.0",
     "type": "module",
     "packageManager": "pnpm@10.28.2",
-    "description": "Validate YAML definitions against schema.json",
+    "description": "Validate YAML definitions against schemas",
     "scripts": {
         "typecheck": "tsc -p tsconfig.json",
         "validate": "tsx validate-definitions.ts"

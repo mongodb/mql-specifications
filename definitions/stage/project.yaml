@@ -1,9 +1,10 @@
-# $schema: ../../schema.json
+# $schema: ../../schemas/operator.json
 name: $project
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/project/
 minVersion: '2.2'
 type:
   - stage
+  - updateStage
 encode: single
 description: |
   Reshapes each document in the stream, such as by adding new fields or removing existing fields. For each input document, outputs one document.
