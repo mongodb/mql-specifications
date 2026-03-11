@@ -29,14 +29,31 @@ arguments:
     description: |
       The string to use to replace all matched instances of find in input. Can be any valid expression that resolves to a string or a null.
 tests:
-  - name: Example
-    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/replaceAll/#example
+  - name: Replace Using a String
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/replaceAll/#replace-using-a-string
     pipeline:
       - $project:
           item:
             $replaceAll:
               input: $item
               find: blue paint
+              replacement: red paint
+    schema:
+      inventory:
+        _id:
+          types:
+            - bsonType: Number
+        item:
+          types:
+            - bsonType: String
+  - name: Replace Using Regex
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/replaceAll/#replace-using-regex
+    pipeline:
+      - $project:
+          item:
+            $replaceAll:
+              input: $item
+              find: !bson_regex '\bblue paint\b'
               replacement: red paint
     schema:
       inventory:
