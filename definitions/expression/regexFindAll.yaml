@@ -81,7 +81,7 @@ tests:
             $regexFindAll:
               input: $comment
               regex: !bson_regex
-                - '[a-z0-9_.+-]+@[a-z0-9_.+-]+\\.[a-z0-9_.+-]+'
+                - '[a-z0-9_.+-]+@[a-z0-9_.+-]+\.[a-z0-9_.+-]+'
                 - i
       - $set:
           email: $email.match
@@ -101,7 +101,7 @@ tests:
             $regexFindAll:
               input: $comment
               regex: !bson_regex
-                - ([a-z0-9_.+-]+)@[a-z0-9_.+-]+\\.[a-z0-9_.+-]+
+                - ([a-z0-9_.+-]+)@[a-z0-9_.+-]+\.[a-z0-9_.+-]+
                 - i
       - $set:
           names:
