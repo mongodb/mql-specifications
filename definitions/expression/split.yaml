@@ -18,7 +18,7 @@ arguments:
       - resolvesToString
       - resolvesToRegex
     description: |
-      The delimiter to use when splitting the string expression. delimiter can be any valid expression as long as it resolves to a string.
+      The delimiter to use when splitting the string expression. delimiter can be any valid expression as long as it resolves to a string or a regular expression.
 tests:
   - name: Example
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/split/#example
