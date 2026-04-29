@@ -305,6 +305,13 @@
                         },
                         "required": ["name"]
                     }
+                },
+                "arguments": {
+                    "$comment": "Sub-arguments for object-typed arguments, enabling typed nested structures. Only valid when type includes 'object'.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Argument"
+                    }
                 }
             },
             "required": ["name", "type"],
