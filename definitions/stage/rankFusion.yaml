@@ -1,0 +1,55 @@
+# $schema: ../../schemas/operator.json
+name: $rankFusion
+link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/rankFusion/
+minVersion: '8.1'
+type:
+  - stage
+encode: object
+description: |
+  Combines multiple pipelines using rank-based fusion to create hybrid search results.
+arguments:
+  - name: input
+    type:
+      - object
+    description: |
+      An object with the following required fields:
+      - input.pipelines: Map from name to ranked input pipeline. Each pipeline must operate on the same collection. Minimum of one pipeline.
+  - name: combination
+    optional: true
+    type:
+      - object
+    description: |
+      An object with the following optional fields:
+      - combination.weights: Map from pipeline name to numbers (non-negative). If unspecified, default weight is 1 for each pipeline.
+  - name: scoreDetails
+    type:
+      - bool
+    default: false
+    description: Set to true to include detailed scoring information.
+tests:
+  - name: Example
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/rankFusion/#examples
+    pipeline:
+      - $rankFusion:
+          input:
+            pipelines:
+              searchPlot:
+                - $search:
+                    index: default
+                    text:
+                      query: space
+                      path: plot
+              searchGenre:
+                - $search:
+                    index: default
+                    text:
+                      query: adventure
+                      path: genres
+          combination:
+            weights:
+              searchPlot: 0.6
+              searchGenre: 0.4
+          scoreDetails: true
+      - $addFields:
+          scoreDetails:
+            $meta: searchScoreDetails

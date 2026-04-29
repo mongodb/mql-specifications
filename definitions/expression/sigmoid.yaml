@@ -1,0 +1,30 @@
+# $schema: ../../schemas/operator.json
+name: $sigmoid
+link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/sigmoid/
+minVersion: '8.1'
+type:
+  - resolvesToDouble
+encode: single
+description: |
+  Returns the sigmoid of a value, defined as 1 / (1 + e^(-x)). The result is a value between 0 and 1.
+arguments:
+  - name: expression
+    type:
+      - resolvesToNumber
+    description: |
+      $sigmoid takes any valid expression that resolves to a number.
+tests:
+  - name: Example
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/sigmoid/#examples
+    pipeline:
+      - $set:
+          scaled:
+            $sigmoid: $score
+    schema:
+      scores:
+        _id:
+          types:
+            - bsonType: ObjectId
+        score:
+          types:
+            - bsonType: Double
