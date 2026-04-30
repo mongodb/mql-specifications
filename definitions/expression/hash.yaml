@@ -1,0 +1,82 @@
+# $schema: ../../schemas/operator.json
+name: $hash
+link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/hash/
+minVersion: '8.3'
+type:
+  - resolvesToBinData
+encode: object
+description: |
+  Generates and returns a binary hash value (BinData) from a UTF-8 string or binary data. Use $hash in an aggregation
+  pipeline to compute binary hashes for storage, verification, or comparison. To get a hexadecimal string instead of
+  binary data, use $hexHash.
+arguments:
+  - name: input
+    type:
+      - expression
+  - name: algorithm
+    type:
+      - string
+tests:
+  - name: Hash a Field Value
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/hash/#hash-a-field-value
+    pipeline:
+      - $project:
+          filename: 1
+          hash:
+            $hash:
+              input: $filename
+              algorithm: sha256
+    schema:
+      files:
+        _id:
+          types:
+            - bsonType: Number
+        filename:
+          types:
+            - bsonType: String
+        hash:
+          types:
+            - bsonType: Binary
+  - name: Hash a Literal String
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/hash/#hash-a-literal-string
+    pipeline:
+      - $documents:
+          - val: hello
+      - $project:
+          _id: 0
+          hash:
+            $hash:
+              input: $val
+              algorithm: xxh64
+    schema:
+      TestCollection:
+        val:
+          types:
+            - bsonType: String
+  - name: Hash BinData
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/hash/#hash-bindata
+    pipeline:
+      - $project:
+          hash:
+            $hash:
+              input: $data
+              algorithm: sha256
+    schema:
+      binaries:
+        _id:
+          types:
+            - bsonType: Number
+        data:
+          types:
+            - bsonType: Binary
+  - name: Null or Missing Input
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/hash/#null-or-missing-input
+    pipeline:
+      - $documents:
+          - val: ~
+          - {}
+      - $project:
+          hash:
+            $hash:
+              input: $val
+              algorithm: sha256

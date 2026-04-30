@@ -1,0 +1,50 @@
+# $schema: ../../schemas/operator.json
+name: $hexHash
+link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/hexHash/
+minVersion: '8.3'
+type:
+  - resolvesToString
+encode: object
+description: |
+  Generates and returns an uppercase hexadecimal string representation of a hash value from a UTF-8 string or binary
+  data. Use $hexHash in an aggregation pipeline to compute hex-encoded hashes for storage, verification, or comparison.
+  To get binary data instead of a hexadecimal string, use $hash.
+arguments:
+  - name: input
+    type:
+      - expression
+  - name: algorithm
+    type:
+      - string
+tests:
+  - name: Hash a Field Value
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/hexHash/#hash-a-field-value
+    pipeline:
+      - $project:
+          filename: 1
+          hexHash:
+            $hexHash:
+              input: $filename
+              algorithm: sha256
+    schema:
+      files:
+        _id:
+          types:
+            - bsonType: Number
+        filename:
+          types:
+            - bsonType: String
+        hexHash:
+          types:
+            - bsonType: String
+  - name: Null or Missing Input
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/hexHash/#null-or-missing-input
+    pipeline:
+      - $documents:
+          - val: ~
+          - {}
+      - $project:
+          hexHash:
+            $hexHash:
+              input: $val
+              algorithm: sha256
