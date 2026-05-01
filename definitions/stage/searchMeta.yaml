@@ -28,6 +28,18 @@ arguments:
       - object
     description: |
       Document that specifies the count options for retrieving a count of the results.
+  - name: returnScope
+    optional: true
+    type:
+      - object
+    description: |
+      Object that sets the context of the query to the specified embedded document field. You must also specify `returnStoredSource` and set it to `true` if your cluster MongoDB version is less than 8.2.
+  - name: returnStoredSource
+    optional: true
+    type:
+      - bool
+    description: |
+      Flag that specifies whether to perform a full document lookup on the backend database or return only stored source fields directly from Atlas Search.
 tests:
   - name: Example
     link: https://www.mongodb.com/docs/atlas/atlas-search/query-syntax/#example

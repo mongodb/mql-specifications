@@ -68,6 +68,12 @@ arguments:
       - object
     description: |
       Document that specifies the fields to sort the Atlas Search results by in ascending or descending order.
+  - name: returnScope
+    optional: true
+    type:
+      - object
+    description: |
+      Object that sets the context of the query to the specified embedded document field. You must also specify `returnStoredSource` and set it to `true`.
   - name: returnStoredSource
     optional: true
     type:
