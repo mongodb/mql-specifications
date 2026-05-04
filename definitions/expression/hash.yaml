@@ -12,7 +12,9 @@ description: |
 arguments:
   - name: input
     type:
-      - expression
+      - resolvesToString
+      - resolvesToBinData
+      - resolvesToNull
   - name: algorithm
     type:
       - string
