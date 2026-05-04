@@ -12,15 +12,29 @@ arguments:
     type:
       - object
     description: |
-      An object with the following required fields:
-      - input.pipelines: Map from name to ranked input pipeline. Each pipeline must operate on the same collection. Minimum of one pipeline.
+      An object that specifies the pipelines to combine with rank fusion.
+    arguments:
+      - name: pipelines
+        type:
+          - pipeline
+        variadic: object
+        variadicMin: 1
+        description: |
+          Map from name to ranked input pipeline. Each pipeline must operate on the same collection.
   - name: combination
     optional: true
     type:
       - object
     description: |
-      An object with the following optional fields:
-      - combination.weights: Map from pipeline name to numbers (non-negative). If unspecified, default weight is 1 for each pipeline.
+      An object that specifies how to combine the ranked results.
+    arguments:
+      - name: weights
+        optional: true
+        type:
+          - number
+        variadic: object
+        description: |
+          Map from pipeline name to weight (non-negative number). If unspecified, default weight is 1 for each pipeline.
   - name: scoreDetails
     type:
       - bool

@@ -12,18 +12,46 @@ arguments:
     type:
       - object
     description: |
-      An object with the following required fields:
-      - input.pipelines: Map from name to input pipeline. Each pipeline must be operating on the same collection. Minimum of one pipeline.
-      - input.normalization: Normalizes the score to the range 0 to 1 before combining the results. Value can be none, sigmoid or minMaxScaler.
+      An object that specifies the pipelines to combine with score fusion.
+    arguments:
+      - name: pipelines
+        type:
+          - pipeline
+        variadic: object
+        variadicMin: 1
+        description: |
+          Map from name to input pipeline. Each pipeline must be operating on the same collection.
+      - name: normalization
+        type:
+          - string
+        description: |
+          Normalizes the score to the range 0 to 1 before combining the results. Value can be none, sigmoid or minMaxScaler.
   - name: combination
     optional: true
     type:
       - object
     description: |
-      An object with the following optional fields:
-      - combination.weights: Map from pipeline name to numbers (non-negative). If unspecified, default weight is 1 for each pipeline.
-      - combination.method: Specifies method for combining scores. Value can be avg or expression. Default is avg.
-      - combination.expression: This is the custom expression that is used when combination.method is set to expression.
+      An object that specifies how to combine the scores.
+    arguments:
+      - name: weights
+        optional: true
+        type:
+          - number
+        variadic: object
+        description: |
+          Map from pipeline name to weight (non-negative number). If unspecified, default weight is 1 for each pipeline.
+      - name: method
+        optional: true
+        type:
+          - string
+        description: |
+          Specifies method for combining scores. Value can be avg or expression. Default is avg.
+      - name: expression
+        optional: true
+        type:
+          - expression
+        description: |
+          Custom expression used when combination.method is set to expression.
   - name: scoreDetails
     type:
       - bool
