@@ -1,0 +1,62 @@
+# $schema: ../../schemas/operator.json
+name: hasRoot
+link: https://www.mongodb.com/docs/atlas/atlas-search/operators-collectors/hasroot/
+minVersion: '8.2'
+type:
+  - searchOperator
+encode: object
+description: |
+  The `hasRoot` operator can be used to query root-level fields when you specify the `returnScope` and `returnStoredSource` options.
+arguments:
+  - name: operator
+    type:
+      - searchOperator
+tests:
+  - name: Simple Query
+    link: https://www.mongodb.com/docs/atlas/atlas-search/operators-collectors/hasRoot/#simple-query
+    pipeline:
+      - $search:
+          returnStoredSource: true
+          returnScope:
+            path: products
+          hasRoot:
+            operator:
+              range:
+                path: founded_year
+                gte: 2005
+                lte: 2010
+  - name: Multi-Level Query
+    link: https://www.mongodb.com/docs/atlas/atlas-search/operators-collectors/hasRoot/#multi-level-query
+    pipeline:
+      - $search:
+          returnStoredSource: true
+          returnScope:
+            path: funding_rounds
+          hasRoot:
+            operator:
+              text:
+                path: name
+                query: Facebook
+  - name: Compound Query
+    link: https://www.mongodb.com/docs/atlas/atlas-search/operators-collectors/hasRoot/#compound-query
+    pipeline:
+      - $search:
+          compound:
+            should:
+              - embeddedDocument:
+                  path: funding_rounds.investments
+                  operator:
+                    wildcard:
+                      path: funding_rounds.investments.financial_org.name
+                      query: '*Ventures*'
+                      allowAnalyzedField: true
+              - hasRoot:
+                  operator:
+                    wildcard:
+                      path: description
+                      query: '*network*'
+                      allowAnalyzedField: true
+          returnScope:
+            path: funding_rounds
+          returnStoredSource: true
+      - $limit: 5
