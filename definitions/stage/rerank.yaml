@@ -1,0 +1,68 @@
+# $schema: ../../schemas/operator.json
+name: $rerank
+link: https://www.mongodb.com/docs/vector-search/query/aggregation-stages/rerank/
+minVersion: '8.3'
+type:
+  - stage
+encode: object
+description: |
+  Reranks documents using a Voyage AI reranking model to improve relevance scoring.
+arguments:
+  - name: model
+    type:
+      - string
+    description: |
+      Name of the Voyage AI reranking model to use (e.g. rerank-2.5, rerank-2.5-lite).
+  - name: query
+    type:
+      - object
+    description: |
+      Query object for reranking.
+    arguments:
+      - name: text
+        type:
+          - string
+        description: |
+          Query text used to score document relevance.
+  - name: path
+    type:
+      - string
+      - array
+    description: |
+      Field path or array of field paths to use for reranking.
+  - name: numDocsToRerank
+    type:
+      - int
+    valueMin: 1
+    valueMax: 1000
+    description: |
+      Maximum number of documents to send to Voyage AI for reranking. Value must be between 1 and 1000.
+tests:
+  - name: Example
+    link: https://www.mongodb.com/docs/vector-search/query/aggregation-stages/rerank/#examples
+    pipeline:
+      - $match:
+          plot:
+            $exists: true
+            $type:
+              - string
+      - $sort:
+          released: -1
+      - $rerank:
+          model: rerank-2.5
+          query:
+            text: |
+              a group of heroes band together to stop a powerful enemy and save the world
+          numDocsToRerank: 100
+          path:
+            - title
+            - plot
+      - $addFields:
+          rerankScore:
+            $meta: score
+      - $limit: 10
+      - $project:
+          _id: 0
+          title: 1
+          plot: 1
+          rerankScore: 1
