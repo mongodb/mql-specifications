@@ -47,6 +47,12 @@ arguments:
     description: |
       This field is required if exact is false or omitted.
       Number of nearest neighbors to use during the search. Value must be less than or equal to (<=) 10000. You can't specify a number less than the number of documents to return (limit).
+  - name: returnStoredSource
+    optional: true
+    type:
+      - bool
+    description: |
+      If true, the search returns only the stored source fields configured on the index. The default value is false.
 tests:
   - name: ANN Basic
     link: https://www.mongodb.com/docs/atlas/atlas-vector-search/vector-search-stage/#ann-examples
@@ -105,5 +111,36 @@ tests:
           _id: 0
           plot: 1
           title: 1
+          score:
+            $meta: vectorSearchScore
+  - name: Stored source
+    link: https://www.mongodb.com/docs/atlas/atlas-vector-search/vector-search-stage/#examples
+    pipeline:
+      - $vectorSearch:
+          index: vector_index
+          path: plot_embedding
+          queryVector: # skip other numbers, not relevant to the test
+            - -0.03994801267981529
+            - -0.016522614285349846
+            - -0.008775344118475914
+          filter:
+            $and:
+              - year:
+                  $gt: 1970
+              - year:
+                  $lt: 2020
+              - genres:
+                  $in:
+                    - Action
+                    - Drama
+                    - Comedy
+          limit: 10
+          numCandidates: 1000
+          returnStoredSource: true
+      - $project:
+          _id: 0
+          plot: 1
+          title: 1
+          genres: 1
           score:
             $meta: vectorSearchScore
