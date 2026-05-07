@@ -47,6 +47,19 @@ arguments:
     description: |
       This field is required if exact is false or omitted.
       Number of nearest neighbors to use during the search. Value must be less than or equal to (<=) 10000. You can't specify a number less than the number of documents to return (limit).
+  - name: nestedOptions
+    optional: true
+    type:
+      - object
+    description: |
+      Configure how MongoDB Vector Search scores documents that contain nested arrays.
+    arguments:
+      - name: scoreMode
+        optional: true
+        type:
+          - string
+        description: |
+          Specifies how to score documents that contain nested arrays. Value can be avg or max.
 tests:
   - name: ANN Basic
     link: https://www.mongodb.com/docs/atlas/atlas-vector-search/vector-search-stage/#ann-examples
@@ -105,5 +118,43 @@ tests:
           _id: 0
           plot: 1
           title: 1
+          score:
+            $meta: vectorSearchScore
+  - name: Nested field
+    link: https://www.mongodb.com/docs/atlas/atlas-vector-search/vector-search-stage/#examples
+    pipeline:
+      - $vectorSearch:
+          index: vector_index
+          filter:
+            reviews.date:
+              $gte: !bson_utcdatetime "2000-01-01"
+          parentFilter:
+            address.country:
+              $in:
+                - United States
+            bedrooms:
+              $gte: 2
+              $lte: 3
+            property_type:
+              $in:
+                - House
+                - Apartment
+          path: reviews.comments_embedding
+          queryVector: # skip other numbers, not relevant to the test
+            - 0.010745884850621223
+            - -0.035673413425683975
+            - -0.09298479557037354
+          numCandidates: 100
+          limit: 5
+          nestedOptions:
+            scoreMode: avg
+      - $project:
+          _id: 0
+          name: 1
+          address: 1
+          neighborhood_overview: 1
+          bedrooms: 1
+          property_type: 1
+          reviews.comments: 1
           score:
             $meta: vectorSearchScore
