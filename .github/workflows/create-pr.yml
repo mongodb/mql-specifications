@@ -1,0 +1,94 @@
+name: Create PR from Jira Ticket
+
+# Triggered by Jira Automation via GitHub REST API:
+# POST /repos/{owner}/{repo}/actions/workflows/create-pr.yml/dispatches
+#
+# Two Jira Automation rules should call this workflow:
+#   1. Trigger: Issue created + Condition: Label = mql-spec
+#   2. Trigger: Label added = mql-spec
+# Both rules should have Condition: Project = DRIVERS
+on:
+  workflow_dispatch:
+    inputs:
+      key:
+        description: "Jira ticket key (e.g. DRIVERS-42)"
+        required: true
+      summary:
+        description: "Ticket summary"
+        required: true
+      description:
+        description: "Ticket description"
+        required: false
+        default: ""
+      issueType:
+        description: "Issue type (Bug, Story, Task...)"
+        required: false
+        default: "Task"
+      priority:
+        description: "Priority (High, Medium, Low)"
+        required: false
+        default: "Medium"
+      assignee:
+        description: "Assignee display name"
+        required: false
+        default: "Unassigned"
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    if: ${{ startsWith(inputs.key, 'DRIVERS-') }}
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Generate PR content with Claude
+        id: claude
+        run: node .github/scripts/generate-pr.js
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          JIRA_KEY: ${{ inputs.key }}
+          JIRA_SUMMARY: ${{ inputs.summary }}
+          JIRA_DESCRIPTION: ${{ inputs.description }}
+          JIRA_TYPE: ${{ inputs.issueType }}
+          JIRA_PRIORITY: ${{ inputs.priority }}
+          JIRA_ASSIGNEE: ${{ inputs.assignee }}
+
+      - name: Create branch and draft PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_NAME: ${{ steps.claude.outputs.branch_name }}
+          PR_TITLE: ${{ steps.claude.outputs.pr_title }}
+          PR_BODY: ${{ steps.claude.outputs.pr_body }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # If a PR already exists for this branch (label added after ticket creation), skip
+          EXISTING_PR=$(gh pr list --head "$BRANCH_NAME" --json number --jq '.[0].number' 2>/dev/null || true)
+          if [ -n "$EXISTING_PR" ]; then
+            echo "PR #$EXISTING_PR already exists for branch $BRANCH_NAME. Nothing to do."
+            exit 0
+          fi
+
+          git checkout -b "$BRANCH_NAME"
+          git push origin "$BRANCH_NAME"
+
+          echo "$PR_BODY" > /tmp/pr_body.md
+
+          gh pr create \
+            --draft \
+            --title "$PR_TITLE" \
+            --body-file /tmp/pr_body.md \
+            --head "$BRANCH_NAME" \
+            --base main
+
+          echo "✅ Draft PR created for ${{ inputs.key }}"
