@@ -32,6 +32,18 @@ jobs:
         with:
           node-version: 20
 
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Install validation dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: scripts/schema-validator
+
+      - name: Install yamlfix
+        run: pip install yamlfix
+
       - name: Run MQL spec agent
         id: agent
         run: node .github/scripts/generate-pr.js

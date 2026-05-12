@@ -55,6 +55,18 @@ jobs:
         with:
           node-version: 20
 
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Install validation dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: scripts/schema-validator
+
+      - name: Install yamlfix
+        run: pip install yamlfix
+
       - name: Collect PR review comments
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
