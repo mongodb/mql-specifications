@@ -1,0 +1,168 @@
+name: Create PR from Jira Ticket
+
+# Triggered by Jira Automation via GitHub REST API:
+# POST /repos/{owner}/{repo}/actions/workflows/create-pr.yml/dispatches
+#
+# Two Jira Automation rules should call this workflow:
+#   1. Trigger: Issue created + Condition: Label = mql-spec + Project = DRIVERS
+#   2. Trigger: Label added = mql-spec + Condition: Project = DRIVERS
+#
+# Only the ticket key is required — full details are fetched directly from Jira.
+on:
+  workflow_dispatch:
+    inputs:
+      key:
+        description: "Jira ticket key (e.g. DRIVERS-42)"
+        required: true
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    if: ${{ startsWith(inputs.key, 'DRIVERS-') }}
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Check for existing PR
+        id: existing
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JIRA_KEY: ${{ inputs.key }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          TICKET_SLUG=$(echo "$JIRA_KEY" | tr '[:upper:]' '[:lower:]')
+          PR_JSON=$(gh pr list --repo "$GH_REPO" --state open --json number,headRefName \
+            --jq "[.[] | select(.headRefName | startswith(\"${TICKET_SLUG}-\"))] | .[0]")
+
+          PR_NUMBER=$(echo "$PR_JSON" | jq -r '.number // empty')
+          PR_BRANCH=$(echo "$PR_JSON" | jq -r '.headRefName // empty')
+
+          if [ -n "$PR_NUMBER" ]; then
+            echo "Found existing PR #$PR_NUMBER on branch $PR_BRANCH"
+            echo "mode=update" >> $GITHUB_OUTPUT
+            echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
+            echo "pr_branch=$PR_BRANCH" >> $GITHUB_OUTPUT
+          else
+            echo "No existing PR found — will create one"
+            echo "mode=create" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.existing.outputs.pr_branch || github.ref }}
+
+      - name: Overlay scripts from default branch
+        if: steps.existing.outputs.mode == 'update'
+        env:
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: git fetch origin "$DEFAULT_BRANCH" && git checkout "origin/$DEFAULT_BRANCH" -- .github/scripts/
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Install validation dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: scripts/schema-validator
+
+      - name: Install yamlfix
+        run: pip install yamlfix
+
+      - name: Run MQL spec agent
+        id: agent
+        run: node .github/scripts/generate-pr.js
+        env:
+          GROVE_API_KEY: ${{ secrets.GROVE_API_KEY }}
+          JIRA_PAT: ${{ secrets.JIRA_PAT }}
+          DOCS_GITHUB_TOKEN: ${{ secrets.DOCS_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JIRA_KEY: ${{ inputs.key }}
+          AGENT_MODE: ${{ steps.existing.outputs.mode }}
+          GITHUB_WORKSPACE: ${{ github.workspace }}
+
+      - name: Resolve actor identity
+        id: actor
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ACTOR: ${{ github.actor }}
+        run: |
+          ACTOR_ID=$(gh api users/"$ACTOR" --jq '.id')
+          echo "name=$ACTOR" >> $GITHUB_OUTPUT
+          echo "email=${ACTOR_ID}+${ACTOR}@users.noreply.github.com" >> $GITHUB_OUTPUT
+
+      - name: Create branch and draft PR
+        if: steps.existing.outputs.mode == 'create'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JIRA_KEY: ${{ inputs.key }}
+          ACTOR_LOGIN: ${{ github.actor }}
+          BRANCH_NAME: ${{ steps.agent.outputs.branch_name }}
+          PR_TITLE: ${{ steps.agent.outputs.pr_title }}
+          FILES_WRITTEN: ${{ steps.agent.outputs.files_written }}
+          ACTOR_NAME: ${{ steps.actor.outputs.name }}
+          ACTOR_EMAIL: ${{ steps.actor.outputs.email }}
+        run: |
+          git config user.name "$ACTOR_NAME"
+          git config user.email "$ACTOR_EMAIL"
+          git checkout -b "$BRANCH_NAME"
+          git add -A
+          git commit -m "$PR_TITLE"
+          git push origin "$BRANCH_NAME"
+
+          JIRA_URL="https://jira.mongodb.org/browse/${JIRA_KEY}"
+          {
+            echo "## Summary"
+            echo ""
+            echo "Generated from Jira ticket [${JIRA_KEY}](${JIRA_URL})."
+            echo ""
+            echo "## Files"
+            echo ""
+            for f in $FILES_WRITTEN; do echo "- \`$f\`"; done
+            echo ""
+            echo "## Jira"
+            echo ""
+            echo "$JIRA_URL"
+          } > /tmp/pr_body.md
+
+          gh label create "automated" --color "e4e669" --description "Created by GitHub Actions" 2>/dev/null || true
+
+          gh pr create \
+            --draft \
+            --title "$PR_TITLE" \
+            --body-file /tmp/pr_body.md \
+            --head "$BRANCH_NAME" \
+            --base main \
+            --assignee "$ACTOR_LOGIN" \
+            --label "automated"
+
+          echo "✅ Draft PR created for ${JIRA_KEY}"
+
+      - name: Push updates to existing PR
+        if: steps.existing.outputs.mode == 'update'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_BRANCH: ${{ steps.existing.outputs.pr_branch }}
+          FILES_WRITTEN: ${{ steps.agent.outputs.files_written }}
+          ACTOR_NAME: ${{ steps.actor.outputs.name }}
+          ACTOR_EMAIL: ${{ steps.actor.outputs.email }}
+        run: |
+          git config user.name "$ACTOR_NAME"
+          git config user.email "$ACTOR_EMAIL"
+
+          if git diff --quiet && git diff --staged --quiet; then
+            echo "No changes detected. PR is already up to date."
+            exit 0
+          fi
+
+          git add -A
+          git commit -m "Update spec from latest documentation"
+          git push origin "$PR_BRANCH"
+          echo "✅ Existing PR updated with latest changes"
