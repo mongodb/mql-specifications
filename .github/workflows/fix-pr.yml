@@ -22,7 +22,7 @@ jobs:
        contains(fromJson('["OWNER","MEMBER","COLLABORATOR"]'), github.event.review.author_association))
     permissions:
       contents: write
-      pull-requests: read
+      pull-requests: write
       issues: write
 
     steps:
