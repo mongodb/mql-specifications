@@ -8,7 +8,7 @@
 const fs = require("fs");
 const { runAgentLoop } = require("./agent-tools");
 
-const { GROVE_API_KEY, JIRA_PAT, JIRA_KEY, GITHUB_OUTPUT } = process.env;
+const { GROVE_API_KEY, JIRA_PAT, JIRA_KEY, AGENT_MODE = "create", GITHUB_OUTPUT } = process.env;
 
 if (!GROVE_API_KEY) throw new Error("Missing GROVE_API_KEY secret");
 if (!JIRA_PAT) throw new Error("Missing JIRA_PAT secret");
@@ -84,13 +84,20 @@ function setOutput(key, value) {
     const ticket = await fetchJiraTicket(JIRA_KEY);
     console.log(`Running agent for: ${ticket.summary}`);
 
+    const isUpdate = AGENT_MODE === "update";
     const userMessage = `Jira ticket: ${ticket.key}
 Summary: ${ticket.summary}
 Type: ${ticket.type} | Priority: ${ticket.priority} | Components: ${ticket.components}
 Description:
 ${ticket.description}
 
-Please search for the operator documentation, read similar existing specs for format reference, generate and write the YAML spec file(s), validate them, then output the JSON summary.`;
+${isUpdate
+  ? "A spec file already exists for this ticket. Read the current spec, fetch the latest documentation, and update the file only if there are meaningful differences (new arguments, updated description, new examples). If nothing has changed, do not write the file."
+  : "Search for the operator documentation, read similar existing specs for format reference, generate and write the YAML spec file(s), validate them, then output the JSON summary."
+}
+
+Output a JSON summary on the last line:
+{"branchName": "drivers-XXXX-short-description", "prTitle": "[DRIVERS-XXXX] Short description", "filesWritten": ["path/to/file.yaml"]}`;
 
     const text = await runAgentLoop({ systemPrompt: SYSTEM_PROMPT, userMessage, groveApiKey: GROVE_API_KEY });
     console.log("Agent response:\n", text);

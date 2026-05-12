@@ -24,8 +24,33 @@ jobs:
       pull-requests: write
 
     steps:
+      - name: Check for existing PR
+        id: existing
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Search for an open PR whose branch starts with the lowercased ticket key
+          TICKET_SLUG=$(echo "${{ inputs.key }}" | tr '[:upper:]' '[:lower:]' | tr '-' '-')
+          PR_JSON=$(gh pr list --repo ${{ github.repository }} --state open --json number,headRefName \
+            --jq "[.[] | select(.headRefName | startswith(\"${TICKET_SLUG}-\"))] | .[0]")
+
+          PR_NUMBER=$(echo "$PR_JSON" | jq -r '.number // empty')
+          PR_BRANCH=$(echo "$PR_JSON" | jq -r '.headRefName // empty')
+
+          if [ -n "$PR_NUMBER" ]; then
+            echo "Found existing PR #$PR_NUMBER on branch $PR_BRANCH"
+            echo "mode=update" >> $GITHUB_OUTPUT
+            echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
+            echo "pr_branch=$PR_BRANCH" >> $GITHUB_OUTPUT
+          else
+            echo "No existing PR found — will create one"
+            echo "mode=create" >> $GITHUB_OUTPUT
+          fi
+
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.existing.outputs.pr_branch || github.ref }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -53,9 +78,11 @@ jobs:
           DOCS_GITHUB_TOKEN: ${{ secrets.DOCS_GITHUB_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           JIRA_KEY: ${{ inputs.key }}
+          AGENT_MODE: ${{ steps.existing.outputs.mode }}
           GITHUB_WORKSPACE: ${{ github.workspace }}
 
-      - name: Create branch, commit spec files, and open draft PR
+      - name: Create branch and draft PR
+        if: steps.existing.outputs.mode == 'create'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH_NAME: ${{ steps.agent.outputs.branch_name }}
@@ -64,21 +91,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          # If a PR already exists for this branch, skip
-          EXISTING_PR=$(gh pr list --head "$BRANCH_NAME" --json number --jq '.[0].number' 2>/dev/null || true)
-          if [ -n "$EXISTING_PR" ]; then
-            echo "PR #$EXISTING_PR already exists for branch $BRANCH_NAME. Nothing to do."
-            exit 0
-          fi
-
           git checkout -b "$BRANCH_NAME"
-
-          # Stage only the files written by the agent
-          for f in $FILES_WRITTEN; do
-            git add "$f"
-          done
-
+          for f in $FILES_WRITTEN; do git add "$f"; done
           git commit -m "$PR_TITLE"
           git push origin "$BRANCH_NAME"
 
@@ -105,3 +119,23 @@ jobs:
             --base main
 
           echo "✅ Draft PR created for ${{ inputs.key }}"
+
+      - name: Push updates to existing PR
+        if: steps.existing.outputs.mode == 'update'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_BRANCH: ${{ steps.existing.outputs.pr_branch }}
+          FILES_WRITTEN: ${{ steps.agent.outputs.files_written }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if git diff --quiet && git diff --staged --quiet; then
+            echo "No changes detected. PR is already up to date."
+            exit 0
+          fi
+
+          for f in $FILES_WRITTEN; do git add "$f"; done
+          git commit -m "Update spec from latest documentation"
+          git push origin "$PR_BRANCH"
+          echo "✅ Existing PR updated with latest changes"
