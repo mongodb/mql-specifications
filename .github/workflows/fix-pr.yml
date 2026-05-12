@@ -54,6 +54,11 @@ jobs:
           ref: ${{ steps.pr.outputs.branch }}
           fetch-depth: 0
 
+      - name: Overlay scripts from default branch
+        env:
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: git fetch origin "$DEFAULT_BRANCH" && git checkout "origin/$DEFAULT_BRANCH" -- .github/scripts/
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
