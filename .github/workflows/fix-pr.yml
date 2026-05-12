@@ -1,0 +1,71 @@
+name: Fix PR from Review
+
+# Triggered when a reviewer submits "Request changes" on a PR
+# created by this automation (branch starts with drivers-).
+on:
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  fix-spec:
+    runs-on: ubuntu-latest
+    if: |
+      github.event.review.state == 'changes_requested' &&
+      startsWith(github.event.pull_request.head.ref, 'drivers-')
+    permissions:
+      contents: write
+      pull-requests: read
+
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Collect PR review comments
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          # Inline review comments (on specific lines)
+          gh api repos/${{ github.repository }}/pulls/${PR_NUMBER}/comments \
+            --jq '[.[] | {path: .path, line: .line, body: .body, user: .user.login}]' \
+            > /tmp/review_comments.json
+
+          # General review body
+          echo '${{ toJson(github.event.review.body) }}' > /tmp/review_body.json
+
+          echo "Review comments collected:"
+          cat /tmp/review_comments.json
+
+      - name: Run fix agent
+        env:
+          GROVE_API_KEY: ${{ secrets.GROVE_API_KEY }}
+          GITHUB_WORKSPACE: ${{ github.workspace }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BRANCH: ${{ github.event.pull_request.head.ref }}
+        run: node .github/scripts/fix-pr.js
+
+      - name: Commit and push fixes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_BRANCH: ${{ github.event.pull_request.head.ref }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if git diff --quiet && git diff --staged --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git add -A
+          git commit -m "Apply review corrections"
+          git push origin "$PR_BRANCH"
+          echo "✅ Fixes pushed to $PR_BRANCH"
