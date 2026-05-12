@@ -32,25 +32,26 @@ jobs:
         with:
           node-version: 20
 
-      - name: Generate PR content with Claude
-        id: claude
+      - name: Run MQL spec agent
+        id: agent
         run: node .github/scripts/generate-pr.js
         env:
           GROVE_API_KEY: ${{ secrets.GROVE_API_KEY }}
           JIRA_PAT: ${{ secrets.JIRA_PAT }}
           JIRA_KEY: ${{ inputs.key }}
+          GITHUB_WORKSPACE: ${{ github.workspace }}
 
-      - name: Create branch and draft PR
+      - name: Create branch, commit spec files, and open draft PR
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH_NAME: ${{ steps.claude.outputs.branch_name }}
-          PR_TITLE: ${{ steps.claude.outputs.pr_title }}
-          PR_BODY: ${{ steps.claude.outputs.pr_body }}
+          BRANCH_NAME: ${{ steps.agent.outputs.branch_name }}
+          PR_TITLE: ${{ steps.agent.outputs.pr_title }}
+          FILES_WRITTEN: ${{ steps.agent.outputs.files_written }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # If a PR already exists for this branch (label added after ticket creation), skip
+          # If a PR already exists for this branch, skip
           EXISTING_PR=$(gh pr list --head "$BRANCH_NAME" --json number --jq '.[0].number' 2>/dev/null || true)
           if [ -n "$EXISTING_PR" ]; then
             echo "PR #$EXISTING_PR already exists for branch $BRANCH_NAME. Nothing to do."
@@ -58,9 +59,29 @@ jobs:
           fi
 
           git checkout -b "$BRANCH_NAME"
+
+          # Stage only the files written by the agent
+          for f in $FILES_WRITTEN; do
+            git add "$f"
+          done
+
+          git commit -m "$PR_TITLE"
           git push origin "$BRANCH_NAME"
 
-          echo "$PR_BODY" > /tmp/pr_body.md
+          JIRA_URL="https://jira.mongodb.org/browse/${{ inputs.key }}"
+          {
+            echo "## Summary"
+            echo ""
+            echo "Generated from Jira ticket [${{ inputs.key }}]($JIRA_URL)."
+            echo ""
+            echo "## Files"
+            echo ""
+            for f in $FILES_WRITTEN; do echo "- \`$f\`"; done
+            echo ""
+            echo "## Jira"
+            echo ""
+            echo "$JIRA_URL"
+          } > /tmp/pr_body.md
 
           gh pr create \
             --draft \
