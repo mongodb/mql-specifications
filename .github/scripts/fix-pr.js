@@ -8,7 +8,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const { GROVE_API_KEY, GITHUB_WORKSPACE = ".", PR_TITLE = "", PR_BRANCH = "" } = process.env;
+const { GROVE_API_KEY, GITHUB_WORKSPACE = ".", PR_TITLE = "", PR_BRANCH = "", PR_NUMBER = "", GITHUB_REPOSITORY = "" } = process.env;
 
 if (!GROVE_API_KEY) throw new Error("Missing GROVE_API_KEY secret");
 
@@ -59,6 +59,17 @@ const TOOLS = [
       required: ["path", "content"],
     },
   },
+  {
+    name: "add_pr_comment",
+    description: "Post a comment on the pull request to explain a change that was made.",
+    input_schema: {
+      type: "object",
+      properties: {
+        body: { type: "string", description: "Comment text in Markdown." },
+      },
+      required: ["body"],
+    },
+  },
 ];
 
 async function executeTool(name, input) {
@@ -80,6 +91,17 @@ async function executeTool(name, input) {
       fs.writeFileSync(filePath, content, "utf8");
       return { success: true, path: input.path };
     }
+    case "add_pr_comment": {
+      const { execSync } = require("child_process");
+      const tmpFile = `/tmp/pr_comment_${Date.now()}.md`;
+      fs.writeFileSync(tmpFile, input.body, "utf8");
+      execSync(`gh issue comment ${PR_NUMBER} --repo ${GITHUB_REPOSITORY} --body-file ${tmpFile}`, {
+        stdio: "inherit",
+        env: { ...process.env },
+      });
+      fs.unlinkSync(tmpFile);
+      return { success: true };
+    }
     default:
       return { error: `Unknown tool: ${name}` };
   }
@@ -100,6 +122,7 @@ Your task is to apply corrections to YAML operator spec files based on review co
 Rules:
 - Read the file before modifying it
 - Apply only the changes requested in the review comments
+- After each write_file, call add_pr_comment to explain what was changed and why
 - The 'link' field must ALWAYS use 'manual', never 'upcoming'
 - The YAML must start with: # $schema: ../../schemas/operator.json
 - End each file with a newline
