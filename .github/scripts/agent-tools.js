@@ -7,7 +7,7 @@
 
 const fs = require("fs");
 const path = require("path");
-const { execSync } = require("child_process");
+const { execSync, execFileSync } = require("child_process");
 
 const DOCS_REPO_PRIVATE = "10gen/docs-mongodb-internal";
 const DOCS_REPO_PUBLIC = "mongodb/docs";
@@ -129,6 +129,7 @@ async function executeTool(name, input) {
   switch (name) {
     case "search_docs": {
       const { operator } = input;
+      if (!/^[a-zA-Z0-9_-]+$/.test(operator)) return { error: "Invalid operator name." };
       const results = [];
       const repos = [
         DOCS_REPO_PRIVATE,
@@ -140,8 +141,9 @@ async function executeTool(name, input) {
 
         // Search on main branch for both .txt and .rst
         for (const ext of ["txt", "rst"]) {
+          const q = encodeURIComponent(`filename:${operator}.${ext} repo:${repo}`);
           const searchRes = await fetch(
-            `https://api.github.com/search/code?q=filename:${operator}.${ext}+repo:${repo}`,
+            `https://api.github.com/search/code?q=${q}`,
             { headers: githubHeaders(repo) }
           );
           if (searchRes.ok) {
@@ -219,7 +221,8 @@ async function executeTool(name, input) {
 
       // yamlfix
       try {
-        const yamlOut = execSync(`yamlfix --check ${yamlTargets} 2>&1`, { encoding: "utf8", cwd: GITHUB_WORKSPACE });
+        const yamlArgs = ["--check", ...(targetPaths.length ? targetPaths : [path.join(GITHUB_WORKSPACE, "definitions")])];
+        const yamlOut = execFileSync("yamlfix", yamlArgs, { encoding: "utf8", cwd: GITHUB_WORKSPACE });
         results.yamlfix = { passed: true, output: yamlOut || "OK" };
       } catch (e) {
         results.yamlfix = { passed: false, output: e.stdout || e.message };

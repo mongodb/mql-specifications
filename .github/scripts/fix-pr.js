@@ -24,6 +24,7 @@ if (!PR_NUMBER || !/^\d+$/.test(PR_NUMBER)) throw new Error(`Invalid PR_NUMBER: 
 
 const reviewComments = JSON.parse(fs.readFileSync("/tmp/review_comments.json", "utf8"));
 const reviewBody = JSON.parse(fs.readFileSync("/tmp/review_body.json", "utf8")) || "";
+const allReviewBodies = JSON.parse(fs.readFileSync("/tmp/review_bodies.json", "utf8"));
 
 if (reviewComments.length === 0 && !reviewBody) {
   console.log("No review comments found. Nothing to do.");
@@ -83,9 +84,13 @@ Rules:
       .map((c) => `File: ${c.path}${c.line ? ` (line ${c.line})` : ""}\n${c.user}: ${c.body}`)
       .join("\n\n");
 
+    const allBodiesText = allReviewBodies
+      .map((r) => `${r.user} (${r.state}): ${r.body}`)
+      .join("\n\n");
+
     const userMessage = `PR: ${PR_TITLE} (branch: ${PR_BRANCH})
 
-${reviewBody ? `General review comment:\n${reviewBody}\n\n` : ""}${commentsText ? `Inline review comments:\n${commentsText}` : ""}
+${allBodiesText ? `Review comments:\n${allBodiesText}\n\n` : ""}${reviewBody && !allBodiesText ? `General review comment:\n${reviewBody}\n\n` : ""}${commentsText ? `Inline review comments:\n${commentsText}` : ""}
 
 Please read the relevant files and apply the requested corrections.`;
 

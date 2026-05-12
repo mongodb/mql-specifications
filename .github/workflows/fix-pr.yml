@@ -89,6 +89,10 @@ jobs:
             --jq '[.[] | {path: .path, line: .line, body: .body, user: .user.login}]' \
             > /tmp/review_comments.json
 
+          gh api repos/"$GH_REPO"/pulls/"$PR_NUMBER"/reviews \
+            --jq '[.[] | select(.body != "") | {id: .id, user: .user.login, state: .state, body: .body}]' \
+            > /tmp/review_bodies.json
+
           if [ "$EVENT_NAME" = "pull_request_review" ]; then
             printf '%s' "$REVIEW_BODY" > /tmp/review_body.json
           else
@@ -102,6 +106,8 @@ jobs:
         env:
           GROVE_API_KEY: ${{ secrets.GROVE_API_KEY }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DOCS_GITHUB_TOKEN: ${{ secrets.DOCS_GITHUB_TOKEN }}
           GITHUB_WORKSPACE: ${{ github.workspace }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           PR_NUMBER: ${{ steps.pr.outputs.number }}
