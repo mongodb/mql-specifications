@@ -4,34 +4,16 @@ name: Create PR from Jira Ticket
 # POST /repos/{owner}/{repo}/actions/workflows/create-pr.yml/dispatches
 #
 # Two Jira Automation rules should call this workflow:
-#   1. Trigger: Issue created + Condition: Label = mql-spec
-#   2. Trigger: Label added = mql-spec
-# Both rules should have Condition: Project = DRIVERS
+#   1. Trigger: Issue created + Condition: Label = mql-spec + Project = DRIVERS
+#   2. Trigger: Label added = mql-spec + Condition: Project = DRIVERS
+#
+# Only the ticket key is required — full details are fetched directly from Jira.
 on:
   workflow_dispatch:
     inputs:
       key:
         description: "Jira ticket key (e.g. DRIVERS-42)"
         required: true
-      summary:
-        description: "Ticket summary"
-        required: true
-      description:
-        description: "Ticket description"
-        required: false
-        default: ""
-      issueType:
-        description: "Issue type (Bug, Story, Task...)"
-        required: false
-        default: "Task"
-      priority:
-        description: "Priority (High, Medium, Low)"
-        required: false
-        default: "Medium"
-      assignee:
-        description: "Assignee display name"
-        required: false
-        default: "Unassigned"
 
 jobs:
   create-pr:
@@ -55,12 +37,8 @@ jobs:
         run: node .github/scripts/generate-pr.js
         env:
           GROVE_API_KEY: ${{ secrets.GROVE_API_KEY }}
+          JIRA_PAT: ${{ secrets.JIRA_PAT }}
           JIRA_KEY: ${{ inputs.key }}
-          JIRA_SUMMARY: ${{ inputs.summary }}
-          JIRA_DESCRIPTION: ${{ inputs.description }}
-          JIRA_TYPE: ${{ inputs.issueType }}
-          JIRA_PRIORITY: ${{ inputs.priority }}
-          JIRA_ASSIGNEE: ${{ inputs.assignee }}
 
       - name: Create branch and draft PR
         env:
