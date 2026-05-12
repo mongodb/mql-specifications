@@ -9,7 +9,7 @@
  */
 
 const {
-  ANTHROPIC_API_KEY,
+  GROVE_API_KEY,
   JIRA_KEY,
   JIRA_SUMMARY,
   JIRA_DESCRIPTION = "",
@@ -19,7 +19,7 @@ const {
   GITHUB_OUTPUT,
 } = process.env;
 
-if (!ANTHROPIC_API_KEY) throw new Error("Missing ANTHROPIC_API_KEY secret");
+if (!GROVE_API_KEY) throw new Error("Missing GROVE_API_KEY secret");
 if (!JIRA_KEY || !JIRA_SUMMARY) throw new Error("Missing JIRA_KEY or JIRA_SUMMARY input");
 
 async function callClaude() {
@@ -48,11 +48,11 @@ Respond ONLY with a valid JSON object (no markdown fences, no preamble):
   "prBody": "..."
 }`;
 
-  const response = await fetch("https://api.anthropic.com/v1/messages", {
+  const response = await fetch("https://grove-gateway-prod.azure-api.net/grove-foundry-prod/anthropic/v1/messages", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "x-api-key": ANTHROPIC_API_KEY,
+      "api-key": GROVE_API_KEY,
       "anthropic-version": "2023-06-01",
     },
     body: JSON.stringify({

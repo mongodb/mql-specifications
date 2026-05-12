@@ -54,7 +54,7 @@ jobs:
         id: claude
         run: node .github/scripts/generate-pr.js
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROVE_API_KEY: ${{ secrets.GROVE_API_KEY }}
           JIRA_KEY: ${{ inputs.key }}
           JIRA_SUMMARY: ${{ inputs.summary }}
           JIRA_DESCRIPTION: ${{ inputs.description }}
