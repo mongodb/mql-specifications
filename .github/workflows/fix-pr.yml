@@ -18,7 +18,8 @@ jobs:
     if: |
       github.event_name == 'workflow_dispatch' ||
       (github.event.review.state == 'changes_requested' &&
-       startsWith(github.event.pull_request.head.ref, 'drivers-'))
+       startsWith(github.event.pull_request.head.ref, 'drivers-') &&
+       contains(fromJson('["OWNER","MEMBER","COLLABORATOR"]'), github.event.review.author_association))
     permissions:
       contents: write
       pull-requests: read
