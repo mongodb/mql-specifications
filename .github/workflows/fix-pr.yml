@@ -1,26 +1,52 @@
 name: Fix PR from Review
 
-# Triggered when a reviewer submits "Request changes" on a PR
-# created by this automation (branch starts with drivers-).
+# Two triggers:
+# 1. Automatic: reviewer submits "Request changes" on a drivers- branch PR
+# 2. Manual: enter a PR number in the GitHub Actions UI
 on:
   pull_request_review:
     types: [submitted]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "PR number to fix"
+        required: true
 
 jobs:
   fix-spec:
     runs-on: ubuntu-latest
     if: |
-      github.event.review.state == 'changes_requested' &&
-      startsWith(github.event.pull_request.head.ref, 'drivers-')
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.review.state == 'changes_requested' &&
+       startsWith(github.event.pull_request.head.ref, 'drivers-'))
     permissions:
       contents: write
       pull-requests: read
+      issues: write
 
     steps:
+      - name: Resolve PR info
+        id: pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            PR_NUMBER="${{ inputs.pr_number }}"
+          else
+            PR_NUMBER="${{ github.event.pull_request.number }}"
+          fi
+
+          PR_BRANCH=$(gh pr view "$PR_NUMBER" --repo ${{ github.repository }} --json headRefName --jq '.headRefName')
+          PR_TITLE=$(gh pr view "$PR_NUMBER" --repo ${{ github.repository }} --json title --jq '.title')
+
+          echo "number=$PR_NUMBER" >> $GITHUB_OUTPUT
+          echo "branch=$PR_BRANCH" >> $GITHUB_OUTPUT
+          echo "title=$PR_TITLE" >> $GITHUB_OUTPUT
+
       - name: Checkout PR branch
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.ref }}
+          ref: ${{ steps.pr.outputs.branch }}
           fetch-depth: 0
 
       - name: Set up Node.js
@@ -31,15 +57,17 @@ jobs:
       - name: Collect PR review comments
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_NUMBER: ${{ steps.pr.outputs.number }}
         run: |
-          # Inline review comments (on specific lines)
           gh api repos/${{ github.repository }}/pulls/${PR_NUMBER}/comments \
             --jq '[.[] | {path: .path, line: .line, body: .body, user: .user.login}]' \
             > /tmp/review_comments.json
 
-          # General review body
-          echo '${{ toJson(github.event.review.body) }}' > /tmp/review_body.json
+          if [ "${{ github.event_name }}" = "pull_request_review" ]; then
+            echo '${{ toJson(github.event.review.body) }}' > /tmp/review_body.json
+          else
+            echo '""' > /tmp/review_body.json
+          fi
 
           echo "Review comments collected:"
           cat /tmp/review_comments.json
@@ -50,15 +78,15 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_WORKSPACE: ${{ github.workspace }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          PR_TITLE: ${{ github.event.pull_request.title }}
-          PR_BRANCH: ${{ github.event.pull_request.head.ref }}
+          PR_NUMBER: ${{ steps.pr.outputs.number }}
+          PR_TITLE: ${{ steps.pr.outputs.title }}
+          PR_BRANCH: ${{ steps.pr.outputs.branch }}
         run: node .github/scripts/fix-pr.js
 
       - name: Commit and push fixes
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_BRANCH: ${{ github.event.pull_request.head.ref }}
+          PR_BRANCH: ${{ steps.pr.outputs.branch }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
