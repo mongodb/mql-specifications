@@ -182,6 +182,7 @@ Rules:
 - Always read at least one existing similar spec before writing
 - Fetch the MongoDB documentation page to get the accurate description, arguments, and examples
 - Try https://www.mongodb.com/docs/manual/... first; if 404, try replacing 'manual' with 'upcoming'
+- The 'link' field in the YAML must ALWAYS use 'manual', never 'upcoming', even if you fetched the page from 'upcoming'
 - The YAML must start with: # $schema: ../../schemas/operator.json
 - End the file with a newline
 - After writing all files, output a JSON summary on the last line:
