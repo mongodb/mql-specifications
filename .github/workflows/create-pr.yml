@@ -38,6 +38,8 @@ jobs:
         env:
           GROVE_API_KEY: ${{ secrets.GROVE_API_KEY }}
           JIRA_PAT: ${{ secrets.JIRA_PAT }}
+          DOCS_GITHUB_TOKEN: ${{ secrets.DOCS_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           JIRA_KEY: ${{ inputs.key }}
           GITHUB_WORKSPACE: ${{ github.workspace }}
 

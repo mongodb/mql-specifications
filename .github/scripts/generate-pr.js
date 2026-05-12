@@ -13,7 +13,10 @@
 const fs = require("fs");
 const path = require("path");
 
-const { GROVE_API_KEY, JIRA_PAT, JIRA_KEY, GITHUB_OUTPUT, GITHUB_WORKSPACE = "." } = process.env;
+const { GROVE_API_KEY, JIRA_PAT, DOCS_GITHUB_TOKEN, JIRA_KEY, GITHUB_OUTPUT, GITHUB_WORKSPACE = "." } = process.env;
+
+const DOCS_REPO = "10gen/docs-mongodb-internal";
+const DOCS_BRANCH = "main";
 
 if (!GROVE_API_KEY) throw new Error("Missing GROVE_API_KEY secret");
 if (!JIRA_PAT) throw new Error("Missing JIRA_PAT secret");
@@ -48,16 +51,33 @@ async function fetchJiraTicket(key) {
 
 const TOOLS = [
   {
-    name: "fetch_url",
+    name: "search_docs",
     description:
-      "Fetch the content of a URL (MongoDB documentation page or any HTTP resource). " +
-      "For MongoDB docs, try https://www.mongodb.com/docs/manual/... first, then replace 'manual' with 'upcoming' if the page returns 404.",
+      "Search for an operator documentation file (.txt or .rst) across MongoDB docs repos. " +
+      "Searches in this order: (1) 10gen/docs-mongodb-internal main branch, " +
+      "(2) 10gen/docs-mongodb-internal open PRs, " +
+      "(3) mongodb/docs main branch, " +
+      "(4) mongodb/docs open PRs. " +
+      "Returns a list of matches with repo, path, and ref (branch name).",
     input_schema: {
       type: "object",
       properties: {
-        url: { type: "string", description: "The URL to fetch." },
+        operator: { type: "string", description: "Operator name without $, e.g. 'rerank', 'match', 'convert'." },
       },
-      required: ["url"],
+      required: ["operator"],
+    },
+  },
+  {
+    name: "fetch_docs_file",
+    description: "Fetch the raw RST/txt content of a documentation file from a GitHub docs repo.",
+    input_schema: {
+      type: "object",
+      properties: {
+        repo: { type: "string", description: "GitHub repo, e.g. '10gen/docs-mongodb-internal' or 'mongodb/docs'." },
+        path: { type: "string", description: "File path in the repo." },
+        ref: { type: "string", description: "Branch name or 'main'." },
+      },
+      required: ["repo", "path", "ref"],
     },
   },
   {
@@ -115,15 +135,77 @@ const TOOLS = [
 // Tool execution
 // ---------------------------------------------------------------------------
 
+function githubHeaders(repo) {
+  const token = repo.startsWith("10gen/") ? DOCS_GITHUB_TOKEN : process.env.GITHUB_TOKEN;
+  return {
+    Accept: "application/vnd.github+json",
+    "X-GitHub-Api-Version": "2022-11-28",
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  };
+}
+
 async function executeTool(name, input) {
   switch (name) {
-    case "fetch_url": {
-      const res = await fetch(input.url, {
-        headers: { "User-Agent": "mql-spec-agent/1.0" },
-      });
+    case "search_docs": {
+      const { operator } = input;
+      const results = [];
+      const repos = ["10gen/docs-mongodb-internal", "mongodb/docs"];
+
+      for (const repo of repos) {
+        if (repo.startsWith("10gen/") && !DOCS_GITHUB_TOKEN) continue;
+
+        // Search on main branch via code search API
+        const searchRes = await fetch(
+          `https://api.github.com/search/code?q=filename:${operator}.txt+repo:${repo}`,
+          { headers: githubHeaders(repo) }
+        );
+        if (searchRes.ok) {
+          const data = await searchRes.json();
+          for (const item of (data.items ?? [])) {
+            results.push({ repo, path: item.path, ref: "main" });
+          }
+        }
+
+        // If not on main, scan open PRs
+        if (!results.some((r) => r.repo === repo)) {
+          const prsRes = await fetch(
+            `https://api.github.com/repos/${repo}/pulls?state=open&per_page=30`,
+            { headers: githubHeaders(repo) }
+          );
+          if (prsRes.ok) {
+            for (const pr of await prsRes.json()) {
+              const filesRes = await fetch(
+                `https://api.github.com/repos/${repo}/pulls/${pr.number}/files`,
+                { headers: githubHeaders(repo) }
+              );
+              if (!filesRes.ok) continue;
+              const files = await filesRes.json();
+              const match = files.find(
+                (f) => f.filename.endsWith(`/${operator}.txt`) || f.filename.endsWith(`/${operator}.rst`)
+              );
+              if (match) {
+                results.push({ repo, path: match.filename, ref: pr.head.ref, pr: pr.number });
+                break;
+              }
+            }
+          }
+        }
+
+        if (results.length > 0) break; // Found — no need to check next repo
+      }
+
+      return results.length ? { results } : { results: [], note: "Not found in any docs repo." };
+    }
+
+    case "fetch_docs_file": {
+      const { repo, path: filePath, ref } = input;
+      const res = await fetch(
+        `https://api.github.com/repos/${repo}/contents/${filePath}?ref=${ref}`,
+        { headers: { ...githubHeaders(repo), Accept: "application/vnd.github.raw+json" } }
+      );
+      if (!res.ok) return { error: `GitHub API ${res.status}: ${await res.text()}` };
       const text = await res.text();
-      // Return first 20000 chars to avoid bloating context
-      return { status: res.status, body: text.slice(0, 20000) };
+      return { content: text.slice(0, 30000) };
     }
 
     case "list_files": {
@@ -178,11 +260,20 @@ YAML spec format (schemas/operator.json):
 - arguments: list of arguments with name, type, optional, description
 - tests: list of examples with name, link, pipeline
 
+Documentation sources (in priority order):
+1. Private repo 10gen/docs-mongodb-internal — most up-to-date, includes unreleased content
+   - Search on main branch first, then open PRs
+2. Public repo mongodb/docs — fallback if not found in private repo
+   - Same structure, but may lag behind the private repo
+
+To fetch documentation:
+- Use search_docs with the operator name (without $) to locate the file
+- Use fetch_docs_file to read the RST content from the returned repo/path/ref
+
 Rules:
 - Always read at least one existing similar spec before writing
-- Fetch the MongoDB documentation page to get the accurate description, arguments, and examples
-- Try https://www.mongodb.com/docs/manual/... first; if 404, try replacing 'manual' with 'upcoming'
-- The 'link' field in the YAML must ALWAYS use 'manual', never 'upcoming', even if you fetched the page from 'upcoming'
+- Always use search_docs + fetch_docs_file to get documentation (RST is cleaner than HTML)
+- The 'link' field in the YAML must ALWAYS point to https://www.mongodb.com/docs/manual/..., never 'upcoming'
 - The YAML must start with: # $schema: ../../schemas/operator.json
 - End the file with a newline
 - After writing all files, output a JSON summary on the last line:
