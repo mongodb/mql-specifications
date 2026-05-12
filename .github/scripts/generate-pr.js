@@ -62,6 +62,8 @@ Use search_docs to locate the file, then fetch_docs_file to read its RST content
 Rules:
 - Always read at least one existing similar spec before writing
 - Always use search_docs + fetch_docs_file to get documentation (RST is cleaner than HTML)
+- If search_docs returns no results in any repo, output this JSON and stop:
+  {"error": "no_docs_found", "reason": "brief explanation"}
 - After writing files, call validate_spec to check for errors and fix them if needed
 - The 'link' field must ALWAYS use https://www.mongodb.com/docs/manual/..., never 'upcoming'
 - The YAML must start with: # $schema: ../../schemas/operator.json
@@ -108,6 +110,11 @@ Output a JSON summary on the last line:
       try { summary = JSON.parse(line); break; } catch {}
     }
     if (!summary) throw new Error("Agent did not produce a JSON summary");
+
+    if (summary.error === "no_docs_found") {
+      console.error(`No documentation found: ${summary.reason}`);
+      process.exit(1);
+    }
 
     const { branchName, prTitle, filesWritten } = summary;
     const safeBranch = sanitizeBranchName(branchName);
