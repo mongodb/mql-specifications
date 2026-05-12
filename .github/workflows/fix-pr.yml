@@ -101,8 +101,10 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_BRANCH: ${{ steps.pr.outputs.branch }}
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          ACTOR="${{ github.actor }}"
+          ACTOR_ID=$(gh api users/$ACTOR --jq '.id')
+          git config user.name "$ACTOR"
+          git config user.email "${ACTOR_ID}+${ACTOR}@users.noreply.github.com"
 
           if git diff --quiet && git diff --staged --quiet; then
             echo "No changes to commit."
