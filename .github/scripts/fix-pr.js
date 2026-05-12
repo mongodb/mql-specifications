@@ -6,8 +6,8 @@
  */
 
 const fs = require("fs");
-const { execSync } = require("child_process");
-const { runAgentLoop, TOOLS } = require("./agent-tools");
+const { execFileSync } = require("child_process");
+const { runAgentLoop } = require("./agent-tools");
 
 const {
   GROVE_API_KEY,
@@ -20,6 +20,7 @@ const {
 } = process.env;
 
 if (!GROVE_API_KEY) throw new Error("Missing GROVE_API_KEY secret");
+if (!PR_NUMBER || !/^\d+$/.test(PR_NUMBER)) throw new Error(`Invalid PR_NUMBER: ${PR_NUMBER}`);
 
 const reviewComments = JSON.parse(fs.readFileSync("/tmp/review_comments.json", "utf8"));
 const reviewBody = JSON.parse(fs.readFileSync("/tmp/review_body.json", "utf8")) || "";
@@ -46,7 +47,7 @@ async function executeExtraTool(name, input) {
   if (name === "add_pr_comment") {
     const tmpFile = `/tmp/pr_comment_${Date.now()}.md`;
     fs.writeFileSync(tmpFile, input.body, "utf8");
-    execSync(`gh issue comment ${PR_NUMBER} --repo ${GITHUB_REPOSITORY} --body-file ${tmpFile}`, {
+    execFileSync("gh", ["issue", "comment", PR_NUMBER, "--repo", GITHUB_REPOSITORY, "--body-file", tmpFile], {
       stdio: "inherit",
       env: { ...process.env, GH_TOKEN },
     });

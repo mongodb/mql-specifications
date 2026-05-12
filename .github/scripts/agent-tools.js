@@ -105,14 +105,15 @@ const TOOLS = [
     description:
       "Run local validations on spec files: yamlfix (formatting) and the JSON schema validator. " +
       "Call this after writing files to catch errors before committing. " +
-      "Returns stdout/stderr output and whether validation passed.",
+      "Returns stdout/stderr output and whether validation passed. " +
+      "Note: yamlfix is scoped to provided paths; JSON schema validation always runs on the entire definitions tree.",
     input_schema: {
       type: "object",
       properties: {
         paths: {
           type: "array",
           items: { type: "string" },
-          description: "List of relative file paths to validate, e.g. ['definitions/stage/rerank.yaml']. Leave empty to validate all definitions.",
+          description: "List of relative file paths to scope yamlfix, e.g. ['definitions/stage/rerank.yaml']. Leave empty to validate all definitions.",
         },
       },
       required: [],
@@ -137,15 +138,17 @@ async function executeTool(name, input) {
       for (const repo of repos) {
         if (repo === DOCS_REPO_PRIVATE && !DOCS_GITHUB_TOKEN) continue;
 
-        // Search on main branch
-        const searchRes = await fetch(
-          `https://api.github.com/search/code?q=filename:${operator}.txt+repo:${repo}`,
-          { headers: githubHeaders(repo) }
-        );
-        if (searchRes.ok) {
-          const data = await searchRes.json();
-          for (const item of data.items ?? []) {
-            results.push({ repo, path: item.path, ref: "main" });
+        // Search on main branch for both .txt and .rst
+        for (const ext of ["txt", "rst"]) {
+          const searchRes = await fetch(
+            `https://api.github.com/search/code?q=filename:${operator}.${ext}+repo:${repo}`,
+            { headers: githubHeaders(repo) }
+          );
+          if (searchRes.ok) {
+            const data = await searchRes.json();
+            for (const item of data.items ?? []) {
+              results.push({ repo, path: item.path, ref: "main" });
+            }
           }
         }
 
@@ -183,7 +186,7 @@ async function executeTool(name, input) {
       const { repo, path: filePath, ref } = input;
       const res = await fetch(
         `https://api.github.com/repos/${repo}/contents/${filePath}?ref=${ref}`,
-        { headers: { ...githubHeaders(repo), Accept: "application/vnd.github.raw+json" } }
+        { headers: { ...githubHeaders(repo), Accept: "application/vnd.github.raw" } }
       );
       if (!res.ok) return { error: `GitHub API ${res.status}: ${await res.text()}` };
       return { content: (await res.text()).slice(0, 30000) };

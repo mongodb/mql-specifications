@@ -107,7 +107,7 @@ jobs:
           git config user.name "$ACTOR_NAME"
           git config user.email "$ACTOR_EMAIL"
           git checkout -b "$BRANCH_NAME"
-          for f in $FILES_WRITTEN; do git add "$f"; done
+          git add -A
           git commit -m "$PR_TITLE"
           git push origin "$BRANCH_NAME"
 
@@ -156,7 +156,7 @@ jobs:
             exit 0
           fi
 
-          for f in $FILES_WRITTEN; do git add "$f"; done
+          git add -A
           git commit -m "Update spec from latest documentation"
           git push origin "$PR_BRANCH"
           echo "✅ Existing PR updated with latest changes"

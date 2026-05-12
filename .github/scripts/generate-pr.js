@@ -117,7 +117,11 @@ Output a JSON summary on the last line:
     }
 
     const { branchName, prTitle, filesWritten } = summary;
-    const safeBranch = sanitizeBranchName(branchName);
+    const expectedPrefix = JIRA_KEY.toLowerCase() + "-";
+    const rawBranch = branchName.toLowerCase().startsWith(expectedPrefix)
+      ? branchName
+      : `${expectedPrefix}${branchName}`;
+    const safeBranch = sanitizeBranchName(rawBranch);
     console.log(`Branch: ${safeBranch} | PR: ${prTitle} | Files: ${(filesWritten ?? []).join(", ")}`);
 
     setOutput("branch_name", safeBranch);
