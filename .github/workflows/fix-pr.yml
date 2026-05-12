@@ -19,7 +19,7 @@ jobs:
       github.event_name == 'workflow_dispatch' ||
       (github.event.review.state == 'changes_requested' &&
        github.event.pull_request.user.login == 'github-actions[bot]' &&
-       startsWith(github.event.pull_request.head.ref, 'drivers-') &&
+       contains(github.event.pull_request.labels.*.name, 'automated') &&
        contains(fromJson('["OWNER","MEMBER","COLLABORATOR"]'), github.event.review.author_association))
     permissions:
       contents: write
