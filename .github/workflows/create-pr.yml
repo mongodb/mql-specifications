@@ -28,10 +28,11 @@ jobs:
         id: existing
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JIRA_KEY: ${{ inputs.key }}
+          GH_REPO: ${{ github.repository }}
         run: |
-          # Search for an open PR whose branch starts with the lowercased ticket key
-          TICKET_SLUG=$(echo "${{ inputs.key }}" | tr '[:upper:]' '[:lower:]' | tr '-' '-')
-          PR_JSON=$(gh pr list --repo ${{ github.repository }} --state open --json number,headRefName \
+          TICKET_SLUG=$(echo "$JIRA_KEY" | tr '[:upper:]' '[:lower:]')
+          PR_JSON=$(gh pr list --repo "$GH_REPO" --state open --json number,headRefName \
             --jq "[.[] | select(.headRefName | startswith(\"${TICKET_SLUG}-\"))] | .[0]")
 
           PR_NUMBER=$(echo "$PR_JSON" | jq -r '.number // empty')
@@ -85,9 +86,9 @@ jobs:
         id: actor
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ACTOR: ${{ github.actor }}
         run: |
-          ACTOR="${{ github.actor }}"
-          ACTOR_ID=$(gh api users/$ACTOR --jq '.id')
+          ACTOR_ID=$(gh api users/"$ACTOR" --jq '.id')
           echo "name=$ACTOR" >> $GITHUB_OUTPUT
           echo "email=${ACTOR_ID}+${ACTOR}@users.noreply.github.com" >> $GITHUB_OUTPUT
 
@@ -95,6 +96,8 @@ jobs:
         if: steps.existing.outputs.mode == 'create'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JIRA_KEY: ${{ inputs.key }}
+          ACTOR_LOGIN: ${{ github.actor }}
           BRANCH_NAME: ${{ steps.agent.outputs.branch_name }}
           PR_TITLE: ${{ steps.agent.outputs.pr_title }}
           FILES_WRITTEN: ${{ steps.agent.outputs.files_written }}
@@ -108,11 +111,11 @@ jobs:
           git commit -m "$PR_TITLE"
           git push origin "$BRANCH_NAME"
 
-          JIRA_URL="https://jira.mongodb.org/browse/${{ inputs.key }}"
+          JIRA_URL="https://jira.mongodb.org/browse/${JIRA_KEY}"
           {
             echo "## Summary"
             echo ""
-            echo "Generated from Jira ticket [${{ inputs.key }}]($JIRA_URL)."
+            echo "Generated from Jira ticket [${JIRA_KEY}](${JIRA_URL})."
             echo ""
             echo "## Files"
             echo ""
@@ -129,9 +132,9 @@ jobs:
             --body-file /tmp/pr_body.md \
             --head "$BRANCH_NAME" \
             --base main \
-            --assignee "${{ github.actor }}"
+            --assignee "$ACTOR_LOGIN"
 
-          echo "✅ Draft PR created for ${{ inputs.key }}"
+          echo "✅ Draft PR created for ${JIRA_KEY}"
 
       - name: Push updates to existing PR
         if: steps.existing.outputs.mode == 'update'

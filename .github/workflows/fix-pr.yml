@@ -30,15 +30,19 @@ jobs:
         id: pr
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_PR_NUMBER: ${{ inputs.pr_number }}
+          EVENT_PR_NUMBER: ${{ github.event.pull_request.number }}
+          GH_REPO: ${{ github.repository }}
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            PR_NUMBER="${{ inputs.pr_number }}"
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            PR_NUMBER="$INPUT_PR_NUMBER"
           else
-            PR_NUMBER="${{ github.event.pull_request.number }}"
+            PR_NUMBER="$EVENT_PR_NUMBER"
           fi
 
-          PR_BRANCH=$(gh pr view "$PR_NUMBER" --repo ${{ github.repository }} --json headRefName --jq '.headRefName')
-          PR_TITLE=$(gh pr view "$PR_NUMBER" --repo ${{ github.repository }} --json title --jq '.title')
+          PR_BRANCH=$(gh pr view "$PR_NUMBER" --repo "$GH_REPO" --json headRefName --jq '.headRefName')
+          PR_TITLE=$(gh pr view "$PR_NUMBER" --repo "$GH_REPO" --json title --jq '.title')
 
           echo "number=$PR_NUMBER" >> $GITHUB_OUTPUT
           echo "branch=$PR_BRANCH" >> $GITHUB_OUTPUT
@@ -70,16 +74,19 @@ jobs:
       - name: Collect PR review comments
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
           PR_NUMBER: ${{ steps.pr.outputs.number }}
+          EVENT_NAME: ${{ github.event_name }}
+          REVIEW_BODY: ${{ toJson(github.event.review.body) }}
         run: |
-          gh api repos/${{ github.repository }}/pulls/${PR_NUMBER}/comments \
+          gh api repos/"$GH_REPO"/pulls/"$PR_NUMBER"/comments \
             --jq '[.[] | {path: .path, line: .line, body: .body, user: .user.login}]' \
             > /tmp/review_comments.json
 
-          if [ "${{ github.event_name }}" = "pull_request_review" ]; then
-            echo '${{ toJson(github.event.review.body) }}' > /tmp/review_body.json
+          if [ "$EVENT_NAME" = "pull_request_review" ]; then
+            printf '%s' "$REVIEW_BODY" > /tmp/review_body.json
           else
-            echo '""' > /tmp/review_body.json
+            printf '""' > /tmp/review_body.json
           fi
 
           echo "Review comments collected:"
@@ -100,9 +107,9 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_BRANCH: ${{ steps.pr.outputs.branch }}
+          ACTOR: ${{ github.actor }}
         run: |
-          ACTOR="${{ github.actor }}"
-          ACTOR_ID=$(gh api users/$ACTOR --jq '.id')
+          ACTOR_ID=$(gh api users/"$ACTOR" --jq '.id')
           git config user.name "$ACTOR"
           git config user.email "${ACTOR_ID}+${ACTOR}@users.noreply.github.com"
 
