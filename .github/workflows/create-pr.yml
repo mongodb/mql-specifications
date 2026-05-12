@@ -126,13 +126,16 @@ jobs:
             echo "$JIRA_URL"
           } > /tmp/pr_body.md
 
+          gh label create "automated" --color "e4e669" --description "Created by GitHub Actions" 2>/dev/null || true
+
           gh pr create \
             --draft \
             --title "$PR_TITLE" \
             --body-file /tmp/pr_body.md \
             --head "$BRANCH_NAME" \
             --base main \
-            --assignee "$ACTOR_LOGIN"
+            --assignee "$ACTOR_LOGIN" \
+            --label "automated"
 
           echo "✅ Draft PR created for ${JIRA_KEY}"
 
