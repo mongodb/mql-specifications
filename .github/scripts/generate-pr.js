@@ -68,6 +68,22 @@ Rules:
 - The 'link' field must ALWAYS use https://www.mongodb.com/docs/manual/..., never 'upcoming'
 - The YAML must start with: # $schema: ../../schemas/operator.json
 - End the file with a newline
+
+Tests rules:
+- Each test case must come directly from an example in the documentation — never invent examples
+- Each test must include a 'schema' field describing the input collection(s) used in the example
+- The 'schema' maps collection name → field name → {types: [{bsonType: ...}]}
+- Infer field types from the sample documents shown in the documentation for that example
+- Example schema format:
+    schema:
+      sales:
+        item:
+          types:
+            - bsonType: String
+        price:
+          types:
+            - bsonType: Number
+
 - After writing and validating all files, output a JSON summary on the last line:
   {"branchName": "drivers-XXXX-short-description", "prTitle": "[DRIVERS-XXXX] Short description", "filesWritten": ["path/to/file.yaml"]}`;
 
