@@ -6,7 +6,11 @@ type:
   - resolvesToAny
 encode: object
 description: |
-  Converts a value to a specified type.
+  Converts a value to a specified type. Any type can be converted to string.
+  If the optional base argument is specified, $convert interprets the input string as a
+  number in the given base and converts it to a decimal, or converts a numeric value to a
+  string representation in that base. Supported bases are 2 (binary), 8 (octal), 10
+  (decimal), and 16 (hexadecimal).
 arguments:
   - name: input
     type:
@@ -29,6 +33,19 @@ arguments:
     description: |
       The value to return if the input is null or missing. The arguments can be any valid expression.
       If unspecified, $convert returns null if the input is null or missing.
+  - name: base
+    type:
+      - resolvesToInt
+    optional: true
+    minVersion: '8.3'
+    description: |
+      The numeric base to use when converting between strings and integers. Must be one of
+      2 (binary), 8 (octal), 10 (decimal), or 16 (hexadecimal).
+      When converting a string to a number, $convert interprets the string as a number in
+      the given base and returns the decimal equivalent.
+      When converting a number to a string, $convert returns the string representation of
+      the number in the given base.
+      If unspecified, $convert uses base 10.
 tests:
   - name: Example
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/convert/#example
@@ -84,3 +101,37 @@ tests:
             - bsonType: Decimal128
             - bsonType: Number
             - bsonType: String
+  - name: Convert Hexadecimal String to Integer
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/convert/#base-conversion
+    pipeline:
+      - $project:
+          decimalValue:
+            $convert:
+              input: $hexString
+              to: int
+              base: 16
+    schema:
+      data:
+        _id:
+          types:
+            - bsonType: Number
+        hexString:
+          types:
+            - bsonType: String
+  - name: Convert Integer to Binary String
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/convert/#base-conversion
+    pipeline:
+      - $project:
+          binaryString:
+            $convert:
+              input: $value
+              to: string
+              base: 2
+    schema:
+      data:
+        _id:
+          types:
+            - bsonType: Number
+        value:
+          types:
+            - bsonType: Int32
