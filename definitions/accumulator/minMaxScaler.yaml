@@ -1,0 +1,52 @@
+# $schema: ../../schemas/operator.json
+name: $minMaxScaler
+link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/minMaxScaler/
+minVersion: '8.2'
+type:
+  - window
+encode: object
+description: |
+  Normalizes a numeric expression within a window of values. By default, values can range
+  between zero and one. The smallest value becomes zero, the largest value becomes one, and
+  all other values scale proportionally in between. You can also specify a custom minimum
+  and maximum value for the normalized output range.
+  Available only in the $setWindowFields stage.
+arguments:
+  - name: input
+    type:
+      - resolvesToNumber
+    description: |
+      Numeric expression containing the value that you want to normalize.
+  - name: min
+    optional: true
+    type:
+      - number
+    description: |
+      Minimum value that you want in the output. If omitted, defaults to 0.
+  - name: max
+    optional: true
+    type:
+      - number
+    description: |
+      Maximum value that you want in the output. If omitted, defaults to 1.
+tests:
+  - name: Normalize values with custom range
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/minMaxScaler/#examples
+    pipeline:
+      - $setWindowFields:
+          sortBy:
+            a: 1
+          output:
+            scaled:
+              $minMaxScaler:
+                input: $a
+            scaledTo100:
+              $minMaxScaler:
+                input: $a
+                min: 0
+                max: 100
+    schema:
+      example:
+        a:
+          types:
+            - bsonType: Number
