@@ -157,7 +157,7 @@ async function executeTool(name, input) {
         // If not on main, scan open PRs
         if (!results.some((r) => r.repo === repo)) {
           const prsRes = await fetch(
-            `https://api.github.com/repos/${repo}/pulls?state=open&per_page=30`,
+            `https://api.github.com/repos/${repo}/pulls?state=open&per_page=100`,
             { headers: githubHeaders(repo) }
           );
           if (prsRes.ok) {

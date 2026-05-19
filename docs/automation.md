@@ -49,7 +49,7 @@ Two GitHub Actions workflows automate the creation and correction of MQL specifi
 
 ### Triggers
 
-- **Automatic** — when a repository member or collaborator submits **Request changes** on a `drivers-*` branch PR
+- **Automatic** — when a repository member or collaborator submits **Request changes** on a PR created by `github-actions[bot]` with the `automated` label
 - **Manual** — via the GitHub Actions UI or CLI:
   ```bash
   gh workflow run fix-pr.yml --field pr_number=42
