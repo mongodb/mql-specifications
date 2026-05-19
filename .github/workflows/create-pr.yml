@@ -159,7 +159,7 @@ jobs:
           git config user.email "$ACTOR_EMAIL"
 
           # Restore overlaid scripts so they don't pollute the spec commit
-          git restore .github/scripts/ 2>/dev/null || true
+          git restore --source=HEAD --staged --worktree .github/scripts/ 2>/dev/null || true
 
           if git diff --quiet && git diff --staged --quiet; then
             echo "No changes detected. PR is already up to date."
