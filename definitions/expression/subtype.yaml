@@ -1,0 +1,17 @@
+# $schema: ../../schemas/operator.json
+name: $subtype
+link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/subtype/
+minVersion: '8.3'
+type:
+  - resolvesToInt
+encode: single
+description: |
+  Returns the subtype of a given value as an integer. In MongoDB 8.3, the only expression
+  that contains a subtype is a BinData expression.
+arguments:
+  - name: expression
+    type:
+      - resolvesToBinData
+    description: |
+      An expression that resolves to a BinData value.
+tests: []
