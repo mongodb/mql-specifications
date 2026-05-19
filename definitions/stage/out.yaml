@@ -4,16 +4,59 @@ link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/out/
 minVersion: '2.6'
 type:
   - outputStage
-encode: single
+encode: object
 description: |
   Writes the resulting documents of the aggregation pipeline to a collection. To use the $out stage, it must be the last stage in the pipeline.
 arguments:
+  - name: db
+    type:
+      - string
+    optional: true
+    description: |
+      The output database name. If omitted, defaults to the current database.
   - name: coll
     type:
       - string
-      - outCollection
     description: |
-      Target database name to write documents from $out to.
+      The output collection name.
+  - name: timeseries
+    type:
+      - object
+    optional: true
+    minVersion: 7.0.3
+    description: |
+      Specifies the configuration to use when writing to a time series collection.
+      The timeField is required. All other fields are optional.
+    arguments:
+      - name: timeField
+        type:
+          - string
+        description: |
+          The name of the field which contains the date in each time series document.
+      - name: metaField
+        type:
+          - string
+        optional: true
+        description: |
+          The name of the field which contains metadata in each time series document.
+      - name: granularity
+        type:
+          - granularity
+        optional: true
+        description: |
+          The granularity of time measurements. Value can be seconds, minutes, or hours.
+      - name: bucketMaxSpanSeconds
+        type:
+          - int
+        optional: true
+        description: |
+          The maximum time span between measurements in a bucket.
+      - name: bucketRoundingSeconds
+        type:
+          - int
+        optional: true
+        description: |
+          The interval that determines the starting timestamp for a new bucket.
 tests:
   - name: Output to Same Database
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/out/#output-to-same-database
@@ -22,7 +65,8 @@ tests:
           _id: $author
           books:
             $push: $title
-      - $out: authors
+      - $out:
+          coll: authors
   - name: Output to a Different Database
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/out/#output-to-a-different-database
     pipeline:
@@ -33,3 +77,24 @@ tests:
       - $out:
           db: reporting
           coll: authors
+  - name: Output to a Time Series Collection
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/out/#output-to-a-time-series-collection
+    pipeline:
+      - $out:
+          db: reporting
+          coll: sensorData
+          timeseries:
+            timeField: timestamp
+            metaField: sensorId
+            granularity: hours
+    schema:
+      sensors:
+        timestamp:
+          types:
+            - bsonType: Date
+        sensorId:
+          types:
+            - bsonType: String
+        temperature:
+          types:
+            - bsonType: Number
