@@ -20,7 +20,7 @@ arguments:
     type:
       - string
     description: |
-      Optional. Normalizes the score to the range of 0 to 1. Value can be:
+      Normalizes the score to the range of 0 to 1. Value can be:
       - none: Doesn't normalize. If omitted, defaults to none.
       - sigmoid: Applies the sigmoid expression: 1 / (1 + e^-x).
       - minMaxScaler: Applies the $minMaxScaler window function.
@@ -29,13 +29,13 @@ arguments:
     type:
       - expression
     description: |
-      Optional. Number to multiply the score expression by after normalization.
+      Number to multiply the score expression by after normalization.
   - name: scoreDetails
     optional: true
     type:
       - bool
     default: false
     description: |
-      Default is false. Specifies if $score computes and populates the $scoreDetails metadata
-      field for each output document.
+      Specifies if $score computes and populates the $scoreDetails metadata field for each
+      output document.
 tests: []
