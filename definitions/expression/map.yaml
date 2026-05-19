@@ -19,6 +19,14 @@ arguments:
     optional: true
     description: |
       A name for the variable that represents each individual element of the input array. If no name is specified, the variable name defaults to this.
+  - name: arrayIndexAs
+    type:
+      - string
+    optional: true
+    minVersion: '8.3'
+    description: |
+      A name for the variable that represents the index of the current element in
+      the input array. If specified, this variable is available within the in expression.
   - name: in
     type:
       - expression
