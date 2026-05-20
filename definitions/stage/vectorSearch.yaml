@@ -52,7 +52,7 @@ arguments:
     type:
       - bool
     description: |
-      If true, the search returns only the stored source fields configured on the index. The default value is false.
+      If true, the search returns only the stored source fields configured on the index directly from the index and skips a full document lookup. If omitted, the default value is false.
 tests:
   - name: ANN Basic
     link: https://www.mongodb.com/docs/atlas/atlas-vector-search/vector-search-stage/#examples
@@ -155,7 +155,7 @@ tests:
         title:
           types:
             - bsonType: String
-  - name: Stored source
+  - name: Stored Source
     link: https://www.mongodb.com/docs/atlas/atlas-vector-search/vector-search-stage/#examples
     pipeline:
       - $vectorSearch:
