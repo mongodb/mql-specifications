@@ -72,6 +72,19 @@ tests:
           title: 1
           score:
             $meta: vectorSearchScore
+    schema:
+      movies:
+        plot_embedding:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Double
+        plot:
+          types:
+            - bsonType: String
+        title:
+          types:
+            - bsonType: String
   - name: ANN Filter
     link: https://www.mongodb.com/docs/atlas/atlas-vector-search/vector-search-stage/#examples
     pipeline:
@@ -95,6 +108,22 @@ tests:
           year: 1
           score:
             $meta: vectorSearchScore
+    schema:
+      movies:
+        plot_embedding:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Double
+        year:
+          types:
+            - bsonType: Int32
+        plot:
+          types:
+            - bsonType: String
+        title:
+          types:
+            - bsonType: String
   - name: ENN
     link: https://www.mongodb.com/docs/atlas/atlas-vector-search/vector-search-stage/#examples
     pipeline:
@@ -113,6 +142,19 @@ tests:
           title: 1
           score:
             $meta: vectorSearchScore
+    schema:
+      movies:
+        plot_embedding:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Double
+        plot:
+          types:
+            - bsonType: String
+        title:
+          types:
+            - bsonType: String
   - name: Stored source
     link: https://www.mongodb.com/docs/atlas/atlas-vector-search/vector-search-stage/#examples
     pipeline:
@@ -144,3 +186,24 @@ tests:
           genres: 1
           score:
             $meta: vectorSearchScore
+    schema:
+      movies:
+        plot_embedding:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Double
+        year:
+          types:
+            - bsonType: Int32
+        genres:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: String
+        plot:
+          types:
+            - bsonType: String
+        title:
+          types:
+            - bsonType: String
