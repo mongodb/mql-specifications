@@ -1,0 +1,7 @@
+# $schema: ../../schemas/type.json
+name: timeGranularity
+backingType: string
+enum:
+  - seconds
+  - minutes
+  - hours

@@ -8,17 +8,17 @@ encode: object
 description: |
   Writes the resulting documents of the aggregation pipeline to a collection. To use the $out stage, it must be the last stage in the pipeline.
 arguments:
+  - name: coll
+    type:
+      - string
+    description: |
+      The output collection name.
   - name: db
     type:
       - string
     optional: true
     description: |
       The output database name. If omitted, defaults to the current database.
-  - name: coll
-    type:
-      - string
-    description: |
-      The output collection name.
   - name: timeseries
     type:
       - object
@@ -41,7 +41,7 @@ arguments:
           The name of the field which contains metadata in each time series document.
       - name: granularity
         type:
-          - granularity
+          - timeGranularity
         optional: true
         description: |
           The granularity of time measurements. Value can be seconds, minutes, or hours.
