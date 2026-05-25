@@ -12,19 +12,15 @@ arguments:
   - name: vectors
     type:
       - resolvesToArray  # of numbers
-    variadic: array
-    variadicMin: 2
     description: |
       An array of exactly two expressions that each resolve to an array of numbers.
       Both arrays must have the same length.
   - name: score
     type:
       - resolvesToBool
-    optional: true
     default: false
     description: |
       If true, normalizes the result to a value between 0 and 1 for use as a vector search score.
-      Defaults to false.
 tests:
   - name: Example
     pipeline:
