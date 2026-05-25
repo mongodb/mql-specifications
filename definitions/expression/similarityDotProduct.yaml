@@ -1,0 +1,46 @@
+# $schema: ../../schemas/operator.json
+name: $similarityDotProduct
+link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/similarityDotProduct/
+minVersion: '8.2'
+type:
+  - resolvesToDouble
+encode: object
+description: |
+  Returns the dot product similarity between two vectors. If the score argument is true, the result
+  is normalized to a value between 0 and 1 for use as a vector search score.
+arguments:
+  - name: vectors
+    type:
+      - resolvesToArray  # of numbers
+    variadic: array
+    variadicMin: 2
+    description: |
+      An array of exactly two expressions that each resolve to an array of numbers.
+      Both arrays must have the same length.
+  - name: score
+    type:
+      - resolvesToBool
+    description: |
+      If true, normalizes the result to a value between 0 and 1 for use as a vector search score.
+tests:
+  - name: Example
+    pipeline:
+      - $project:
+          similarity:
+            $similarityDotProduct:
+              vectors:
+                - $embedding
+                - $queryEmbedding
+              score: true
+    schema:
+      documents:
+        embedding:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Double
+        queryEmbedding:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Double
