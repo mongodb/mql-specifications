@@ -1,7 +1,7 @@
 # $schema: ../../schemas/operator.json
 name: $similarityDotProduct
 link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/similarityDotProduct/
-minVersion: '8.2'
+minVersion: '8.3'
 type:
   - resolvesToDouble
 encode: object
@@ -20,8 +20,11 @@ arguments:
   - name: score
     type:
       - resolvesToBool
+    optional: true
+    default: false
     description: |
       If true, normalizes the result to a value between 0 and 1 for use as a vector search score.
+      Defaults to false.
 tests:
   - name: Example
     pipeline:
