@@ -28,14 +28,39 @@ tests:
       - $project:
           raw:
             $similarityDotProduct:
-              - $a
-              - $b
+              vectors:
+                - $a
+                - $b
+              score: false
           normalized:
             $similarityDotProduct:
               vectors:
                 - $a
                 - $b
               score: true
+    schema:
+      vectors:
+        _id:
+          types:
+            - bsonType: Number
+        a:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Number
+        b:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Number
+  - name: Short Syntax
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/similarityDotProduct/#example
+    pipeline:
+      - $project:
+          raw:
+            $similarityDotProduct:
+              - $a
+              - $b
     schema:
       vectors:
         _id:

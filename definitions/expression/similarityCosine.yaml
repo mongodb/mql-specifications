@@ -28,14 +28,39 @@ tests:
       - $project:
           raw:
             $similarityCosine:
-              - $a
-              - $b
+              vectors:
+                - $a
+                - $b
+              score: false
           normalized:
             $similarityCosine:
               vectors:
                 - $a
                 - $b
               score: true
+    schema:
+      vectors:
+        _id:
+          types:
+            - bsonType: Number
+        a:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Number
+        b:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Number
+  - name: Short Syntax
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/similarityCosine/#example
+    pipeline:
+      - $project:
+          raw:
+            $similarityCosine:
+              - $a
+              - $b
     schema:
       vectors:
         _id:

@@ -28,14 +28,39 @@ tests:
       - $project:
           raw:
             $similarityEuclidean:
-              - $a
-              - $b
+              vectors:
+                - $a
+                - $b
+              score: false
           normalized:
             $similarityEuclidean:
               vectors:
                 - $a
                 - $b
               score: true
+    schema:
+      vectors:
+        _id:
+          types:
+            - bsonType: Number
+        a:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Number
+        b:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Number
+  - name: Short Syntax
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/similarityEuclidean/#example
+    pipeline:
+      - $project:
+          raw:
+            $similarityEuclidean:
+              - $a
+              - $b
     schema:
       vectors:
         _id:
