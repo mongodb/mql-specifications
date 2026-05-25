@@ -23,23 +23,31 @@ arguments:
       If true, normalizes the result to a value between 0 and 1 for use as a vector search score.
 tests:
   - name: Example
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/similarityCosine/#example
     pipeline:
       - $project:
-          similarity:
+          raw:
+            $similarityCosine:
+              - $a
+              - $b
+          normalized:
             $similarityCosine:
               vectors:
-                - $embedding
-                - $queryEmbedding
+                - $a
+                - $b
               score: true
     schema:
-      documents:
-        embedding:
+      vectors:
+        _id:
+          types:
+            - bsonType: Number
+        a:
           types:
             - bsonType: Array
               types:
-                - bsonType: Double
-        queryEmbedding:
+                - bsonType: Number
+        b:
           types:
             - bsonType: Array
               types:
-                - bsonType: Double
+                - bsonType: Number
