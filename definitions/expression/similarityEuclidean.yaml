@@ -17,7 +17,7 @@ arguments:
       Both arrays must have the same length.
   - name: score
     type:
-      - resolvesToBool
+      - bool
     default: false
     description: |
       If true, normalizes the result to a value between 0 and 1 for use as a vector search score.
