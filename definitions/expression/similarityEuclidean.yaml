@@ -11,7 +11,7 @@ description: |
 arguments:
   - name: vectors
     type:
-      - resolvesToArray  # of numbers
+      - resolvesToArray  # of vectors
     description: |
       An array of exactly two expressions that each resolve to an array of numbers.
       Both arrays must have the same length.
