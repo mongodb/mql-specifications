@@ -59,6 +59,7 @@
                 "timeUnit",
                 "sortSpec",
                 "granularity",
+                "timeGranularity",
                 "fullDocument",
                 "fullDocumentBeforeChange",
                 "accumulatorPercentile",
