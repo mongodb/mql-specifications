@@ -12,9 +12,9 @@ description: |
 arguments:
   - name: path
     type:
-      - string
+      - searchPath
     description: |
-      The indexed vector type field to search.
+      The indexed vector field to search.
   - name: queryVector
     type:
       - array       # of numbers
