@@ -1,7 +1,7 @@
 # $schema: ../../schemas/operator.json
 name: vectorSearch
 link: https://www.mongodb.com/docs/atlas/atlas-search/vector-search/
-minVersion: '8.0'
+minVersion: '6.0'
 type:
   - searchOperator
 encode: object
