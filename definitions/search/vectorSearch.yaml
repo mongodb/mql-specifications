@@ -18,9 +18,9 @@ arguments:
   - name: queryVector
     type:
       - array       # of numbers
-      - resolvesToBinData
+      - binData
     description: |
-      Array of numbers or a BinData value that represent the query vector. The number type
+      Array of numbers or a BinData value that represents the query vector. The number type
       must match the indexed field value type.
   - name: limit
     type:
