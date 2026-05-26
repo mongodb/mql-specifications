@@ -271,6 +271,16 @@
                     "$comment": "The maximum value for a numeric argument.",
                     "type": "number"
                 },
+                "minItems": {
+                    "$comment": "The minimum number of items for an array argument.",
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "maxItems": {
+                    "$comment": "The maximum number of items for an array argument.",
+                    "type": "integer",
+                    "minimum": 0
+                },
                 "variadic": {
                     "$comment": "Whether the argument is variadic or not.",
                     "type": "string",
