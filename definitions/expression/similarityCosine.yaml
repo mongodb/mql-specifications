@@ -20,7 +20,7 @@ arguments:
       - bool
     optional: true
     description: |
-      If true, normalizes the result to a value between 0 and 1 for use as a vector search score.
+      If true, normalizes the result to a value between 0 and 1 for use as a vector search score. Defaults to false.
 tests:
   - name: Example
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/similarityCosine/#example
