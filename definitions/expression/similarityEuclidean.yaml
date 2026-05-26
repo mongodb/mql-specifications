@@ -1,0 +1,54 @@
+# $schema: ../../schemas/operator.json
+name: $similarityEuclidean
+link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/similarityEuclidean/
+minVersion: '8.3'
+type:
+  - resolvesToDouble
+encode: object
+description: |
+  Returns the Euclidean similarity between two vectors. If the score argument is true, the result
+  is normalized to a value between 0 and 1 for use as a vector search score.
+arguments:
+  - name: vectors
+    type:
+      - resolvesToArray  # of vectors
+    description: |
+      An array of exactly two expressions that each resolve to an array of numbers.
+      Both arrays must have the same length.
+  - name: score
+    type:
+      - bool
+    optional: true
+    description: |
+      If true, normalizes the result to a value between 0 and 1 for use as a vector search score. Defaults to false.
+tests:
+  - name: Example
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/similarityEuclidean/#example
+    pipeline:
+      - $project:
+          raw:
+            $similarityEuclidean:
+              vectors:
+                - $a
+                - $b
+          normalized:
+            $similarityEuclidean:
+              vectors:
+                - $a
+                - $b
+              score: true
+    schema:
+      vectors:
+        _id:
+          types:
+            - bsonType: Number
+        a:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Number
+        b:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Number
