@@ -37,4 +37,17 @@ arguments:
     description: |
       Specifies if $score computes and populates the $scoreDetails metadata field for each
       output document.
-tests: []
+tests:
+  - name: Example
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/score/
+    pipeline:
+      - $score:
+          score:
+            $meta: vectorSearchScore
+    schema:
+      movies:
+        plot_embedding:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Double

@@ -100,3 +100,23 @@ tests:
             - bsonType: Array
               types:
                 - bsonType: Number
+  - name: Use Array Index
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/map/
+    pipeline:
+      - $project:
+          result:
+            $map:
+              input: $scores
+              as: score
+              arrayIndexAs: idx
+              in:
+                $add:
+                  - $$score
+                  - $$idx
+    schema:
+      data:
+        scores:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Number

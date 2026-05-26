@@ -53,6 +53,7 @@ arguments:
         description: |
           Custom expression used when combination.method is set to expression.
   - name: scoreDetails
+    optional: true
     type:
       - bool
     description: Set to true to include detailed scoring information.

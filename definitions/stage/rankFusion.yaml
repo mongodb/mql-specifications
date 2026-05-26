@@ -36,6 +36,7 @@ arguments:
         description: |
           Map from pipeline name to weight (non-negative number). If unspecified, default weight is 1 for each pipeline.
   - name: scoreDetails
+    optional: true
     type:
       - bool
     description: Set to true to include detailed scoring information.

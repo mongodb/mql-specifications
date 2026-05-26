@@ -14,4 +14,15 @@ arguments:
       - resolvesToBinData
     description: |
       An expression that resolves to a BinData value.
-tests: []
+tests:
+  - name: Example
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/subtype/
+    pipeline:
+      - $project:
+          result:
+            $subtype: $myBinDataField
+    schema:
+      data:
+        myBinDataField:
+          types:
+            - bsonType: Binary
