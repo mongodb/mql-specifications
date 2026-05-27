@@ -1,0 +1,59 @@
+# $schema: ../../schemas/operator.json
+name: $bottomN
+link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/bottomN-array-operator/
+minVersion: '7.0'
+type:
+  - resolvesToArray
+encode: object
+description: |
+  Returns an aggregation of the bottom n elements within an array, according to the specified sort order.
+  If the array contains fewer than n elements, $bottomN returns all elements in the array.
+arguments:
+  - name: n
+    type:
+      - resolvesToInt
+    description: |
+      An expression that resolves to a positive integer. The integer specifies the number of array elements that $bottomN returns.
+  - name: sortBy
+    type:
+      - sortBy
+    description: |
+      Specifies the order of results, with syntax similar to $sort.
+  - name: output
+    type:
+      - expression
+    description: |
+      Represents the output for each element in the input array and can be any expression.
+  - name: input
+    type:
+      - resolvesToArray
+    description: |
+      An expression that resolves to the array from which to return the bottom n elements.
+tests:
+  - name: Example
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/bottomN-array-operator/#example
+    pipeline:
+      - $project:
+          bottomScores:
+            $bottomN:
+              n: 3
+              sortBy:
+                score: -1
+              output:
+                - $playerId
+                - $score
+              input: $results
+    schema:
+      games:
+        results:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Document
+                  fields:
+                    playerId:
+                      types:
+                        - bsonType: String
+                    score:
+                      types:
+                        - bsonType: Number
