@@ -39,6 +39,7 @@ arguments:
     optional: true
     type:
       - bool
+    optional: true
     description: Set to true to include detailed scoring information.
 tests:
   - name: Example

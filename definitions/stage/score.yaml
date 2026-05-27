@@ -18,7 +18,7 @@ arguments:
   - name: normalization
     optional: true
     type:
-      - string
+      - scoreNormalization
     description: |
       Normalizes the score to the range of 0 to 1. Value can be:
       - none: Doesn't normalize. If omitted, defaults to none.

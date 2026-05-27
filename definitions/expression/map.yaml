@@ -15,7 +15,7 @@ arguments:
       An expression that resolves to an array.
   - name: as
     type:
-      - resolvesToString
+      - string
     optional: true
     description: |
       A name for the variable that represents each individual element of the input array. If no name is specified, the variable name defaults to this.
