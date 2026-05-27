@@ -1,0 +1,159 @@
+# $schema: ../../schemas/operator.json
+name: vectorSearch
+link: https://www.mongodb.com/docs/atlas/atlas-search/vector-search/
+minVersion: '6.0'
+type:
+  - searchOperator
+encode: object
+description: |
+  The vectorSearch operator performs an ANN or ENN search on a vector field. It can only be
+  used as a top-level operator in a $search or $searchMeta query, not nested under compound
+  or other operators.
+arguments:
+  - name: path
+    type:
+      - searchPath
+    description: |
+      The indexed vector field to search.
+  - name: queryVector
+    type:
+      - array       # of numbers
+      - binData
+    description: |
+      Array of numbers or a BinData value that represents the query vector. The number type
+      must match the indexed field value type.
+  - name: limit
+    type:
+      - int
+    description: |
+      The integer number of documents to return in the results. This value cannot exceed
+      numCandidates if numCandidates is specified.
+  - name: exact
+    optional: true
+    type:
+      - bool
+    description: |
+      If false, runs an ANN search. If true, runs an ENN search. Defaults to false.
+      This parameter is required if numCandidates is omitted.
+  - name: numCandidates
+    optional: true
+    type:
+      - int
+    description: |
+      The number of nearest neighbors to use during the search. Value must be less than or
+      equal to 10000 and cannot be less than limit. This field is required if exact is false
+      or omitted.
+  - name: filter
+    optional: true
+    type:
+      - searchOperator
+    description: |
+      Any Atlas Search operator to filter documents based on metadata or specific search criteria.
+  - name: score
+    optional: true
+    type:
+      - searchScore
+    description: |
+      Score assigned to matching search results.
+tests:
+  - name: ANN Basic
+    link: https://www.mongodb.com/docs/atlas/atlas-search/vector-search/#basic-example
+    pipeline:
+      - $search:
+          vectorSearch:
+            path: plot_embedding
+            queryVector: # skip other numbers, not relevant to the test
+              - -0.0016261312
+              - -0.028070757
+              - -0.011342932
+            numCandidates: 150
+            limit: 10
+      - $project:
+          _id: 0
+          plot: 1
+          title: 1
+          score:
+            $meta: searchScore
+    schema:
+      movies:
+        plot_embedding:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Double
+        plot:
+          types:
+            - bsonType: String
+        title:
+          types:
+            - bsonType: String
+  - name: ANN Filter
+    link: https://www.mongodb.com/docs/atlas/atlas-search/vector-search/#filter-example
+    pipeline:
+      - $search:
+          vectorSearch:
+            path: plot_embedding
+            queryVector: # skip other numbers, not relevant to the test
+              - 0.02421053
+              - -0.022372592
+              - -0.006231137
+            filter:
+              range:
+                path: year
+                lt: 1975
+            numCandidates: 150
+            limit: 10
+      - $project:
+          _id: 0
+          title: 1
+          plot: 1
+          year: 1
+          score:
+            $meta: searchScore
+    schema:
+      movies:
+        plot_embedding:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Double
+        year:
+          types:
+            - bsonType: Int32
+        plot:
+          types:
+            - bsonType: String
+        title:
+          types:
+            - bsonType: String
+  - name: ENN
+    link: https://www.mongodb.com/docs/atlas/atlas-search/vector-search/#enn-example
+    pipeline:
+      - $search:
+          vectorSearch:
+            path: plot_embedding
+            queryVector: # skip other numbers, not relevant to the test
+              - -0.006954097
+              - -0.009932499
+              - -0.001311474
+            exact: true
+            limit: 10
+      - $project:
+          _id: 0
+          plot: 1
+          title: 1
+          score:
+            $meta: searchScore
+    schema:
+      movies:
+        plot_embedding:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Double
+        plot:
+          types:
+            - bsonType: String
+        title:
+          types:
+            - bsonType: String
