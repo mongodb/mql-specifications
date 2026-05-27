@@ -197,6 +197,9 @@ Defines a single parameter/argument for an operator.
 - `default`: Default value for optional parameters when no value was specified
 - `mergeObject`: Whether to merge the argument into the parent object when using `object` encoding; defaults to `false`
 - `minVersion`: Minimum MongoDB version where the parameter is supported
+- `minItems`: Minimum number of items for array arguments, used for validation and code generation
+- `maxItems`: Maximum number of items for array arguments, used for validation and code generation
+- `arguments`: Sub-arguments for `object`-typed arguments, enabling typed nested structures (see below)
 
 #### Types
 
@@ -311,6 +314,26 @@ With `mergeObject: true`, the properties are merged into the parent object:
   foo: 'bar',
   bar: 'baz'
 }
+```
+
+#### Nested arguments
+
+An argument of type `object` can define its own `arguments` list to describe the structure of that object. This enables typed nested structures and allows code generators to produce typed builder methods for sub-fields.
+
+**Example:**
+```yaml
+- name: timeseries
+  type:
+    - object
+  optional: true
+  arguments:
+    - name: timeField
+      type:
+        - string
+    - name: granularity
+      type:
+        - timeGranularity
+      optional: true
 ```
 
 ---

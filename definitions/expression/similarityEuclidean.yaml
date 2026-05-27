@@ -12,6 +12,8 @@ arguments:
   - name: vectors
     type:
       - resolvesToArray  # of vectors
+    minItems: 2
+    maxItems: 2
     description: |
       An array of exactly two expressions that each resolve to an array of numbers.
       Both arrays must have the same length.
