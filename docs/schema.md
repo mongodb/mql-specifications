@@ -326,31 +326,14 @@ An argument of type `object` can define its own `arguments` list to describe the
   type:
     - object
   optional: true
-  minVersion: '7.0.3'
-  description: |
-    Specifies the configuration to use when writing to a time series collection.
   arguments:
     - name: timeField
       type:
         - string
-      description: |
-        The name of the field which contains the date in each time series document.
     - name: granularity
       type:
         - timeGranularity
       optional: true
-      description: |
-        The granularity of time measurements. Value can be seconds, minutes, or hours.
-```
-
-This generates a nested object structure:
-```javascript
-{
-  timeseries: {
-    timeField: 'timestamp',
-    granularity: 'hours'
-  }
-}
 ```
 
 ---
