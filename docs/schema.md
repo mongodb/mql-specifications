@@ -197,6 +197,9 @@ Defines a single parameter/argument for an operator.
 - `default`: Default value for optional parameters when no value was specified
 - `mergeObject`: Whether to merge the argument into the parent object when using `object` encoding; defaults to `false`
 - `minVersion`: Minimum MongoDB version where the parameter is supported
+- `minItems`: Minimum number of items for array arguments, used for validation and code generation
+- `maxItems`: Maximum number of items for array arguments, used for validation and code generation
+- `arguments`: Sub-arguments for `object`-typed arguments, enabling typed nested structures (see below)
 
 #### Types
 
@@ -310,6 +313,43 @@ With `mergeObject: true`, the properties are merged into the parent object:
 {
   foo: 'bar',
   bar: 'baz'
+}
+```
+
+#### Nested arguments
+
+An argument of type `object` can define its own `arguments` list to describe the structure of that object. This enables typed nested structures and allows code generators to produce typed builder methods for sub-fields.
+
+**Example:**
+```yaml
+- name: timeseries
+  type:
+    - object
+  optional: true
+  minVersion: '7.0.3'
+  description: |
+    Specifies the configuration to use when writing to a time series collection.
+  arguments:
+    - name: timeField
+      type:
+        - string
+      description: |
+        The name of the field which contains the date in each time series document.
+    - name: granularity
+      type:
+        - timeGranularity
+      optional: true
+      description: |
+        The granularity of time measurements. Value can be seconds, minutes, or hours.
+```
+
+This generates a nested object structure:
+```javascript
+{
+  timeseries: {
+    timeField: 'timestamp',
+    granularity: 'hours'
+  }
 }
 ```
 
