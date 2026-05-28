@@ -1,0 +1,52 @@
+# $schema: ../../schemas/operator.json
+name: $bottom
+link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/bottom-array-operator/
+minVersion: '7.0'
+type:
+  - resolvesToAny
+encode: object
+description: |
+  Returns the bottom element within an array according to the specified sort order.
+arguments:
+  - name: sortBy
+    type:
+      - sortBy
+    description: |
+      Specifies the order of results, with syntax similar to $sort.
+  - name: output
+    type:
+      - expression
+    description: |
+      Represents the output for each element in the input array and can be any expression.
+  - name: input
+    type:
+      - resolvesToArray
+    description: |
+      An expression that resolves to the array from which to return the bottom element.
+tests:
+  - name: Example
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/bottom-array-operator/#example
+    pipeline:
+      - $project:
+          bottomScore:
+            $bottom:
+              sortBy:
+                score: -1
+              output:
+                - $playerId
+                - $score
+              input: $results
+    schema:
+      games:
+        results:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Document
+                  fields:
+                    playerId:
+                      types:
+                        - bsonType: String
+                    score:
+                      types:
+                        - bsonType: Number
