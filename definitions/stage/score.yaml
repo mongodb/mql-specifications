@@ -1,0 +1,53 @@
+# $schema: ../../schemas/operator.json
+name: $score
+link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/score/
+minVersion: '8.2'
+type:
+  - stage
+encode: object
+description: |
+  Computes and returns a new score as metadata. It also optionally normalizes the input
+  scores, by default to a range between zero and one.
+arguments:
+  - name: score
+    type:
+      - expression
+    description: |
+      Computes a new value from the input scores and stores the value in the $meta keyword
+      score. Returns an error for non-numeric inputs.
+  - name: normalization
+    optional: true
+    type:
+      - scoreNormalization
+    description: |
+      Normalizes the score to the range of 0 to 1. Value can be:
+      - none: Doesn't normalize. If omitted, defaults to none.
+      - sigmoid: Applies the sigmoid expression: 1 / (1 + e^-x).
+      - minMaxScaler: Applies the $minMaxScaler window function.
+  - name: weight
+    optional: true
+    type:
+      - expression
+    description: |
+      Number to multiply the score expression by after normalization.
+  - name: scoreDetails
+    optional: true
+    type:
+      - bool
+    description: |
+      Specifies if $score computes and populates the $scoreDetails metadata field for each
+      output document.
+tests:
+  - name: Example
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/score/
+    pipeline:
+      - $score:
+          score:
+            $meta: vectorSearchScore
+    schema:
+      movies:
+        plot_embedding:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Double

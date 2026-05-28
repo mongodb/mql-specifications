@@ -65,6 +65,7 @@
                 "accumulatorPercentile",
                 "whenMatched",
                 "whenNotMatched",
+                "scoreNormalization",
                 "outCollection",
                 "range",
                 "sortBy",

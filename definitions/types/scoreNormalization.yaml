@@ -1,0 +1,7 @@
+# $schema: ../../schemas/type.json
+name: scoreNormalization
+backingType: string
+enum:
+  - none
+  - sigmoid
+  - minMaxScaler
