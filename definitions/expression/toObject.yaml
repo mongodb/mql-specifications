@@ -1,0 +1,30 @@
+# $schema: ../../schemas/operator.json
+name: $toObject
+link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/toObject/
+minVersion: '8.3'
+type:
+  - resolvesToObject
+encode: single
+description: |
+  Converts a string to an object. If the value cannot be converted, $toObject errors.
+  If the value is null or missing, $toObject returns null.
+arguments:
+  - name: expression
+    type:
+      - expression
+tests:
+  - name: Convert String to Object
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/toObject/#convert-string-to-object
+    pipeline:
+      - $project:
+          _id: 0
+          parsedConfig:
+            $toObject: $config
+    schema:
+      jsonStrings:
+        _id:
+          types:
+            - bsonType: Number
+        config:
+          types:
+            - bsonType: String
