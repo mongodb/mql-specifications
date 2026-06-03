@@ -1,0 +1,45 @@
+# $schema: ../../schemas/operator.json
+name: $toArray
+link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/toArray/
+minVersion: '8.3'
+type:
+  - resolvesToArray
+encode: single
+description: |
+  Converts a value to an array. If the value cannot be converted, $toArray errors.
+  If the value is null or missing, $toArray returns null.
+arguments:
+  - name: expression
+    type:
+      - expression
+tests:
+  - name: Convert String to Array
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/toArray/#convert-string-to-array
+    pipeline:
+      - $project:
+          _id: 0
+          numbers:
+            $toArray: '[1, 2, 3]'
+          documents:
+            $toArray: '[{"a": 1}, {"b": 2}]'
+    schema:
+      jsonStrings:
+        _id:
+          types:
+            - bsonType: Number
+  - name: Convert binData to Array
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/toArray/#convert-bindata-to-array
+    pipeline:
+      - $project:
+          _id: 0
+          original: $v
+          asArray:
+            $toArray: $v
+    schema:
+      t:
+        _id:
+          types:
+            - bsonType: Number
+        v:
+          types:
+            - bsonType: Binary
