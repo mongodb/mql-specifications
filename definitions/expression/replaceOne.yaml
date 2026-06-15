@@ -18,6 +18,7 @@ arguments:
     type:
       - resolvesToString
       - resolvesToNull
+      - resolvesToRegex
     description: |
       The string to search for within the given input. Can be any valid expression that resolves to a string or a null. If find refers to a field that is missing, $replaceAll returns null.
   - name: replacement
@@ -35,6 +36,23 @@ tests:
             $replaceOne:
               input: $item
               find: blue paint
+              replacement: red paint
+    schema:
+      inventory:
+        _id:
+          types:
+            - bsonType: Number
+        item:
+          types:
+            - bsonType: String
+  - name: Replace Using Regex
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/replaceOne/#replace-using-regex
+    pipeline:
+      - $project:
+          item:
+            $replaceOne:
+              input: $item
+              find: !bson_regex '\bblue paint\b'
               replacement: red paint
     schema:
       inventory:
