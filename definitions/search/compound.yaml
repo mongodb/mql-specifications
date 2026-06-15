@@ -34,6 +34,11 @@ arguments:
     optional: true
     type:
       - int
+  - name: doesNotAffect
+    optional: true
+    type:
+      - string
+      - array       # of string
   - name: score
     optional: true
     type:
@@ -120,3 +125,20 @@ tests:
                         value: true
                         path: in_stock
             minimumShouldMatch: 1
+  - name: Does Not Affect
+    link: https://www.mongodb.com/docs/search/query/operators-collectors/facet/
+    pipeline:
+      - $searchMeta:
+          facet:
+            operator:
+              compound:
+                filter:
+                  - equals:
+                      path: verified
+                      value: true
+                doesNotAffect:
+                  - verifiedFacet
+            facets:
+              verifiedFacet:
+                type: string
+                path: verified

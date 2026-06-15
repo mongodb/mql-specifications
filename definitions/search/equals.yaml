@@ -23,6 +23,7 @@ arguments:
   - name: doesNotAffect
     optional: true
     type:
+      - string
       - array       # of string
   - name: score
     optional: true

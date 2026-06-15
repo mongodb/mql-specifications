@@ -15,6 +15,11 @@ arguments:
     type:
       - any
       - array       # of any
+  - name: doesNotAffect
+    optional: true
+    type:
+      - string
+      - array       # of string
   - name: score
     optional: true
     type:
@@ -71,3 +76,22 @@ tests:
           name: 1
           score:
             $meta: searchScore
+  - name: Does Not Affect
+    link: https://www.mongodb.com/docs/search/query/operators-collectors/facet/
+    pipeline:
+      - $searchMeta:
+          facet:
+            operator:
+              compound:
+                filter:
+                  - in:
+                      path: category
+                      value:
+                        - electronics
+                        - clothing
+                      doesNotAffect:
+                        - categoryFacet
+            facets:
+              categoryFacet:
+                type: string
+                path: category
