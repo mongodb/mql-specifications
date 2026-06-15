@@ -13,19 +13,20 @@ arguments:
       - resolvesToString
       - resolvesToNull
     description: |
-      The string on which you wish to apply the find. Can be any valid expression that resolves to a string or a null. If input refers to a field that is missing, $replaceAll returns null.
+      The string on which you wish to apply the find. Can be any valid expression that resolves to a string or a null. If input refers to a field that is missing, $replaceOne returns null.
   - name: find
     type:
       - resolvesToString
       - resolvesToNull
+      - resolvesToRegex
     description: |
-      The string to search for within the given input. Can be any valid expression that resolves to a string or a null. If find refers to a field that is missing, $replaceAll returns null.
+      The string or regex to search for within the given input. Can be any valid expression that resolves to a string, a regex, or a null. If find refers to a field that is missing, $replaceOne returns null.
   - name: replacement
     type:
       - resolvesToString
       - resolvesToNull
     description: |
-      The string to use to replace all matched instances of find in input. Can be any valid expression that resolves to a string or a null.
+      The string to use to replace the first matched instance of find in input. Can be any valid expression that resolves to a string or a null.
 tests:
   - name: Example
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/replaceOne/#example
@@ -35,6 +36,23 @@ tests:
             $replaceOne:
               input: $item
               find: blue paint
+              replacement: red paint
+    schema:
+      inventory:
+        _id:
+          types:
+            - bsonType: Number
+        item:
+          types:
+            - bsonType: String
+  - name: Replace Using Regex
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/replaceOne/#replace-using-regex
+    pipeline:
+      - $project:
+          item:
+            $replaceOne:
+              input: $item
+              find: !bson_regex '\bblue paint\b'
               replacement: red paint
     schema:
       inventory:
