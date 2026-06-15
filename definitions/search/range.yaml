@@ -40,6 +40,10 @@ arguments:
       - number
       - string
       - objectId
+  - name: doesNotAffect
+    optional: true
+    type:
+      - array       # of string
   - name: score
     optional: true
     type:
@@ -109,3 +113,27 @@ tests:
       - $project:
           _id: 0
           title: 1
+  - name: Does Not Affect
+    link: https://www.mongodb.com/docs/search/query/operators-collectors/facet/
+    pipeline:
+      - $searchMeta:
+          facet:
+            operator:
+              compound:
+                filter:
+                  - range:
+                      path: rating
+                      gte: 4
+                      lt: 5
+                      doesNotAffect:
+                        - ratingFacet
+            facets:
+              ratingFacet:
+                type: number
+                path: rating
+                boundaries:
+                  - 1
+                  - 2
+                  - 3
+                  - 4
+                  - 5

@@ -20,6 +20,10 @@ arguments:
       - 'null'
       - number
       - string
+  - name: doesNotAffect
+    optional: true
+    type:
+      - array       # of string
   - name: score
     optional: true
     type:
@@ -79,3 +83,20 @@ tests:
           equals:
             path: job_title
             value: ~
+  - name: Does Not Affect
+    link: https://www.mongodb.com/docs/search/query/operators-collectors/facet/
+    pipeline:
+      - $searchMeta:
+          facet:
+            operator:
+              compound:
+                filter:
+                  - equals:
+                      path: size
+                      value: S
+                      doesNotAffect:
+                        - sizeFacet
+            facets:
+              sizeFacet:
+                type: string
+                path: size
