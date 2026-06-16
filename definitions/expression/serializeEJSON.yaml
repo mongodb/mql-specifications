@@ -1,0 +1,189 @@
+# $schema: ../../schemas/operator.json
+name: $serializeEJSON
+link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/serializeEJSON/
+minVersion: '8.3'
+type:
+  - resolvesToObject
+encode: object
+description: |
+  Converts BSON values to Extended JSON (EJSON) format. The result is a
+  BSON document with EJSON type wrappers that can then be converted to
+  a JSON string using $toString.
+arguments:
+  - name: input
+    type:
+      - expression
+    description: |
+      The BSON value to convert to Extended JSON format.
+  - name: relaxed
+    type:
+      - resolvesToBool
+    optional: true
+    description: |
+      Specifies whether to use Relaxed Extended JSON format. If true, numeric types
+      (Int32, Int64, Double) are represented as native JSON numbers for better readability.
+      If false or unspecified, uses Canonical Extended JSON format which preserves type
+      information for all BSON types. Defaults to false.
+  - name: onError
+    type:
+      - expression
+    optional: true
+    description: |
+      The value to return if the operation encounters an error during conversion.
+      If unspecified, the operation throws an error and stops.
+tests:
+  - name: Canonical Extended JSON Example
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/serializeEJSON/#canonical-extended-json-example
+    pipeline:
+      - $match:
+          title: Inception
+      - $project:
+          ejson:
+            $serializeEJSON:
+              input: $$ROOT
+    schema:
+      movies:
+        _id:
+          types:
+            - bsonType: ObjectId
+        title:
+          types:
+            - bsonType: String
+        year:
+          types:
+            - bsonType: Int32
+        runtime:
+          types:
+            - bsonType: Int32
+        released:
+          types:
+            - bsonType: Date
+        cast:
+          types:
+            - bsonType: Array
+        genres:
+          types:
+            - bsonType: Array
+        directors:
+          types:
+            - bsonType: Array
+  - name: Relaxed Extended JSON Example
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/serializeEJSON/#relaxed-extended-json-example
+    pipeline:
+      - $match:
+          title: Inception
+      - $project:
+          ejson:
+            $serializeEJSON:
+              input: $$ROOT
+              relaxed: true
+    schema:
+      movies:
+        _id:
+          types:
+            - bsonType: ObjectId
+        title:
+          types:
+            - bsonType: String
+        year:
+          types:
+            - bsonType: Int32
+        runtime:
+          types:
+            - bsonType: Int32
+        released:
+          types:
+            - bsonType: Date
+        cast:
+          types:
+            - bsonType: Array
+        genres:
+          types:
+            - bsonType: Array
+        directors:
+          types:
+            - bsonType: Array
+  - name: Convert to JSON String
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/serializeEJSON/#convert-to-json-string
+    pipeline:
+      - $match:
+          title: The Godfather
+      - $project:
+          title: 1
+          jsonString:
+            $toString:
+              $serializeEJSON:
+                input: $$ROOT
+    schema:
+      movies:
+        _id:
+          types:
+            - bsonType: ObjectId
+        title:
+          types:
+            - bsonType: String
+        year:
+          types:
+            - bsonType: Int32
+        released:
+          types:
+            - bsonType: Date
+  - name: Serialize Specific Fields
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/serializeEJSON/#serialize-specific-fields
+    pipeline:
+      - $match:
+          year:
+            $gte: 2010
+      - $project:
+          title: 1
+          metadataEJSON:
+            $serializeEJSON:
+              input:
+                releaseDate: $released
+                runtime: $runtime
+                imdbRating: $imdb.rating
+    schema:
+      movies:
+        _id:
+          types:
+            - bsonType: ObjectId
+        title:
+          types:
+            - bsonType: String
+        year:
+          types:
+            - bsonType: Int32
+        released:
+          types:
+            - bsonType: Date
+        runtime:
+          types:
+            - bsonType: Int32
+        imdb:
+          types:
+            - bsonType: Document
+              fields:
+                rating:
+                  types:
+                    - bsonType: Double
+  - name: Use onError for Error Handling
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/serializeEJSON/#use-onerror-for-error-handling
+    pipeline:
+      - $project:
+          title: 1
+          ejson:
+            $serializeEJSON:
+              input: $customField
+              onError:
+                error: Serialization failed
+    schema:
+      movies:
+        _id:
+          types:
+            - bsonType: ObjectId
+        title:
+          types:
+            - bsonType: String
+        customField:
+          types:
+            - bsonType: String
