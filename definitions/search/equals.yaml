@@ -24,6 +24,11 @@ arguments:
     optional: true
     type:
       - searchScore
+  - name: doesNotAffect
+    optional: true
+    type:
+      - string
+      - array       # of string
 tests:
   - name: Boolean
     link: https://www.mongodb.com/docs/atlas/atlas-search/equals/#boolean-examples
