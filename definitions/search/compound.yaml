@@ -38,6 +38,11 @@ arguments:
     optional: true
     type:
       - searchScore
+  - name: doesNotAffect
+    optional: true
+    type:
+      - string
+      - array       # of string
 tests:
   - name: must and mustNot
     link: https://www.mongodb.com/docs/atlas/atlas-search/compound/#must-and-mustnot-example
