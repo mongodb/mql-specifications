@@ -1,0 +1,137 @@
+# $schema: ../../schemas/operator.json
+name: $deserializeEJSON
+link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/deserializeEJSON/
+minVersion: '8.3'
+type:
+  - resolvesToObject
+encode: object
+description: |
+  Converts Extended JSON (EJSON) format to native BSON values. Use this expression to
+  transform EJSON type wrappers into their corresponding BSON types after parsing a JSON
+  string with $convert.
+arguments:
+  - name: input
+    type:
+      - resolvesToObject
+    description: |
+      The Extended JSON value to convert to native BSON format. This should be a BSON
+      document containing EJSON type wrappers.
+  - name: onError
+    type:
+      - expression
+    optional: true
+    description: |
+      The value to return if the operation encounters an error during conversion.
+      If unspecified, the operation throws an error and stops.
+tests:
+  - name: Deserialize Extended JSON Document
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/deserializeEJSON/#deserialize-extended-json-document
+    pipeline:
+      - $match:
+          title: Inception
+      - $project:
+          original: $$ROOT
+          serialized:
+            $serializeEJSON:
+              input: $$ROOT
+      - $project:
+          title: $original.title
+          deserialized:
+            $deserializeEJSON:
+              input: $serialized
+    schema:
+      movies:
+        _id:
+          types:
+            - bsonType: ObjectId
+        title:
+          types:
+            - bsonType: String
+        year:
+          types:
+            - bsonType: Int32
+        runtime:
+          types:
+            - bsonType: Int32
+        released:
+          types:
+            - bsonType: Date
+        cast:
+          types:
+            - bsonType: Array
+        genres:
+          types:
+            - bsonType: Array
+        directors:
+          types:
+            - bsonType: Array
+  - name: Parse JSON String and Deserialize
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/deserializeEJSON/#parse-json-string-and-deserialize
+    pipeline:
+      - $documents:
+          - jsonData: '{"_id":{"$oid":"507f1f77bcf86cd799439011"},"title":"The Matrix","year":{"$numberInt":"1999"},"rating":{"$numberDouble":"8.7"}}'
+      - $project:
+          parsed:
+            $convert:
+              input: $jsonData
+              to: object
+      - $project:
+          movie:
+            $deserializeEJSON:
+              input: $parsed
+  - name: Deserialize Specific Fields
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/deserializeEJSON/#deserialize-specific-fields
+    pipeline:
+      - $match:
+          title: Inception
+      - $project:
+          title: 1
+          serializedMetadata:
+            $serializeEJSON:
+              input:
+                releaseDate: $released
+                runtime: $runtime
+                rating: $imdb.rating
+      - $project:
+          title: 1
+          metadata:
+            $deserializeEJSON:
+              input: $serializedMetadata
+    schema:
+      movies:
+        _id:
+          types:
+            - bsonType: ObjectId
+        title:
+          types:
+            - bsonType: String
+        released:
+          types:
+            - bsonType: Date
+        runtime:
+          types:
+            - bsonType: Int32
+        imdb:
+          types:
+            - bsonType: Document
+              fields:
+                rating:
+                  types:
+                    - bsonType: Double
+  - name: Use onError for Error Handling
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/deserializeEJSON/#use-onerror-for-error-handling
+    pipeline:
+      - $project:
+          result:
+            $deserializeEJSON:
+              input: $ejsonField
+              onError:
+                error: Invalid EJSON format
+    schema:
+      data:
+        _id:
+          types:
+            - bsonType: ObjectId
+        ejsonField:
+          types:
+            - bsonType: String
