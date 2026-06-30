@@ -82,3 +82,8 @@ tests:
             $hash:
               input: $val
               algorithm: sha256
+    schema:
+      TestCollection:
+        val:
+          types:
+            - bsonType: 'Null'

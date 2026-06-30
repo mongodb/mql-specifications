@@ -23,6 +23,27 @@ tests:
                 $ne: 1.99
             - price:
                 $exists: true
+    schema:
+      inventory: &ref_0
+        price:
+          types:
+            - bsonType: Double
+        qty:
+          types:
+            - bsonType: Int32
+            - bsonType: Undefined
+        quantity:
+          types:
+            - bsonType: Int32
+            - bsonType: Undefined
+        sale:
+          types:
+            - bsonType: Boolean
+        tags:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: String
   - name: AND Queries With Multiple Expressions Specifying the Same Operator
     link: https://www.mongodb.com/docs/manual/reference/operator/query/and/#and-queries-with-multiple-expressions-specifying-the-same-operator
     pipeline:
@@ -37,3 +58,5 @@ tests:
                 - sale: true
                 - price:
                     $lt: 5
+    schema:
+      inventory: *ref_0

@@ -20,6 +20,17 @@ tests:
       - $project:
           title: 1
           author: 1
+    schema:
+      TestCollection:
+        _id:
+          types:
+            - bsonType: ObjectId
+        title:
+          types:
+            - bsonType: String
+        rated:
+          types:
+            - bsonType: String
   - name: Suppress id Field in the Output Documents
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/project/#suppress-_id-field-in-the-output-documents
     pipeline:
@@ -27,11 +38,33 @@ tests:
           _id: 0
           title: 1
           author: 1
+    schema:
+      TestCollection:
+        _id:
+          types:
+            - bsonType: ObjectId
+        title:
+          types:
+            - bsonType: String
+        rated:
+          types:
+            - bsonType: String
   - name: Exclude Fields from Output Documents
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/project/#exclude-fields-from-output-documents
     pipeline:
       - $project:
           lastModified: 0
+    schema:
+      TestCollection:
+        _id:
+          types:
+            - bsonType: ObjectId
+        title:
+          types:
+            - bsonType: String
+        rated:
+          types:
+            - bsonType: String
   - name: Exclude Fields from Embedded Documents
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/project/#exclude-fields-from-embedded-documents
     pipeline:
@@ -42,6 +75,17 @@ tests:
           author:
             first: 0
           lastModified: 0
+    schema:
+      TestCollection:
+        _id:
+          types:
+            - bsonType: ObjectId
+        title:
+          types:
+            - bsonType: String
+        rated:
+          types:
+            - bsonType: String
   - name: Conditionally Exclude Fields
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/project/#conditionally-exclude-fields
     pipeline:
@@ -57,6 +101,17 @@ tests:
                   - $author.middle
               then: $$REMOVE
               else: $author.middle
+    schema:
+      TestCollection:
+        _id:
+          types:
+            - bsonType: ObjectId
+        title:
+          types:
+            - bsonType: String
+        rated:
+          types:
+            - bsonType: String
   - name: Include Specific Fields from Embedded Documents
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/project/#include-specific-fields-from-embedded-documents
     pipeline:
@@ -65,6 +120,17 @@ tests:
       - $project:
           stop:
             title: 1
+    schema:
+      TestCollection:
+        _id:
+          types:
+            - bsonType: ObjectId
+        title:
+          types:
+            - bsonType: String
+        rated:
+          types:
+            - bsonType: String
   - name: Include Computed Fields
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/project/#include-computed-fields
     pipeline:
@@ -98,6 +164,17 @@ tests:
                 - 1
           lastName: $author.last
           copiesSold: $copies
+    schema:
+      TestCollection:
+        _id:
+          types:
+            - bsonType: ObjectId
+        title:
+          types:
+            - bsonType: String
+        rated:
+          types:
+            - bsonType: String
   - name: Project New Array Fields
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/project/#project-new-array-fields
     pipeline:
@@ -105,3 +182,14 @@ tests:
           myArray:
             - $x
             - $y
+    schema:
+      TestCollection:
+        _id:
+          types:
+            - bsonType: ObjectId
+        x:
+          types:
+            - bsonType: Int32
+        y:
+          types:
+            - bsonType: Int32

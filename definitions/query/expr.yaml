@@ -20,6 +20,22 @@ tests:
             $gt:
               - $spent
               - $budget
+    schema:
+      TestCollection:
+        title:
+          types:
+            - bsonType: String
+        tomatoes:
+          types:
+            - bsonType: Document
+              fields:
+                viewer:
+                  types:
+                    - bsonType: Document
+                      fields:
+                        rating:
+                          types:
+                            - bsonType: Number
   - name: Using $expr With Conditional Statements
     link: https://www.mongodb.com/docs/manual/reference/operator/query/expr/#using--expr-with-conditional-statements
     pipeline:
@@ -40,3 +56,4 @@ tests:
                       - $price
                       - 0.75
               - 5
+    schema: '// TODO: No schema found in docs'
