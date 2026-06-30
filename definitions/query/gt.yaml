@@ -18,3 +18,24 @@ tests:
       - $match:
           qty:
             $gt: 20
+    schema:
+      inventory:
+        price:
+          types:
+            - bsonType: Double
+        qty:
+          types:
+            - bsonType: Int32
+            - bsonType: Undefined
+        quantity:
+          types:
+            - bsonType: Int32
+            - bsonType: Undefined
+        sale:
+          types:
+            - bsonType: Boolean
+        tags:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: String

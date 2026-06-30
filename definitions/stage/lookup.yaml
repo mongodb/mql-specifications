@@ -58,6 +58,29 @@ tests:
           localField: item
           foreignField: sku
           as: inventory_docs
+    schema:
+      TestCollection:
+        title:
+          types:
+            - bsonType: String
+        year:
+          types:
+            - bsonType: Number
+        movie_comments:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Document
+                  fields:
+                    name:
+                      types:
+                        - bsonType: String
+                    text:
+                      types:
+                        - bsonType: String
+                    date:
+                      types:
+                        - bsonType: Date
   - name: Use $lookup with an Array
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/lookup/#use--lookup-with-an-array
     pipeline:
@@ -66,6 +89,29 @@ tests:
           localField: enrollmentlist
           foreignField: name
           as: enrollee_info
+    schema:
+      TestCollection:
+        title:
+          types:
+            - bsonType: String
+        year:
+          types:
+            - bsonType: Number
+        movie_comments:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Document
+                  fields:
+                    name:
+                      types:
+                        - bsonType: String
+                    text:
+                      types:
+                        - bsonType: String
+                    date:
+                      types:
+                        - bsonType: Date
   - name: Use $lookup with $mergeObjects
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/lookup/#use--lookup-with--mergeobjects
     pipeline:
@@ -83,6 +129,29 @@ tests:
               - $$ROOT
       - $project:
           fromItems: 0
+    schema:
+      TestCollection:
+        title:
+          types:
+            - bsonType: String
+        year:
+          types:
+            - bsonType: Number
+        movie_comments:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Document
+                  fields:
+                    name:
+                      types:
+                        - bsonType: String
+                    text:
+                      types:
+                        - bsonType: String
+                    date:
+                      types:
+                        - bsonType: Date
   - name: Perform Multiple Joins and a Correlated Subquery with $lookup
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/lookup/#perform-multiple-joins-and-a-correlated-subquery-with--lookup
     pipeline:
@@ -105,6 +174,7 @@ tests:
                 stock_item: 0
                 _id: 0
           as: stockdata
+    schema: '// TODO: No schema found in docs'
   - name: Perform an Uncorrelated Subquery with $lookup
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/lookup/#perform-an-uncorrelated-subquery-with--lookup
     pipeline:
@@ -121,6 +191,29 @@ tests:
             - $replaceRoot:
                 newRoot: $date
           as: holidays
+    schema:
+      TestCollection:
+        title:
+          types:
+            - bsonType: String
+        year:
+          types:
+            - bsonType: Number
+        movie_comments:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Document
+                  fields:
+                    name:
+                      types:
+                        - bsonType: String
+                    text:
+                      types:
+                        - bsonType: String
+                    date:
+                      types:
+                        - bsonType: Date
   - name: Perform a Concise Correlated Subquery with $lookup
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/lookup/#perform-a-concise-correlated-subquery-with--lookup
     pipeline:
@@ -137,3 +230,26 @@ tests:
                     - $$orders_drink
                     - $beverages
           as: matches
+    schema:
+      TestCollection:
+        title:
+          types:
+            - bsonType: String
+        year:
+          types:
+            - bsonType: Number
+        movie_comments:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Document
+                  fields:
+                    name:
+                      types:
+                        - bsonType: String
+                    text:
+                      types:
+                        - bsonType: String
+                    date:
+                      types:
+                        - bsonType: Date

@@ -79,6 +79,11 @@ tests:
           movie:
             $deserializeEJSON:
               input: $parsed
+    schema:
+      TestCollection:
+        jsonData:
+          types:
+            - bsonType: String
   - name: Deserialize Specific Fields
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/deserializeEJSON/#deserialize-specific-fields
     pipeline:

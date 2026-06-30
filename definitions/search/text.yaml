@@ -44,6 +44,143 @@ tests:
           title: 1
           score:
             $meta: searchScore
+    schema:
+      movies: &ref_0
+        _id:
+          types:
+            - bsonType: Document
+              fields:
+                $oid:
+                  types:
+                    - bsonType: String
+        title:
+          types:
+            - bsonType: String
+        year:
+          types:
+            - bsonType: Document
+              fields:
+                $numberInt:
+                  types:
+                    - bsonType: String
+        runtime:
+          types:
+            - bsonType: Document
+              fields:
+                $numberInt:
+                  types:
+                    - bsonType: String
+        released:
+          types:
+            - bsonType: Document
+              fields:
+                $date:
+                  types:
+                    - bsonType: Document
+                      fields:
+                        $numberLong:
+                          types:
+                            - bsonType: String
+        poster:
+          types:
+            - bsonType: String
+        plot:
+          types:
+            - bsonType: String
+        fullplot:
+          types:
+            - bsonType: String
+        lastupdated:
+          types:
+            - bsonType: String
+        type:
+          types:
+            - bsonType: String
+        directors:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: String
+        imdb:
+          types:
+            - bsonType: Document
+              fields:
+                rating:
+                  types:
+                    - bsonType: Document
+                      fields:
+                        $numberDouble:
+                          types:
+                            - bsonType: String
+                votes:
+                  types:
+                    - bsonType: Document
+                      fields:
+                        $numberInt:
+                          types:
+                            - bsonType: String
+                id:
+                  types:
+                    - bsonType: Document
+                      fields:
+                        $numberInt:
+                          types:
+                            - bsonType: String
+        cast:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: String
+        countries:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: String
+        genres:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: String
+        tomatoes:
+          types:
+            - bsonType: Document
+              fields:
+                viewer:
+                  types:
+                    - bsonType: Document
+                      fields:
+                        rating:
+                          types:
+                            - bsonType: Document
+                              fields:
+                                $numberDouble:
+                                  types:
+                                    - bsonType: String
+                        numReviews:
+                          types:
+                            - bsonType: Document
+                              fields:
+                                $numberInt:
+                                  types:
+                                    - bsonType: String
+                lastUpdated:
+                  types:
+                    - bsonType: Document
+                      fields:
+                        $date:
+                          types:
+                            - bsonType: Document
+                              fields:
+                                $numberLong:
+                                  types:
+                                    - bsonType: String
+        num_mflix_comments:
+          types:
+            - bsonType: Document
+              fields:
+                $numberInt:
+                  types:
+                    - bsonType: String
   - name: Fuzzy Default
     link: https://www.mongodb.com/docs/atlas/atlas-search/text/#fuzzy-examples
     pipeline:
@@ -58,6 +195,8 @@ tests:
           title: 1
           score:
             $meta: searchScore
+    schema:
+      movies: *ref_0
   - name: Fuzzy maxExpansions
     link: https://www.mongodb.com/docs/atlas/atlas-search/text/#fuzzy-examples
     pipeline:
@@ -74,6 +213,8 @@ tests:
           title: 1
           score:
             $meta: searchScore
+    schema:
+      movies: *ref_0
   - name: Fuzzy prefixLength
     link: https://www.mongodb.com/docs/atlas/atlas-search/text/#fuzzy-examples
     pipeline:
@@ -90,6 +231,8 @@ tests:
           title: 1
           score:
             $meta: searchScore
+    schema:
+      movies: *ref_0
   - name: Match any Using equivalent Mapping
     link: https://www.mongodb.com/docs/atlas/atlas-search/text/#match-any-using-equivalent-mapping
     pipeline:
@@ -106,6 +249,8 @@ tests:
           title: 1
           score:
             $meta: searchScore
+    schema:
+      movies: *ref_0
   - name: Match any Using explicit Mapping
     link: https://www.mongodb.com/docs/atlas/atlas-search/text/#match-any-using-explicit-mapping
     pipeline:
@@ -122,6 +267,8 @@ tests:
           title: 1
           score:
             $meta: searchScore
+    schema:
+      movies: *ref_0
   - name: Match all Using Synonyms
     link: https://www.mongodb.com/docs/atlas/atlas-search/text/#match-all-using-synonyms
     pipeline:
@@ -138,6 +285,8 @@ tests:
           title: 1
           score:
             $meta: searchScore
+    schema:
+      movies: *ref_0
   - name: Wildcard Path
     link: https://www.mongodb.com/docs/atlas/atlas-search/text/
     pipeline:
@@ -151,3 +300,5 @@ tests:
           title: 1
           score:
             $meta: searchScore
+    schema:
+      movies: *ref_0

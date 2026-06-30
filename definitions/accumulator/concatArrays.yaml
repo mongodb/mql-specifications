@@ -26,3 +26,15 @@ tests:
             $concatArrays:
               - $instock
               - $ordered
+    schema:
+      warehouses:
+        instock:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: String
+        ordered:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: String

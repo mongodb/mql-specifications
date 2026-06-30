@@ -28,3 +28,51 @@ tests:
               equals:
                 path: funding_rounds.funded_year
                 value: 2005
+    schema:
+      TestCollection:
+        mappings:
+          types:
+            - bsonType: Document
+              fields:
+                dynamic:
+                  types:
+                    - bsonType: Boolean
+                fields:
+                  types:
+                    - bsonType: Document
+                      fields:
+                        funding_rounds:
+                          types:
+                            - bsonType: Document
+                              fields:
+                                dynamic:
+                                  types:
+                                    - bsonType: Boolean
+                                fields:
+                                  types:
+                                    - bsonType: Document
+                                      fields:
+                                        investments:
+                                          types:
+                                            - bsonType: Array
+                                              types:
+                                                - bsonType: Document
+                                                  fields:
+                                                    dynamic:
+                                                      types:
+                                                        - bsonType: Boolean
+                                                    storedSource:
+                                                      types:
+                                                        - bsonType: Document
+                                                          fields:
+                                                            include:
+                                                              types:
+                                                                - bsonType: Array
+                                                                  types:
+                                                                    - bsonType: String
+                                                    type:
+                                                      types:
+                                                        - bsonType: String
+                                type:
+                                  types:
+                                    - bsonType: String

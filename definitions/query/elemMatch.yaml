@@ -21,6 +21,16 @@ tests:
             $elemMatch:
               $gte: 80
               $lt: 85
+    schema:
+      TestCollection:
+        _id:
+          types:
+            - bsonType: Number
+        results:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Number
   - name: Array of Embedded Documents
     link: https://www.mongodb.com/docs/manual/reference/operator/query/elemMatch/#array-of-embedded-documents
     pipeline:
@@ -30,6 +40,31 @@ tests:
               product: xyz
               score:
                 $gte: 8
+    schema:
+      survey:
+        _id:
+          types:
+            - bsonType: Number
+        results:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Document
+                  fields:
+                    product:
+                      types:
+                        - bsonType: String
+                    score:
+                      types:
+                        - bsonType: Number
+            - bsonType: Document
+              fields:
+                product:
+                  types:
+                    - bsonType: String
+                score:
+                  types:
+                    - bsonType: Number
   - name: Single Query Condition
     link: https://www.mongodb.com/docs/manual/reference/operator/query/elemMatch/#single-query-condition
     pipeline:
@@ -38,6 +73,16 @@ tests:
             $elemMatch:
               product:
                 $ne: xyz
+    schema:
+      TestCollection:
+        _id:
+          types:
+            - bsonType: Number
+        results:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Number
   - name: Using $or with $elemMatch
     pipeline:
       - $match:
@@ -48,9 +93,11 @@ tests:
                     $gt: 10
                 - score:
                     $lt: 5
+    schema: '// TODO: No docs reference found'
   - name: Single field operator
     pipeline:
       - $match:
           results:
             $elemMatch:
               $gt: 10
+    schema: '// TODO: No docs reference found'

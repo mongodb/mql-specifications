@@ -47,6 +47,22 @@ tests:
             # $type: 'number'
             $type:
               - number
+    schema:
+      addressBook: &ref_0
+        _id:
+          types:
+            - bsonType: Int32
+        address:
+          types:
+            - bsonType: String
+        zipCode:
+          types:
+            - bsonType: String
+            - bsonType: Int32
+            - bsonType: Double
+            - bsonType: Array
+              types:
+                - bsonType: String
   - name: Querying by Multiple Data Type
     link: https://www.mongodb.com/docs/manual/reference/operator/query/type/#querying-by-multiple-data-type
     pipeline:
@@ -60,6 +76,7 @@ tests:
             $type:
               - string
               - double
+    schema: '// TODO: No schema found in docs'
   - name: Querying by MinKey and MaxKey
     link: https://www.mongodb.com/docs/manual/reference/operator/query/type/#querying-by-minkey-and-maxkey
     pipeline:
@@ -75,6 +92,57 @@ tests:
             # $type: 'maxKey'
             $type:
               - maxKey
+    schema:
+      restaurants:
+        _id:
+          types:
+            - bsonType: Number
+        address:
+          types:
+            - bsonType: Document
+              fields:
+                building:
+                  types:
+                    - bsonType: String
+                coord:
+                  types:
+                    - bsonType: Array
+                      types:
+                        - bsonType: Number
+                street:
+                  types:
+                    - bsonType: String
+                zipcode:
+                  types:
+                    - bsonType: String
+        borough:
+          types:
+            - bsonType: String
+        cuisine:
+          types:
+            - bsonType: String
+        grades:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Document
+                  fields:
+                    date:
+                      types:
+                        - bsonType: Date
+                    grade:
+                      types:
+                        - bsonType: String
+                        - bsonType: MinKey
+                    score:
+                      types:
+                        - bsonType: Number
+        name:
+          types:
+            - bsonType: String
+        restaurant_id:
+          types:
+            - bsonType: String
   - name: Querying by Array Type
     link: https://www.mongodb.com/docs/manual/reference/operator/query/type/#querying-by-array-type
     pipeline:
@@ -84,3 +152,5 @@ tests:
             # $type: 'array'
             $type:
               - array
+    schema:
+      addressBook: *ref_0
