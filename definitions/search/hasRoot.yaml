@@ -25,6 +25,73 @@ tests:
                 path: founded_year
                 gte: 2005
                 lte: 2010
+    schema:
+      TestCollection:
+        mappings:
+          types:
+            - bsonType: Document
+              fields:
+                dynamic:
+                  types:
+                    - bsonType: Boolean
+                fields:
+                  types:
+                    - bsonType: Document
+                      fields:
+                        funding_rounds:
+                          types:
+                            - bsonType: Document
+                              fields:
+                                dynamic:
+                                  types:
+                                    - bsonType: Boolean
+                                fields:
+                                  types:
+                                    - bsonType: Document
+                                      fields:
+                                        investments:
+                                          types:
+                                            - bsonType: Array
+                                              types:
+                                                - bsonType: Document
+                                                  fields:
+                                                    dynamic:
+                                                      types:
+                                                        - bsonType: Boolean
+                                                    type:
+                                                      types:
+                                                        - bsonType: String
+                                storedSource:
+                                  types:
+                                    - bsonType: Document
+                                      fields:
+                                        include:
+                                          types:
+                                            - bsonType: Array
+                                              types:
+                                                - bsonType: String
+                                type:
+                                  types:
+                                    - bsonType: String
+                        products:
+                          types:
+                            - bsonType: Document
+                              fields:
+                                dynamic:
+                                  types:
+                                    - bsonType: Boolean
+                                storedSource:
+                                  types:
+                                    - bsonType: Document
+                                      fields:
+                                        include:
+                                          types:
+                                            - bsonType: Array
+                                              types:
+                                                - bsonType: String
+                                type:
+                                  types:
+                                    - bsonType: String
   - name: Multi-Level Query
     link: https://www.mongodb.com/docs/atlas/atlas-search/operators-collectors/hasRoot/#multi-level-query
     pipeline:
@@ -37,6 +104,73 @@ tests:
               text:
                 path: name
                 query: Facebook
+    schema:
+      TestCollection:
+        mappings:
+          types:
+            - bsonType: Document
+              fields:
+                dynamic:
+                  types:
+                    - bsonType: Boolean
+                fields:
+                  types:
+                    - bsonType: Document
+                      fields:
+                        funding_rounds:
+                          types:
+                            - bsonType: Document
+                              fields:
+                                dynamic:
+                                  types:
+                                    - bsonType: Boolean
+                                fields:
+                                  types:
+                                    - bsonType: Document
+                                      fields:
+                                        investments:
+                                          types:
+                                            - bsonType: Array
+                                              types:
+                                                - bsonType: Document
+                                                  fields:
+                                                    dynamic:
+                                                      types:
+                                                        - bsonType: Boolean
+                                                    type:
+                                                      types:
+                                                        - bsonType: String
+                                storedSource:
+                                  types:
+                                    - bsonType: Document
+                                      fields:
+                                        include:
+                                          types:
+                                            - bsonType: Array
+                                              types:
+                                                - bsonType: String
+                                type:
+                                  types:
+                                    - bsonType: String
+                        products:
+                          types:
+                            - bsonType: Document
+                              fields:
+                                dynamic:
+                                  types:
+                                    - bsonType: Boolean
+                                storedSource:
+                                  types:
+                                    - bsonType: Document
+                                      fields:
+                                        include:
+                                          types:
+                                            - bsonType: Array
+                                              types:
+                                                - bsonType: String
+                                type:
+                                  types:
+                                    - bsonType: String
   - name: Compound Query
     link: https://www.mongodb.com/docs/atlas/atlas-search/operators-collectors/hasRoot/#compound-query
     pipeline:
@@ -60,3 +194,70 @@ tests:
             path: funding_rounds
           returnStoredSource: true
       - $limit: 5
+    schema:
+      TestCollection:
+        mappings:
+          types:
+            - bsonType: Document
+              fields:
+                dynamic:
+                  types:
+                    - bsonType: Boolean
+                fields:
+                  types:
+                    - bsonType: Document
+                      fields:
+                        funding_rounds:
+                          types:
+                            - bsonType: Document
+                              fields:
+                                dynamic:
+                                  types:
+                                    - bsonType: Boolean
+                                fields:
+                                  types:
+                                    - bsonType: Document
+                                      fields:
+                                        investments:
+                                          types:
+                                            - bsonType: Array
+                                              types:
+                                                - bsonType: Document
+                                                  fields:
+                                                    dynamic:
+                                                      types:
+                                                        - bsonType: Boolean
+                                                    type:
+                                                      types:
+                                                        - bsonType: String
+                                storedSource:
+                                  types:
+                                    - bsonType: Document
+                                      fields:
+                                        include:
+                                          types:
+                                            - bsonType: Array
+                                              types:
+                                                - bsonType: String
+                                type:
+                                  types:
+                                    - bsonType: String
+                        products:
+                          types:
+                            - bsonType: Document
+                              fields:
+                                dynamic:
+                                  types:
+                                    - bsonType: Boolean
+                                storedSource:
+                                  types:
+                                    - bsonType: Document
+                                      fields:
+                                        include:
+                                          types:
+                                            - bsonType: Array
+                                              types:
+                                                - bsonType: String
+                                type:
+                                  types:
+                                    - bsonType: String

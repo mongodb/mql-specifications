@@ -39,6 +39,53 @@ tests:
           _id: 0
           name: 1
           birthdate: 1
+    schema:
+      customers: &ref_0
+        _id:
+          types:
+            - bsonType: ObjectId
+        username:
+          types:
+            - bsonType: String
+        name:
+          types:
+            - bsonType: String
+        address:
+          types:
+            - bsonType: String
+        birthdate:
+          types:
+            - bsonType: Date
+        email:
+          types:
+            - bsonType: String
+        accounts:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Double
+        tier_and_details:
+          types:
+            - bsonType: Document
+              fields:
+                b5f19cb532fa436a9be2cf1d7d1cac8a:
+                  types:
+                    - bsonType: Document
+                      fields:
+                        tier:
+                          types:
+                            - bsonType: String
+                        benefits:
+                          types:
+                            - bsonType: Array
+                              types:
+                                - bsonType: String
+                        active:
+                          types:
+                            - bsonType: Boolean
+                        id:
+                          types:
+                            - bsonType: String
   - name: Array Value Field Match
     link: https://www.mongodb.com/docs/atlas/atlas-search/in/#examples
     pipeline:
@@ -53,6 +100,8 @@ tests:
           _id: 0
           name: 1
           accounts: 1
+    schema:
+      customers: *ref_0
   - name: Compound Query Match
     link: https://www.mongodb.com/docs/atlas/atlas-search/in/#examples
     pipeline:
@@ -76,3 +125,5 @@ tests:
           name: 1
           score:
             $meta: searchScore
+    schema:
+      customers: *ref_0

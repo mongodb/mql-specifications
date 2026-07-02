@@ -105,6 +105,91 @@ tests:
           meta:
             - $replaceWith: $$SEARCH_META
             - $limit: 1
+    schema:
+      movies: &ref_0
+        _id:
+          types:
+            - bsonType: ObjectId
+        title:
+          types:
+            - bsonType: String
+        year:
+          types:
+            - bsonType: Int32
+        runtime:
+          types:
+            - bsonType: Int32
+        released:
+          types:
+            - bsonType: Date
+        poster:
+          types:
+            - bsonType: String
+        plot:
+          types:
+            - bsonType: String
+        fullplot:
+          types:
+            - bsonType: String
+        lastupdated:
+          types:
+            - bsonType: String
+        type:
+          types:
+            - bsonType: String
+        directors:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: String
+        imdb:
+          types:
+            - bsonType: Document
+              fields:
+                rating:
+                  types:
+                    - bsonType: Double
+                votes:
+                  types:
+                    - bsonType: Int32
+                id:
+                  types:
+                    - bsonType: Int32
+        cast:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: String
+        countries:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: String
+        genres:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: String
+        tomatoes:
+          types:
+            - bsonType: Document
+              fields:
+                viewer:
+                  types:
+                    - bsonType: Document
+                      fields:
+                        rating:
+                          types:
+                            - bsonType: Double
+                        numReviews:
+                          types:
+                            - bsonType: Int32
+                lastUpdated:
+                  types:
+                    - bsonType: Date
+        num_mflix_comments:
+          types:
+            - bsonType: Int32
   - name: Date Search and Sort
     link: https://www.mongodb.com/docs/atlas/atlas-search/sort/#date-search-and-sort
     pipeline:
@@ -120,6 +205,8 @@ tests:
           _id: 0
           title: 1
           released: 1
+    schema:
+      movies: *ref_0
   - name: Number Search and Sort
     link: https://www.mongodb.com/docs/atlas/atlas-search/sort/#number-search-and-sort
     pipeline:
@@ -134,6 +221,8 @@ tests:
           _id: 0
           title: 1
           awards.wins: 1
+    schema:
+      movies: *ref_0
   - name: Sort by score
     link: https://www.mongodb.com/docs/atlas/atlas-search/sort/#sort-by-score
     pipeline:
@@ -151,6 +240,8 @@ tests:
           title: 1
           score:
             $meta: searchScore
+    schema:
+      movies: *ref_0
   - name: Paginate results after a token
     link: https://www.mongodb.com/docs/atlas/atlas-search/paginate-results/#search-after-the-reference-point
     pipeline:
@@ -163,6 +254,8 @@ tests:
               $meta: searchScore
             released: 1
           searchAfter: CMtJGgYQuq+ngwgaCSkAjBYH7AAAAA==
+    schema:
+      movies: *ref_0
   - name: Paginate results before a token
     link: https://www.mongodb.com/docs/atlas/atlas-search/paginate-results/#search-before-the-reference-point
     pipeline:
@@ -175,6 +268,8 @@ tests:
               $meta: searchScore
             released: 1
           searchBefore: CJ6kARoGELqvp4MIGgkpACDA3U8BAAA=
+    schema:
+      movies: *ref_0
   - name: Count results
     link: https://www.mongodb.com/docs/atlas/atlas-search/counting/#count-results
     pipeline:
@@ -190,6 +285,8 @@ tests:
           title: 1
           released: 1
       - $limit: 2
+    schema:
+      movies: *ref_0
   - name: Track Search terms
     link: https://www.mongodb.com/docs/atlas/atlas-search/tracking/#examples
     pipeline:
@@ -203,6 +300,8 @@ tests:
       - $project:
           _id: 0
           title: 1
+    schema:
+      movies: *ref_0
   - name: Return Stored Source Fields
     link: https://www.mongodb.com/docs/atlas/atlas-search/return-stored-source/#examples
     pipeline:
@@ -222,3 +321,5 @@ tests:
           localField: _id
           foreignField: _id
           as: document
+    schema:
+      movies: *ref_0
