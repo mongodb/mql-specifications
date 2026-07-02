@@ -109,39 +109,19 @@ tests:
       movies: &ref_0
         _id:
           types:
-            - bsonType: Document
-              fields:
-                $oid:
-                  types:
-                    - bsonType: String
+            - bsonType: ObjectId
         title:
           types:
             - bsonType: String
         year:
           types:
-            - bsonType: Document
-              fields:
-                $numberInt:
-                  types:
-                    - bsonType: String
+            - bsonType: Int32
         runtime:
           types:
-            - bsonType: Document
-              fields:
-                $numberInt:
-                  types:
-                    - bsonType: String
+            - bsonType: Int32
         released:
           types:
-            - bsonType: Document
-              fields:
-                $date:
-                  types:
-                    - bsonType: Document
-                      fields:
-                        $numberLong:
-                          types:
-                            - bsonType: String
+            - bsonType: Date
         poster:
           types:
             - bsonType: String
@@ -168,25 +148,13 @@ tests:
               fields:
                 rating:
                   types:
-                    - bsonType: Document
-                      fields:
-                        $numberDouble:
-                          types:
-                            - bsonType: String
+                    - bsonType: Double
                 votes:
                   types:
-                    - bsonType: Document
-                      fields:
-                        $numberInt:
-                          types:
-                            - bsonType: String
+                    - bsonType: Int32
                 id:
                   types:
-                    - bsonType: Document
-                      fields:
-                        $numberInt:
-                          types:
-                            - bsonType: String
+                    - bsonType: Int32
         cast:
           types:
             - bsonType: Array
@@ -212,36 +180,16 @@ tests:
                       fields:
                         rating:
                           types:
-                            - bsonType: Document
-                              fields:
-                                $numberDouble:
-                                  types:
-                                    - bsonType: String
+                            - bsonType: Double
                         numReviews:
                           types:
-                            - bsonType: Document
-                              fields:
-                                $numberInt:
-                                  types:
-                                    - bsonType: String
+                            - bsonType: Int32
                 lastUpdated:
                   types:
-                    - bsonType: Document
-                      fields:
-                        $date:
-                          types:
-                            - bsonType: Document
-                              fields:
-                                $numberLong:
-                                  types:
-                                    - bsonType: String
+                    - bsonType: Date
         num_mflix_comments:
           types:
-            - bsonType: Document
-              fields:
-                $numberInt:
-                  types:
-                    - bsonType: String
+            - bsonType: Int32
   - name: Date Search and Sort
     link: https://www.mongodb.com/docs/atlas/atlas-search/sort/#date-search-and-sort
     pipeline:

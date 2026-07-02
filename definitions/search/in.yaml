@@ -55,11 +55,7 @@ tests:
             - bsonType: String
         birthdate:
           types:
-            - bsonType: Document
-              fields:
-                $date:
-                  types:
-                    - bsonType: Double
+            - bsonType: Date
         email:
           types:
             - bsonType: String

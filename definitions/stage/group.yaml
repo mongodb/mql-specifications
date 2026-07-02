@@ -29,14 +29,7 @@ tests:
           _id: ~
           count:
             $count: {}
-    schema:
-      TestCollection:
-        _id:
-          types:
-            - bsonType: 'Null'
-        count:
-          types:
-            - bsonType: Number
+    schema: '// TODO: No schema found in docs'
   - name: Retrieve Distinct Values
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/group/#retrieve-distinct-values
     pipeline:
@@ -44,12 +37,9 @@ tests:
           _id: $item
     schema:
       TestCollection:
-        _id:
+        item:
           types:
-            - bsonType: 'Null'
-        count:
-          types:
-            - bsonType: Number
+            - bsonType: String
   - name: Group by Item Having
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/group/#group-by-item-having
     pipeline:
@@ -129,12 +119,12 @@ tests:
             $push: $title
     schema:
       TestCollection:
-        _id:
+        author:
           types:
-            - bsonType: 'Null'
-        count:
+            - bsonType: String
+        title:
           types:
-            - bsonType: Number
+            - bsonType: String
   - name: Group Documents by author
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/group/#group-documents-by-author
     pipeline:
