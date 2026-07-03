@@ -149,3 +149,32 @@ tests:
                     name:
                       types:
                         - bsonType: String
+  - name: Use the arrayIndexAs Field
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/filter/#use-the-arrayindexas-field
+    pipeline:
+      - $project:
+          _id: 0
+          name: 1
+          secondaryHobbies:
+            $filter:
+              input: $hobbies
+              arrayIndexAs: myIndex
+              cond:
+                $eq:
+                  - $mod:
+                      - $$myIndex
+                      - 2
+                  - 0
+    schema:
+      people:
+        _id:
+          types:
+            - bsonType: Number
+        name:
+          types:
+            - bsonType: String
+        hobbies:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: String

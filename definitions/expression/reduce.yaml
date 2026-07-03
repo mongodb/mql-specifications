@@ -198,6 +198,42 @@ tests:
                 - bsonType: Array
                   types:
                     - bsonType: Number
+  - name: Use as, valueAs, and arrayIndexAs
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/reduce/#use-as--valueas--and-arrayindexas
+    pipeline:
+      - $project:
+          _id: 0
+          name: 1
+          text:
+            $reduce:
+              input: $hobbies
+              initialValue: 'My hobbies include:'
+              valueAs: accumulatedText
+              as: hobby
+              arrayIndexAs: myIndex
+              in:
+                $concat:
+                  - $$accumulatedText
+                  - ' '
+                  - $toString:
+                      $add:
+                        - $$myIndex
+                        - 1
+                  - ') '
+                  - $$hobby
+    schema:
+      people:
+        _id:
+          types:
+            - bsonType: Number
+        name:
+          types:
+            - bsonType: String
+        hobbies:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: String
   - name: Computing a Multiple Reductions
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/reduce/#computing-a-multiple-reductions
     pipeline:
