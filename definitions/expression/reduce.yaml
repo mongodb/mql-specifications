@@ -51,15 +51,15 @@ arguments:
     syntheticVariables:
       - name: this
         description: |
-          The variable that refers to the element being processed.
+          The variable that refers to the element being processed. Renamed via the as argument (MongoDB 8.3+).
       - name: value
         description: |
-          The variable that represents the cumulative value of the expression.
+          The variable that represents the cumulative value of the expression. Renamed via the valueAs argument (MongoDB 8.3+).
     description: |
       A valid expression that $reduce applies to each element in the input array in left-to-right order. Wrap the input value with $reverseArray to yield the equivalent of applying the combining expression from right-to-left.
       During evaluation of the in expression, two variables will be available:
-      - value is the variable that represents the cumulative value of the expression.
-      - this is the variable that refers to the element being processed.
+      - value is the variable that represents the cumulative value of the expression. Use valueAs (MongoDB 8.3+) to specify a custom name.
+      - this is the variable that refers to the element being processed. Use as (MongoDB 8.3+) to specify a custom name.
 tests:
   - name: Multiplication
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/reduce/#multiplication
