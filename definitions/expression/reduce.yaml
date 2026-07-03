@@ -20,6 +20,30 @@ arguments:
       - expression
     description: |
       The initial cumulative value set before in is applied to the first element of the input array.
+  - name: as
+    type:
+      - string
+    optional: true
+    minVersion: '8.3'
+    description: |
+      A name for the variable that represents each individual element of the input array.
+      If no name is specified, the variable name defaults to this.
+  - name: valueAs
+    type:
+      - string
+    optional: true
+    minVersion: '8.3'
+    description: |
+      A name for the variable that represents the cumulative value of the expression.
+      If no name is specified, the variable name defaults to value.
+  - name: arrayIndexAs
+    type:
+      - string
+    optional: true
+    minVersion: '8.3'
+    description: |
+      A name for the variable that represents the index of the current element in
+      the input array. If specified, this variable is available within the in expression.
   - name: in
     type:
       - expression
