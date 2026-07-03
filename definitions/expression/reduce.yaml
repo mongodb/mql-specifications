@@ -20,6 +20,22 @@ arguments:
       - expression
     description: |
       The initial cumulative value set before in is applied to the first element of the input array.
+  - name: in
+    type:
+      - expression
+      - expressionMap
+    syntheticVariables:
+      - name: this
+        description: |
+          The variable that refers to the element being processed. Renamed via the as argument (MongoDB 8.3+).
+      - name: value
+        description: |
+          The variable that represents the cumulative value of the expression. Renamed via the valueAs argument (MongoDB 8.3+).
+    description: |
+      A valid expression that $reduce applies to each element in the input array in left-to-right order. Wrap the input value with $reverseArray to yield the equivalent of applying the combining expression from right-to-left.
+      During evaluation of the in expression, two variables will be available:
+      - value is the variable that represents the cumulative value of the expression. Use valueAs (MongoDB 8.3+) to specify a custom name.
+      - this is the variable that refers to the element being processed. Use as (MongoDB 8.3+) to specify a custom name.
   - name: as
     type:
       - string
@@ -44,22 +60,6 @@ arguments:
     description: |
       A name for the variable that represents the index of the current element in
       the input array. If specified, this variable is available within the in expression.
-  - name: in
-    type:
-      - expression
-      - expressionMap
-    syntheticVariables:
-      - name: this
-        description: |
-          The variable that refers to the element being processed. Renamed via the as argument (MongoDB 8.3+).
-      - name: value
-        description: |
-          The variable that represents the cumulative value of the expression. Renamed via the valueAs argument (MongoDB 8.3+).
-    description: |
-      A valid expression that $reduce applies to each element in the input array in left-to-right order. Wrap the input value with $reverseArray to yield the equivalent of applying the combining expression from right-to-left.
-      During evaluation of the in expression, two variables will be available:
-      - value is the variable that represents the cumulative value of the expression. Use valueAs (MongoDB 8.3+) to specify a custom name.
-      - this is the variable that refers to the element being processed. Use as (MongoDB 8.3+) to specify a custom name.
 tests:
   - name: Multiplication
     link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/reduce/#multiplication
@@ -208,9 +208,6 @@ tests:
             $reduce:
               input: $hobbies
               initialValue: 'My hobbies include:'
-              valueAs: accumulatedText
-              as: hobby
-              arrayIndexAs: myIndex
               in:
                 $concat:
                   - $$accumulatedText
@@ -221,6 +218,9 @@ tests:
                         - 1
                   - ') '
                   - $$hobby
+              as: hobby
+              valueAs: accumulatedText
+              arrayIndexAs: myIndex
     schema:
       people:
         _id:

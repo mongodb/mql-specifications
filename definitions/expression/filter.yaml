@@ -15,11 +15,6 @@ arguments:
     type:
       - name: resolvesToArray
         generic: T
-  - name: cond
-    type:
-      - resolvesToBool
-    description: |
-      An expression that resolves to a boolean value used to determine if an element should be included in the output array. The expression references each element of the input array individually with the variable name specified in as.
   - name: as
     type:
       - string
@@ -34,10 +29,16 @@ arguments:
     description: |
       A name for the variable that represents the index of the current element in
       the input array. If specified, this variable is available within the cond expression.
+  - name: cond
+    type:
+      - resolvesToBool
+    description: |
+      An expression that resolves to a boolean value used to determine if an element should be included in the output array. The expression references each element of the input array individually with the variable name specified in as, and the element index with the variable name specified in arrayIndexAs (MongoDB 8.3+).
   - name: limit
     type:
       - resolvesToInt
     optional: true
+    minVersion: '8.3'
     description: |
       A number expression that restricts the number of matching array elements that $filter returns. You cannot specify a limit less than 1. The matching array elements are returned in the order they appear in the input array.
       If the specified limit is greater than the number of matching array elements, $filter returns all matching array elements. If the limit is null, $filter returns all matching array elements.
