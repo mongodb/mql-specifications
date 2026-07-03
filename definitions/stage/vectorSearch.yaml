@@ -24,12 +24,13 @@ arguments:
     description: |
       Indexed vector type field to search.
   - name: queryVector
+    optional: true
     type:
       - array       # of numbers
       - binData
     description: |
-      Array of numbers or a BinData value that represent the query vector. The number type
-      must match the indexed field value type.
+      Array of numbers or a BinData value that represents the query vector. The number type
+      must match the indexed field value type. Required if `query` is not specified.
   - name: exact
     optional: true
     type:
@@ -74,6 +75,25 @@ arguments:
       - query
     description: |
       Any match query that compares an indexed top-level field with a boolean, date, objectId, number, string, or UUID to use as a pre-filter. Only valid if `nestedRoot` is specified in the index definition.
+  - name: query
+    optional: true
+    minVersion: '8.2'
+    type:
+      - string
+    description: |
+      Natural language text query for automated embedding. MongoDB automatically
+      generates a vector embedding for this text at query time using the embedding model
+      configured in the index, or the `model` argument if specified.
+      Required if `queryVector` is not specified.
+  - name: model
+    optional: true
+    minVersion: '8.2'
+    type:
+      - string
+    description: |
+      The embedding model used to generate the query vector from the query text. If omitted,
+      the model configured in the index definition is used. Must be compatible with the model
+      used at index time. Only valid when `query` is specified.
 tests:
   - name: ANN Basic
     link: https://www.mongodb.com/docs/atlas/atlas-vector-search/vector-search-stage/#examples
@@ -266,3 +286,60 @@ tests:
           reviews.comments: 1
           score:
             $meta: vectorSearchScore
+  - name: Automated Embedding
+    link: https://www.mongodb.com/docs/vector-search/crud-embeddings/automated-embedding/
+    pipeline:
+      - $vectorSearch:
+          index: vector_index
+          path: plot_embedding
+          query: time travel
+          numCandidates: 150
+          limit: 10
+      - $project:
+          _id: 0
+          plot: 1
+          title: 1
+          score:
+            $meta: vectorSearchScore
+    schema:
+      movies:
+        plot_embedding:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Double
+        plot:
+          types:
+            - bsonType: String
+        title:
+          types:
+            - bsonType: String
+  - name: Automated Embedding with model override
+    link: https://www.mongodb.com/docs/vector-search/crud-embeddings/automated-embedding/
+    pipeline:
+      - $vectorSearch:
+          index: vector_index
+          path: plot_embedding
+          query: time travel
+          model: voyage-3-lite
+          numCandidates: 150
+          limit: 10
+      - $project:
+          _id: 0
+          plot: 1
+          title: 1
+          score:
+            $meta: vectorSearchScore
+    schema:
+      movies:
+        plot_embedding:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Double
+        plot:
+          types:
+            - bsonType: String
+        title:
+          types:
+            - bsonType: String
