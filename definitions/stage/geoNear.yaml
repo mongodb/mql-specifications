@@ -34,17 +34,19 @@ arguments:
       Specify the geospatial indexed field to use when calculating the distance.
   - name: maxDistance
     type:
-      - number
+      - resolvesToNumber
     optional: true
     description: |
       The maximum distance from the center point that the documents can be. MongoDB limits the results to those documents that fall within the specified distance from the center point.
+      Starting in version 7.2, you can specify a valid constant expression that resolves to a number.
       Specify the distance in meters if the specified point is GeoJSON and in radians if the specified point is legacy coordinate pairs.
   - name: minDistance
     type:
-      - number
+      - resolvesToNumber
     optional: true
     description: |
       The minimum distance from the center point that the documents can be. MongoDB limits the results to those documents that fall outside the specified distance from the center point.
+      Starting in version 7.2, you can specify a valid constant expression that resolves to a number.
       Specify the distance in meters for GeoJSON data and in radians for legacy coordinate pairs.
   - name: near
     type:
@@ -184,6 +186,48 @@ tests:
           as: joinedField
       - $match:
           name: Sara D. Roosevelt Park
+    schema:
+      places:
+        name:
+          types:
+            - bsonType: String
+        location:
+          types:
+            - bsonType: Document
+              fields:
+                type:
+                  types:
+                    - bsonType: String
+                coordinates:
+                  types:
+                    - bsonType: Array
+                      types:
+                        - bsonType: Number
+        category:
+          types:
+            - bsonType: String
+  - name: Distance as a Constant Expression
+    link: https://www.mongodb.com/docs/manual/reference/operator/aggregation/geoNear/
+    pipeline:
+      - $geoNear:
+          near:
+            type: Point
+            coordinates:
+              - -73.99279
+              - 40.719296
+          distanceField: dist.calculated
+          minDistance:
+            $add:
+              - 0
+              - 1
+          maxDistance:
+            $add:
+              - 1
+              - 1
+          query:
+            category: Parks
+          includeLocs: dist.location
+          spherical: true
     schema:
       places:
         name:
