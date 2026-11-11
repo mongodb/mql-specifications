@@ -34,15 +34,17 @@ arguments:
       - bool
     description: |
       If false, runs an ANN search. If true, runs an ENN search. Defaults to false.
-      This parameter is required if numCandidates is omitted.
   - name: numCandidates
     optional: true
     type:
       - int
     description: |
-      The number of nearest neighbors to use during the search. Value must be less than or
-      equal to 10000 and cannot be less than limit. This field is required if exact is false
-      or omitted.
+      The number of nearest neighbors to use during the search. If you omit this
+      field for an ANN search, MongoDB computes a value based on the limit, the
+      index size, the vector quantization, and the filter selectivity. The way
+      MongoDB computes this value might change in future releases. This field
+      must be omitted when exact is true. Value must be less than or equal to
+      10000 and cannot be less than limit.
   - name: filter
     optional: true
     type:
@@ -67,6 +69,36 @@ tests:
               - -0.028070757
               - -0.011342932
             numCandidates: 150
+            limit: 10
+      - $project:
+          _id: 0
+          plot: 1
+          title: 1
+          score:
+            $meta: searchScore
+    schema:
+      movies:
+        plot_embedding:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Double
+        plot:
+          types:
+            - bsonType: String
+        title:
+          types:
+            - bsonType: String
+  - name: ANN without numCandidates
+    link: https://www.mongodb.com/docs/atlas/atlas-search/vector-search/#basic-example
+    pipeline:
+      - $search:
+          vectorSearch:
+            path: plot_embedding
+            queryVector: # skip other numbers, not relevant to the test
+              - -0.0016261312
+              - -0.028070757
+              - -0.011342932
             limit: 10
       - $project:
           _id: 0

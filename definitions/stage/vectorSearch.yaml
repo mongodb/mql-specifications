@@ -36,7 +36,7 @@ arguments:
     type:
       - bool
     description: |
-      This is required if numCandidates is omitted. false to run ANN search. true to run ENN search.
+      false to run ANN search. true to run ENN search. Defaults to false.
   - name: filter
     optional: true
     type:
@@ -48,8 +48,7 @@ arguments:
     type:
       - int
     description: |
-      This field is required if exact is false or omitted.
-      Number of nearest neighbors to use during the search. Value must be less than or equal to (<=) 10000. You can't specify a number less than the number of documents to return (limit).
+      Number of nearest neighbors to use during the search. If you omit this field for an ANN search, MongoDB computes a value based on the limit, the index size, the vector quantization, and the filter selectivity. The way MongoDB computes this value might change in future releases. This field must be omitted when exact is true. Value must be less than or equal to (<=) 10000. You can't specify a number less than the number of documents to return (limit).
   - name: returnStoredSource
     optional: true
     type:
@@ -106,6 +105,36 @@ tests:
             - -0.028070757
             - -0.011342932
           numCandidates: 150
+          limit: 10
+      - $project:
+          _id: 0
+          plot: 1
+          title: 1
+          score:
+            $meta: vectorSearchScore
+    schema:
+      movies:
+        plot_embedding:
+          types:
+            - bsonType: Array
+              types:
+                - bsonType: Double
+        plot:
+          types:
+            - bsonType: String
+        title:
+          types:
+            - bsonType: String
+  - name: ANN without numCandidates
+    link: https://www.mongodb.com/docs/atlas/atlas-vector-search/vector-search-stage/#examples
+    pipeline:
+      - $vectorSearch:
+          index: vector_index
+          path: plot_embedding
+          queryVector: # skip other numbers, not relevant to the test
+            - -0.0016261312
+            - -0.028070757
+            - -0.011342932
           limit: 10
       - $project:
           _id: 0
